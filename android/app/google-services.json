@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "6377743777",
+    "project_id": "space-talk-im",
+    "storage_bucket": "space-talk-im.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:6377743777:android:a1cfe18f93338f0268d7e0",
+        "android_client_info": {
+          "package_name": "com.lifeapps.spacetalk"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "6377743777-f9vgh8dieh5ofqkg7on384bv9lh76hie.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.lifeapps.spacetalk",
+            "certificate_hash": "b323d8152fbacf8a02cfd6f864bbc91c27b01a67"
+          }
+        },
+        {
+          "client_id": "6377743777-0h42fg5ic8p59it1jm3k9bi7irgu6b95.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDJbBs0TVHaPJrpQojAqN2j2JliOpL-5TQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "6377743777-0h42fg5ic8p59it1jm3k9bi7irgu6b95.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "6377743777-45j0e75r6umi9ipcqbeqi4eq7s0qgpqo.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.lifeapps.spacetalk"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
