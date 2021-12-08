@@ -18,7 +18,7 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 version: 1.0.0+1
 
 environment:
-  sdk: ">=2.12.0 <3.0.0"
+  sdk: ">=2.14.0 <3.0.0"
 
 # Dependencies specify other packages that your package needs in order to work.
 # To automatically upgrade your package dependencies to the latest versions
@@ -36,6 +36,10 @@ dependencies:
   cupertino_icons: ^1.0.2
   firebase_core: ^1.10.2
   firebase_auth: ^3.3.0
+  flutter_riverpod: ^1.0.2
+  freezed_annotation: ^1.0.0
+  json_annotation: ^4.4.0
+  flutter_hooks: ^0.18.1
 
 dev_dependencies:
   flutter_test:
@@ -47,6 +51,9 @@ dev_dependencies:
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
   flutter_lints: ^1.0.0
+  freezed: ^1.0.2
+  json_serializable: ^6.1.1
+  build_runner: ^2.1.5
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
