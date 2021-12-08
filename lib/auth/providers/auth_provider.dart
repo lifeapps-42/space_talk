@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:space_talk/models/phone.dart';
 
+import '../../models/phone.dart';
 import 'auth_state.dart';
 
 final authStateNotifierProvider =
@@ -9,7 +9,9 @@ final authStateNotifierProvider =
         (ref) => AuthStateNotifier());
 
 class AuthStateNotifier extends StateNotifier<AuthState> {
-  AuthStateNotifier() : super(const AuthNotAuthenticatedState());
+  AuthStateNotifier() : super(const AuthNotAuthenticatedState()) {
+    _subscribeToState();
+  }
 
   final _auth = FirebaseAuth.instance;
 
@@ -45,16 +47,24 @@ class AuthStateNotifier extends StateNotifier<AuthState> {
 
   void _onAuthFailed(FirebaseAuthException exception) {
     final exceptoinMessage = exception.message;
-    state = AuthErrorEvent(exceptoinMessage ?? 'Somthing went wrong. Try later');
+    state =
+        AuthErrorEvent(exceptoinMessage ?? 'Somthing went wrong. Try later');
     state = const AuthNotAuthenticatedState();
   }
 
   void _signIn(PhoneAuthCredential creds) async {
     try {
-    final userCreds = await _auth.signInWithCredential(creds);
-    state = AuthAuthenticatedState(userCreds);
+      await _auth.signInWithCredential(creds);
     } on FirebaseAuthException catch (e) {
       _onAuthFailed(e);
     }
+  }
+
+  void _subscribeToState() {
+    _auth.authStateChanges().listen((user) {
+      user != null
+          ? state = AuthAuthenticatedState(user)
+          : state = const AuthNotAuthenticatedState();
+    });
   }
 }

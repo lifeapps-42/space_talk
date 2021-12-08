@@ -1,3 +1,8 @@
+import 'package:freezed_annotation/freezed_annotation.dart';
+
+part 'phone.g.dart';
+
+@JsonSerializable()
 class PhoneNumber {
   final String value;
 
@@ -15,4 +20,8 @@ class PhoneNumber {
     result = result.replaceAll(RegExp(r'[() -]'), '');
     return PhoneNumber(result);
   }
+
+  factory PhoneNumber.fromJson(Map<String, dynamic> json) => _$PhoneNumberFromJson(json);
+  
+  Map<String, dynamic> toJson() => _$PhoneNumberToJson(this);
 }

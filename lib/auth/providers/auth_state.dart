@@ -11,7 +11,7 @@ class AuthState with _$AuthState{
   const factory AuthState.otpRequested(PhoneNumber phone) = AuthOtpRequestedState;
   const factory AuthState.otpSent(String verificationId) = AuthOtpSentState;
   const factory AuthState.otpSubmited() = AuthOtpSubmittedState;
-  const factory AuthState.authenticated(UserCredential userCreds) = AuthAuthenticatedState;
+  const factory AuthState.authenticated(User user) = AuthAuthenticatedState;
   const factory AuthState.authErrorEvenr(String error) = AuthErrorEvent;
 
 }

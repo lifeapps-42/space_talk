@@ -37,9 +37,9 @@ class _$AuthStateTearOff {
     return const AuthOtpSubmittedState();
   }
 
-  AuthAuthenticatedState authenticated(UserCredential userCreds) {
+  AuthAuthenticatedState authenticated(User user) {
     return AuthAuthenticatedState(
-      userCreds,
+      user,
     );
   }
 
@@ -61,7 +61,7 @@ mixin _$AuthState {
     required TResult Function(PhoneNumber phone) otpRequested,
     required TResult Function(String verificationId) otpSent,
     required TResult Function() otpSubmited,
-    required TResult Function(UserCredential userCreds) authenticated,
+    required TResult Function(User user) authenticated,
     required TResult Function(String error) authErrorEvenr,
   }) =>
       throw _privateConstructorUsedError;
@@ -71,7 +71,7 @@ mixin _$AuthState {
     TResult Function(PhoneNumber phone)? otpRequested,
     TResult Function(String verificationId)? otpSent,
     TResult Function()? otpSubmited,
-    TResult Function(UserCredential userCreds)? authenticated,
+    TResult Function(User user)? authenticated,
     TResult Function(String error)? authErrorEvenr,
   }) =>
       throw _privateConstructorUsedError;
@@ -81,7 +81,7 @@ mixin _$AuthState {
     TResult Function(PhoneNumber phone)? otpRequested,
     TResult Function(String verificationId)? otpSent,
     TResult Function()? otpSubmited,
-    TResult Function(UserCredential userCreds)? authenticated,
+    TResult Function(User user)? authenticated,
     TResult Function(String error)? authErrorEvenr,
     required TResult orElse(),
   }) =>
@@ -181,7 +181,7 @@ class _$AuthNotAuthenticatedState implements AuthNotAuthenticatedState {
     required TResult Function(PhoneNumber phone) otpRequested,
     required TResult Function(String verificationId) otpSent,
     required TResult Function() otpSubmited,
-    required TResult Function(UserCredential userCreds) authenticated,
+    required TResult Function(User user) authenticated,
     required TResult Function(String error) authErrorEvenr,
   }) {
     return notAuthenticated();
@@ -194,7 +194,7 @@ class _$AuthNotAuthenticatedState implements AuthNotAuthenticatedState {
     TResult Function(PhoneNumber phone)? otpRequested,
     TResult Function(String verificationId)? otpSent,
     TResult Function()? otpSubmited,
-    TResult Function(UserCredential userCreds)? authenticated,
+    TResult Function(User user)? authenticated,
     TResult Function(String error)? authErrorEvenr,
   }) {
     return notAuthenticated?.call();
@@ -207,7 +207,7 @@ class _$AuthNotAuthenticatedState implements AuthNotAuthenticatedState {
     TResult Function(PhoneNumber phone)? otpRequested,
     TResult Function(String verificationId)? otpSent,
     TResult Function()? otpSubmited,
-    TResult Function(UserCredential userCreds)? authenticated,
+    TResult Function(User user)? authenticated,
     TResult Function(String error)? authErrorEvenr,
     required TResult orElse(),
   }) {
@@ -335,7 +335,7 @@ class _$AuthOtpRequestedState implements AuthOtpRequestedState {
     required TResult Function(PhoneNumber phone) otpRequested,
     required TResult Function(String verificationId) otpSent,
     required TResult Function() otpSubmited,
-    required TResult Function(UserCredential userCreds) authenticated,
+    required TResult Function(User user) authenticated,
     required TResult Function(String error) authErrorEvenr,
   }) {
     return otpRequested(phone);
@@ -348,7 +348,7 @@ class _$AuthOtpRequestedState implements AuthOtpRequestedState {
     TResult Function(PhoneNumber phone)? otpRequested,
     TResult Function(String verificationId)? otpSent,
     TResult Function()? otpSubmited,
-    TResult Function(UserCredential userCreds)? authenticated,
+    TResult Function(User user)? authenticated,
     TResult Function(String error)? authErrorEvenr,
   }) {
     return otpRequested?.call(phone);
@@ -361,7 +361,7 @@ class _$AuthOtpRequestedState implements AuthOtpRequestedState {
     TResult Function(PhoneNumber phone)? otpRequested,
     TResult Function(String verificationId)? otpSent,
     TResult Function()? otpSubmited,
-    TResult Function(UserCredential userCreds)? authenticated,
+    TResult Function(User user)? authenticated,
     TResult Function(String error)? authErrorEvenr,
     required TResult orElse(),
   }) {
@@ -494,7 +494,7 @@ class _$AuthOtpSentState implements AuthOtpSentState {
     required TResult Function(PhoneNumber phone) otpRequested,
     required TResult Function(String verificationId) otpSent,
     required TResult Function() otpSubmited,
-    required TResult Function(UserCredential userCreds) authenticated,
+    required TResult Function(User user) authenticated,
     required TResult Function(String error) authErrorEvenr,
   }) {
     return otpSent(verificationId);
@@ -507,7 +507,7 @@ class _$AuthOtpSentState implements AuthOtpSentState {
     TResult Function(PhoneNumber phone)? otpRequested,
     TResult Function(String verificationId)? otpSent,
     TResult Function()? otpSubmited,
-    TResult Function(UserCredential userCreds)? authenticated,
+    TResult Function(User user)? authenticated,
     TResult Function(String error)? authErrorEvenr,
   }) {
     return otpSent?.call(verificationId);
@@ -520,7 +520,7 @@ class _$AuthOtpSentState implements AuthOtpSentState {
     TResult Function(PhoneNumber phone)? otpRequested,
     TResult Function(String verificationId)? otpSent,
     TResult Function()? otpSubmited,
-    TResult Function(UserCredential userCreds)? authenticated,
+    TResult Function(User user)? authenticated,
     TResult Function(String error)? authErrorEvenr,
     required TResult orElse(),
   }) {
@@ -628,7 +628,7 @@ class _$AuthOtpSubmittedState implements AuthOtpSubmittedState {
     required TResult Function(PhoneNumber phone) otpRequested,
     required TResult Function(String verificationId) otpSent,
     required TResult Function() otpSubmited,
-    required TResult Function(UserCredential userCreds) authenticated,
+    required TResult Function(User user) authenticated,
     required TResult Function(String error) authErrorEvenr,
   }) {
     return otpSubmited();
@@ -641,7 +641,7 @@ class _$AuthOtpSubmittedState implements AuthOtpSubmittedState {
     TResult Function(PhoneNumber phone)? otpRequested,
     TResult Function(String verificationId)? otpSent,
     TResult Function()? otpSubmited,
-    TResult Function(UserCredential userCreds)? authenticated,
+    TResult Function(User user)? authenticated,
     TResult Function(String error)? authErrorEvenr,
   }) {
     return otpSubmited?.call();
@@ -654,7 +654,7 @@ class _$AuthOtpSubmittedState implements AuthOtpSubmittedState {
     TResult Function(PhoneNumber phone)? otpRequested,
     TResult Function(String verificationId)? otpSent,
     TResult Function()? otpSubmited,
-    TResult Function(UserCredential userCreds)? authenticated,
+    TResult Function(User user)? authenticated,
     TResult Function(String error)? authErrorEvenr,
     required TResult orElse(),
   }) {
@@ -717,7 +717,7 @@ abstract class $AuthAuthenticatedStateCopyWith<$Res> {
   factory $AuthAuthenticatedStateCopyWith(AuthAuthenticatedState value,
           $Res Function(AuthAuthenticatedState) then) =
       _$AuthAuthenticatedStateCopyWithImpl<$Res>;
-  $Res call({UserCredential userCreds});
+  $Res call({User user});
 }
 
 /// @nodoc
@@ -733,13 +733,13 @@ class _$AuthAuthenticatedStateCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object? userCreds = freezed,
+    Object? user = freezed,
   }) {
     return _then(AuthAuthenticatedState(
-      userCreds == freezed
-          ? _value.userCreds
-          : userCreds // ignore: cast_nullable_to_non_nullable
-              as UserCredential,
+      user == freezed
+          ? _value.user
+          : user // ignore: cast_nullable_to_non_nullable
+              as User,
     ));
   }
 }
@@ -747,14 +747,14 @@ class _$AuthAuthenticatedStateCopyWithImpl<$Res>
 /// @nodoc
 
 class _$AuthAuthenticatedState implements AuthAuthenticatedState {
-  const _$AuthAuthenticatedState(this.userCreds);
+  const _$AuthAuthenticatedState(this.user);
 
   @override
-  final UserCredential userCreds;
+  final User user;
 
   @override
   String toString() {
-    return 'AuthState.authenticated(userCreds: $userCreds)';
+    return 'AuthState.authenticated(user: $user)';
   }
 
   @override
@@ -762,12 +762,12 @@ class _$AuthAuthenticatedState implements AuthAuthenticatedState {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is AuthAuthenticatedState &&
-            const DeepCollectionEquality().equals(other.userCreds, userCreds));
+            const DeepCollectionEquality().equals(other.user, user));
   }
 
   @override
   int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(userCreds));
+      Object.hash(runtimeType, const DeepCollectionEquality().hash(user));
 
   @JsonKey(ignore: true)
   @override
@@ -782,10 +782,10 @@ class _$AuthAuthenticatedState implements AuthAuthenticatedState {
     required TResult Function(PhoneNumber phone) otpRequested,
     required TResult Function(String verificationId) otpSent,
     required TResult Function() otpSubmited,
-    required TResult Function(UserCredential userCreds) authenticated,
+    required TResult Function(User user) authenticated,
     required TResult Function(String error) authErrorEvenr,
   }) {
-    return authenticated(userCreds);
+    return authenticated(user);
   }
 
   @override
@@ -795,10 +795,10 @@ class _$AuthAuthenticatedState implements AuthAuthenticatedState {
     TResult Function(PhoneNumber phone)? otpRequested,
     TResult Function(String verificationId)? otpSent,
     TResult Function()? otpSubmited,
-    TResult Function(UserCredential userCreds)? authenticated,
+    TResult Function(User user)? authenticated,
     TResult Function(String error)? authErrorEvenr,
   }) {
-    return authenticated?.call(userCreds);
+    return authenticated?.call(user);
   }
 
   @override
@@ -808,12 +808,12 @@ class _$AuthAuthenticatedState implements AuthAuthenticatedState {
     TResult Function(PhoneNumber phone)? otpRequested,
     TResult Function(String verificationId)? otpSent,
     TResult Function()? otpSubmited,
-    TResult Function(UserCredential userCreds)? authenticated,
+    TResult Function(User user)? authenticated,
     TResult Function(String error)? authErrorEvenr,
     required TResult orElse(),
   }) {
     if (authenticated != null) {
-      return authenticated(userCreds);
+      return authenticated(user);
     }
     return orElse();
   }
@@ -863,10 +863,9 @@ class _$AuthAuthenticatedState implements AuthAuthenticatedState {
 }
 
 abstract class AuthAuthenticatedState implements AuthState {
-  const factory AuthAuthenticatedState(UserCredential userCreds) =
-      _$AuthAuthenticatedState;
+  const factory AuthAuthenticatedState(User user) = _$AuthAuthenticatedState;
 
-  UserCredential get userCreds;
+  User get user;
   @JsonKey(ignore: true)
   $AuthAuthenticatedStateCopyWith<AuthAuthenticatedState> get copyWith =>
       throw _privateConstructorUsedError;
@@ -940,7 +939,7 @@ class _$AuthErrorEvent implements AuthErrorEvent {
     required TResult Function(PhoneNumber phone) otpRequested,
     required TResult Function(String verificationId) otpSent,
     required TResult Function() otpSubmited,
-    required TResult Function(UserCredential userCreds) authenticated,
+    required TResult Function(User user) authenticated,
     required TResult Function(String error) authErrorEvenr,
   }) {
     return authErrorEvenr(error);
@@ -953,7 +952,7 @@ class _$AuthErrorEvent implements AuthErrorEvent {
     TResult Function(PhoneNumber phone)? otpRequested,
     TResult Function(String verificationId)? otpSent,
     TResult Function()? otpSubmited,
-    TResult Function(UserCredential userCreds)? authenticated,
+    TResult Function(User user)? authenticated,
     TResult Function(String error)? authErrorEvenr,
   }) {
     return authErrorEvenr?.call(error);
@@ -966,7 +965,7 @@ class _$AuthErrorEvent implements AuthErrorEvent {
     TResult Function(PhoneNumber phone)? otpRequested,
     TResult Function(String verificationId)? otpSent,
     TResult Function()? otpSubmited,
-    TResult Function(UserCredential userCreds)? authenticated,
+    TResult Function(User user)? authenticated,
     TResult Function(String error)? authErrorEvenr,
     required TResult orElse(),
   }) {
