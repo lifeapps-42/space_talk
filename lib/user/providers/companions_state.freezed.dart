@@ -21,9 +21,11 @@ class _$CompanionsStateTearOff {
     return const CompanionsInitializingState();
   }
 
-  CompanionsSubscribedState subscribed(List<User> companions) {
+  CompanionsSubscribedState subscribed(
+      List<User> companions, StreamSubscription<List<User>>? subscription) {
     return CompanionsSubscribedState(
       companions,
+      subscription,
     );
   }
 }
@@ -36,19 +38,25 @@ mixin _$CompanionsState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initializing,
-    required TResult Function(List<User> companions) subscribed,
+    required TResult Function(
+            List<User> companions, StreamSubscription<List<User>>? subscription)
+        subscribed,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? initializing,
-    TResult Function(List<User> companions)? subscribed,
+    TResult Function(List<User> companions,
+            StreamSubscription<List<User>>? subscription)?
+        subscribed,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initializing,
-    TResult Function(List<User> companions)? subscribed,
+    TResult Function(List<User> companions,
+            StreamSubscription<List<User>>? subscription)?
+        subscribed,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -135,7 +143,9 @@ class _$CompanionsInitializingState implements CompanionsInitializingState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initializing,
-    required TResult Function(List<User> companions) subscribed,
+    required TResult Function(
+            List<User> companions, StreamSubscription<List<User>>? subscription)
+        subscribed,
   }) {
     return initializing();
   }
@@ -144,7 +154,9 @@ class _$CompanionsInitializingState implements CompanionsInitializingState {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? initializing,
-    TResult Function(List<User> companions)? subscribed,
+    TResult Function(List<User> companions,
+            StreamSubscription<List<User>>? subscription)?
+        subscribed,
   }) {
     return initializing?.call();
   }
@@ -153,7 +165,9 @@ class _$CompanionsInitializingState implements CompanionsInitializingState {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initializing,
-    TResult Function(List<User> companions)? subscribed,
+    TResult Function(List<User> companions,
+            StreamSubscription<List<User>>? subscription)?
+        subscribed,
     required TResult orElse(),
   }) {
     if (initializing != null) {
@@ -203,7 +217,8 @@ abstract class $CompanionsSubscribedStateCopyWith<$Res> {
   factory $CompanionsSubscribedStateCopyWith(CompanionsSubscribedState value,
           $Res Function(CompanionsSubscribedState) then) =
       _$CompanionsSubscribedStateCopyWithImpl<$Res>;
-  $Res call({List<User> companions});
+  $Res call(
+      {List<User> companions, StreamSubscription<List<User>>? subscription});
 }
 
 /// @nodoc
@@ -221,12 +236,17 @@ class _$CompanionsSubscribedStateCopyWithImpl<$Res>
   @override
   $Res call({
     Object? companions = freezed,
+    Object? subscription = freezed,
   }) {
     return _then(CompanionsSubscribedState(
       companions == freezed
           ? _value.companions
           : companions // ignore: cast_nullable_to_non_nullable
               as List<User>,
+      subscription == freezed
+          ? _value.subscription
+          : subscription // ignore: cast_nullable_to_non_nullable
+              as StreamSubscription<List<User>>?,
     ));
   }
 }
@@ -234,14 +254,16 @@ class _$CompanionsSubscribedStateCopyWithImpl<$Res>
 /// @nodoc
 
 class _$CompanionsSubscribedState implements CompanionsSubscribedState {
-  const _$CompanionsSubscribedState(this.companions);
+  const _$CompanionsSubscribedState(this.companions, this.subscription);
 
   @override
   final List<User> companions;
+  @override
+  final StreamSubscription<List<User>>? subscription;
 
   @override
   String toString() {
-    return 'CompanionsState.subscribed(companions: $companions)';
+    return 'CompanionsState.subscribed(companions: $companions, subscription: $subscription)';
   }
 
   @override
@@ -250,12 +272,16 @@ class _$CompanionsSubscribedState implements CompanionsSubscribedState {
         (other.runtimeType == runtimeType &&
             other is CompanionsSubscribedState &&
             const DeepCollectionEquality()
-                .equals(other.companions, companions));
+                .equals(other.companions, companions) &&
+            const DeepCollectionEquality()
+                .equals(other.subscription, subscription));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(companions));
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(companions),
+      const DeepCollectionEquality().hash(subscription));
 
   @JsonKey(ignore: true)
   @override
@@ -267,29 +293,35 @@ class _$CompanionsSubscribedState implements CompanionsSubscribedState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initializing,
-    required TResult Function(List<User> companions) subscribed,
+    required TResult Function(
+            List<User> companions, StreamSubscription<List<User>>? subscription)
+        subscribed,
   }) {
-    return subscribed(companions);
+    return subscribed(companions, subscription);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? initializing,
-    TResult Function(List<User> companions)? subscribed,
+    TResult Function(List<User> companions,
+            StreamSubscription<List<User>>? subscription)?
+        subscribed,
   }) {
-    return subscribed?.call(companions);
+    return subscribed?.call(companions, subscription);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initializing,
-    TResult Function(List<User> companions)? subscribed,
+    TResult Function(List<User> companions,
+            StreamSubscription<List<User>>? subscription)?
+        subscribed,
     required TResult orElse(),
   }) {
     if (subscribed != null) {
-      return subscribed(companions);
+      return subscribed(companions, subscription);
     }
     return orElse();
   }
@@ -327,10 +359,12 @@ class _$CompanionsSubscribedState implements CompanionsSubscribedState {
 }
 
 abstract class CompanionsSubscribedState implements CompanionsState {
-  const factory CompanionsSubscribedState(List<User> companions) =
+  const factory CompanionsSubscribedState(
+          List<User> companions, StreamSubscription<List<User>>? subscription) =
       _$CompanionsSubscribedState;
 
   List<User> get companions;
+  StreamSubscription<List<User>>? get subscription;
   @JsonKey(ignore: true)
   $CompanionsSubscribedStateCopyWith<CompanionsSubscribedState> get copyWith =>
       throw _privateConstructorUsedError;

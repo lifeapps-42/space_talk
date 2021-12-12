@@ -1,36 +1,17 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-
-import '../../utils/firebase_extensions/document_snapshot_extensions.dart';
 import '../models/user.dart';
+import 'firestore_model_ref_mixin.dart';
 import 'repo_provider.dart';
 
-class UserFirestoreRepo implements UserRepo {
-  static const _kCollection = 'users';
-  final _modelRef =
-      FirebaseFirestore.instance.collection(_kCollection).withConverter<User?>(
-    fromFirestore: (snap, _) {
-      return snap.exists ? User.fromJson(snap.dataWithId()) : null;
-    },
-    toFirestore: (user, _) {
-      return user!.toJson();
-    },
-  );
-
+class UserFirestoreRepo with FirestoreUsersModelRef implements UserRepo {
   @override
   Future<User?> getUserById(String uid) async {
-    final snap = await _modelRef.doc(uid).get();
+    final snap = await usersRef.doc(uid).get();
     return snap.data();
   }
 
   @override
   Future<void> setUser(User user) async {
-    final docRef = _modelRef.doc(user.uid);
+    final docRef = usersRef.doc(user.uid);
     return docRef.set(user);
-  }
-
-  @override
-  Future<List<Stream<User>>> subscribeToCompanions(List<String> usersIds) {
-  
-    throw UnimplementedError();
   }
 }
