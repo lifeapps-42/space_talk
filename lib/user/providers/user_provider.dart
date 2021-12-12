@@ -6,7 +6,6 @@ import '../../auth/providers/auth_state.dart';
 import '../../models/phone.dart';
 import '../models/user.dart';
 import '../repo/repo_provider.dart';
-import '../repo/user_firestore_repo.dart';
 import 'user_state.dart';
 
 final userStateNotifierProvider =
@@ -21,7 +20,7 @@ class UserStateNotifier extends StateNotifier<UserState> {
   }
 
   final Ref ref;
-  final UserFirestoreRepo _repo;
+  final UserRepo _repo;
 
   void registerUser(String name) {
     state.maybeWhen(
