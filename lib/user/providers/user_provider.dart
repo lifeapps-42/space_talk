@@ -1,12 +1,12 @@
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:firebase_auth/firebase_auth.dart' as fba;
-import 'package:space_talk/user/models/user.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../auth/providers/auth_provider.dart';
 import '../../auth/providers/auth_state.dart';
+import '../../models/phone.dart';
+import '../models/user.dart';
 import '../repo/repo_provider.dart';
 import '../repo/user_firestore_repo.dart';
-import '../../models/phone.dart';
 import 'user_state.dart';
 
 final userStateNotifierProvider =

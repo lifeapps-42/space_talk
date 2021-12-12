@@ -1,5 +1,5 @@
-import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:firebase_auth/firebase_auth.dart' as fba;
+import 'package:freezed_annotation/freezed_annotation.dart';
 
 import '../models/user.dart';
 
