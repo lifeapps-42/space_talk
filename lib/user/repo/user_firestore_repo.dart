@@ -4,7 +4,7 @@ import '../../utils/firebase_extensions/document_snapshot_extensions.dart';
 import '../models/user.dart';
 import 'repo_provider.dart';
 
-class UserFirestoreRepo implements UserRepo{
+class UserFirestoreRepo implements UserRepo {
   static const _kCollection = 'users';
   final _modelRef =
       FirebaseFirestore.instance.collection(_kCollection).withConverter<User?>(

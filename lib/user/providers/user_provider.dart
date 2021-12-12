@@ -5,6 +5,7 @@ import '../../auth/providers/auth_provider.dart';
 import '../../auth/providers/auth_state.dart';
 import '../../models/phone.dart';
 import '../models/user.dart';
+import '../models/user_status.dart';
 import '../repo/repo_provider.dart';
 import 'user_state.dart';
 
@@ -29,6 +30,7 @@ class UserStateNotifier extends StateNotifier<UserState> {
           name: name,
           phone: PhoneNumber(fbUser.phoneNumber!),
           uid: fbUser.uid,
+          status: const UserOnlineStatus(),
         );
         state = const UserCreatingNewState();
         await _repo.setUser(user);

@@ -5,6 +5,8 @@ class Chat {
   final String id;
   final List<Message> messages;
   final User participiant;
+  // final DateTime lastSeen;
+  
 
   Chat({
     required this.id,

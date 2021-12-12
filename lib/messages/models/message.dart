@@ -1,5 +1,6 @@
 import '../../user/models/user.dart';
 
+
 class Message {
   final String id;
   final String text;
