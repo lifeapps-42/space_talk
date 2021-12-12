@@ -10,4 +10,6 @@ abstract class UserRepo {
   Future<User?> getUserById(String uid);
 
   Future<void> setUser(User user);
+
+  Future<List<Stream<User>>> subscribeToCompanions(List<String> usersIds);
 }

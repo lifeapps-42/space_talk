@@ -27,4 +27,10 @@ class UserFirestoreRepo implements UserRepo {
     final docRef = _modelRef.doc(user.uid);
     return docRef.set(user);
   }
+
+  @override
+  Future<List<Stream<User>>> subscribeToCompanions(List<String> usersIds) {
+  
+    throw UnimplementedError();
+  }
 }

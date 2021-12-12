@@ -1,16 +1,21 @@
-import '../../messages/models/message.dart';
-import '../../user/models/user.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 
+import '../../messages/models/message.dart';
+
+part 'private_chat.g.dart';
+
+@JsonSerializable()
 class Chat {
   final String id;
-  final List<Message> messages;
-  final User participiant;
-  // final DateTime lastSeen;
-  
+  final Message lastMessage;
+  final Set<String> users;
 
   Chat({
     required this.id,
-    required this.messages,
-    required this.participiant,
+    required this.lastMessage,
+    required this.users,
   });
+  factory Chat.fromJson(Map<String, dynamic> json) => _$ChatFromJson(json);
+  
+  Map<String, dynamic> toJson() => _$ChatToJson(this);
 }
