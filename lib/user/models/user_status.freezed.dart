@@ -154,7 +154,8 @@ class _$UserOfflineStatusCopyWithImpl<$Res>
 }
 
 /// @nodoc
-@JsonSerializable()
+
+@JsonSerializable(explicitToJson: true)
 class _$UserOfflineStatus implements UserOfflineStatus {
   const _$UserOfflineStatus(this.lastSeen, {String? $type})
       : $type = $type ?? 'offline';

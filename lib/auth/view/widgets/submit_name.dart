@@ -21,6 +21,7 @@ class SubmitName extends HookWidget {
       }
 
       return Column(
+        mainAxisSize: MainAxisSize.min,
         children: [
           TextField(
             controller: controller,

@@ -475,6 +475,8 @@ abstract class $AuthScreenSubmitOtpStateCopyWith<$Res>
       _$AuthScreenSubmitOtpStateCopyWithImpl<$Res>;
   @override
   $Res call({bool isLoading, PhoneNumber phone});
+
+  $PhoneNumberCopyWith<$Res> get phone;
 }
 
 /// @nodoc
@@ -504,6 +506,13 @@ class _$AuthScreenSubmitOtpStateCopyWithImpl<$Res>
           : phone // ignore: cast_nullable_to_non_nullable
               as PhoneNumber,
     ));
+  }
+
+  @override
+  $PhoneNumberCopyWith<$Res> get phone {
+    return $PhoneNumberCopyWith<$Res>(_value.phone, (value) {
+      return _then(_value.copyWith(phone: value));
+    });
   }
 }
 

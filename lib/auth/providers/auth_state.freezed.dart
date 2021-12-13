@@ -424,6 +424,8 @@ abstract class $AuthOtpRequestedStateCopyWith<$Res> {
           $Res Function(AuthOtpRequestedState) then) =
       _$AuthOtpRequestedStateCopyWithImpl<$Res>;
   $Res call({PhoneNumber phone});
+
+  $PhoneNumberCopyWith<$Res> get phone;
 }
 
 /// @nodoc
@@ -447,6 +449,13 @@ class _$AuthOtpRequestedStateCopyWithImpl<$Res>
           : phone // ignore: cast_nullable_to_non_nullable
               as PhoneNumber,
     ));
+  }
+
+  @override
+  $PhoneNumberCopyWith<$Res> get phone {
+    return $PhoneNumberCopyWith<$Res>(_value.phone, (value) {
+      return _then(_value.copyWith(phone: value));
+    });
   }
 }
 
@@ -590,6 +599,8 @@ abstract class $AuthOtpSentStateCopyWith<$Res> {
           AuthOtpSentState value, $Res Function(AuthOtpSentState) then) =
       _$AuthOtpSentStateCopyWithImpl<$Res>;
   $Res call({String verificationId, PhoneNumber phone});
+
+  $PhoneNumberCopyWith<$Res> get phone;
 }
 
 /// @nodoc
@@ -617,6 +628,13 @@ class _$AuthOtpSentStateCopyWithImpl<$Res> extends _$AuthStateCopyWithImpl<$Res>
           : phone // ignore: cast_nullable_to_non_nullable
               as PhoneNumber,
     ));
+  }
+
+  @override
+  $PhoneNumberCopyWith<$Res> get phone {
+    return $PhoneNumberCopyWith<$Res>(_value.phone, (value) {
+      return _then(_value.copyWith(phone: value));
+    });
   }
 }
 
@@ -766,6 +784,8 @@ abstract class $AuthOtpSubmittedStateCopyWith<$Res> {
           $Res Function(AuthOtpSubmittedState) then) =
       _$AuthOtpSubmittedStateCopyWithImpl<$Res>;
   $Res call({PhoneNumber phone});
+
+  $PhoneNumberCopyWith<$Res> get phone;
 }
 
 /// @nodoc
@@ -789,6 +809,13 @@ class _$AuthOtpSubmittedStateCopyWithImpl<$Res>
           : phone // ignore: cast_nullable_to_non_nullable
               as PhoneNumber,
     ));
+  }
+
+  @override
+  $PhoneNumberCopyWith<$Res> get phone {
+    return $PhoneNumberCopyWith<$Res>(_value.phone, (value) {
+      return _then(_value.copyWith(phone: value));
+    });
   }
 }
 

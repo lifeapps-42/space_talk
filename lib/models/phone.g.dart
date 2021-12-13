@@ -6,11 +6,12 @@ part of 'phone.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-PhoneNumber _$PhoneNumberFromJson(Map<String, dynamic> json) => PhoneNumber(
+_$_PhoneNumber _$$_PhoneNumberFromJson(Map<String, dynamic> json) =>
+    _$_PhoneNumber(
       json['value'] as String,
     );
 
-Map<String, dynamic> _$PhoneNumberToJson(PhoneNumber instance) =>
+Map<String, dynamic> _$$_PhoneNumberToJson(_$_PhoneNumber instance) =>
     <String, dynamic>{
       'value': instance.value,
     };

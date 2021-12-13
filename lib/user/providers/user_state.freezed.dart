@@ -714,6 +714,8 @@ abstract class $UserUpdatingStateCopyWith<$Res> {
           UserUpdatingState value, $Res Function(UserUpdatingState) then) =
       _$UserUpdatingStateCopyWithImpl<$Res>;
   $Res call({User user});
+
+  $UserCopyWith<$Res> get user;
 }
 
 /// @nodoc
@@ -737,6 +739,13 @@ class _$UserUpdatingStateCopyWithImpl<$Res>
           : user // ignore: cast_nullable_to_non_nullable
               as User,
     ));
+  }
+
+  @override
+  $UserCopyWith<$Res> get user {
+    return $UserCopyWith<$Res>(_value.user, (value) {
+      return _then(_value.copyWith(user: value));
+    });
   }
 }
 
@@ -872,6 +881,8 @@ abstract class $UserDataStateCopyWith<$Res> {
           UserDataState value, $Res Function(UserDataState) then) =
       _$UserDataStateCopyWithImpl<$Res>;
   $Res call({User user});
+
+  $UserCopyWith<$Res> get user;
 }
 
 /// @nodoc
@@ -894,6 +905,13 @@ class _$UserDataStateCopyWithImpl<$Res> extends _$UserStateCopyWithImpl<$Res>
           : user // ignore: cast_nullable_to_non_nullable
               as User,
     ));
+  }
+
+  @override
+  $UserCopyWith<$Res> get user {
+    return $UserCopyWith<$Res>(_value.user, (value) {
+      return _then(_value.copyWith(user: value));
+    });
   }
 }
 

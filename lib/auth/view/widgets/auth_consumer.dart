@@ -11,7 +11,7 @@ class AuthConsumer extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final userState = ref.watch(userStateNotifierProvider);
     return userState.maybeWhen(
-      data: (_) => Container(),
+      data: (user) => Text(user.uid),
       updating: (_) => Container(),
       orElse: () => const AuthScreen()
     );
