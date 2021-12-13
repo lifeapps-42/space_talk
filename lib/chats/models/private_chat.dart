@@ -4,18 +4,18 @@ import '../../messages/models/message.dart';
 
 part 'private_chat.g.dart';
 
-@JsonSerializable()
+@JsonSerializable(explicitToJson: true)
 class Chat {
-  final String id;
+  final String? id;
   final Message lastMessage;
   final Set<String> users;
 
   Chat({
-    required this.id,
+    this.id,
     required this.lastMessage,
     required this.users,
   });
   factory Chat.fromJson(Map<String, dynamic> json) => _$ChatFromJson(json);
-  
+
   Map<String, dynamic> toJson() => _$ChatToJson(this);
 }

@@ -14,7 +14,7 @@ class PhoneNumber with _$PhoneNumber{
     late String result;
     final trimmed = input.trim();
     
-    if (trimmed[0] != '0') {
+    if (trimmed[0] != '+') {
       result = '+$trimmed';
     } else {
       result = trimmed;

@@ -41,6 +41,10 @@ class AuthStateNotifier extends StateNotifier<AuthState> {
     );
   }
 
+  void logout() {
+    _auth.signOut();
+  }
+
   void _codeSent(String verificationId, PhoneNumber phone) {
     state = AuthOtpSentState(verificationId, phone);
   }

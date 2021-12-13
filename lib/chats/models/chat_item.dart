@@ -11,17 +11,18 @@ class ChatItem {
 
   static ChatItem? fromChatAndCompanions(Chat chat, List<User> companions) {
     final companionsResult = <User>{};
-    for (final companionId in chat.users) {
+    for (final companionId in chat.users.toList()) {
       try {
         final companion =
             companions.firstWhere((element) => element.uid == companionId);
         companionsResult.add(companion);
       } on StateError catch (_) {
-        return null;
+        //ignore
       }
     }
+    if (companionsResult.isEmpty) return null;
     return ChatItem(
-        id: chat.id, lastMessage: chat.lastMessage, users: companionsResult);
+        id: chat.id!, lastMessage: chat.lastMessage, users: companionsResult);
   }
 
   static List<ChatItem> itemsListFromChatsAndCompanions(

@@ -2,16 +2,16 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'message.g.dart';
 
-@JsonSerializable()
+@JsonSerializable(explicitToJson: true)
 class Message {
-  final String id;
+  final String? id;
   final String text;
   final String authorId;
   final DateTime sentAt;
   final Set<String> readUsersIds;
 
   Message({
-    required this.id,
+    this.id,
     required this.text,
     required this.authorId,
     required this.sentAt,

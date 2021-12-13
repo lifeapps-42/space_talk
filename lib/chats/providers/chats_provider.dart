@@ -41,4 +41,8 @@ class ChatsStateNotifier extends StateNotifier<ChatsState> {
     final stream = _repo.getChatsStreams(_user.uid);
     stream.listen((chats) => state = ChatsSubscribedState(chats));
   }
+
+  void createChat({required String text, required User companion}) {
+    _repo.createChat(companion: companion, text: text);
+  }
 }
