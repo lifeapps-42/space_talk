@@ -17,6 +17,10 @@ final _privateConstructorUsedError = UnsupportedError(
 class _$AuthStateTearOff {
   const _$AuthStateTearOff();
 
+  AuthLoadingState loading() {
+    return const AuthLoadingState();
+  }
+
   AuthNotAuthenticatedState notAuthenticated() {
     return const AuthNotAuthenticatedState();
   }
@@ -27,14 +31,17 @@ class _$AuthStateTearOff {
     );
   }
 
-  AuthOtpSentState otpSent(String verificationId) {
+  AuthOtpSentState otpSent(String verificationId, PhoneNumber phone) {
     return AuthOtpSentState(
       verificationId,
+      phone,
     );
   }
 
-  AuthOtpSubmittedState otpSubmited() {
-    return const AuthOtpSubmittedState();
+  AuthOtpSubmittedState otpSubmited(PhoneNumber phone) {
+    return AuthOtpSubmittedState(
+      phone,
+    );
   }
 
   AuthAuthenticatedState authenticated(User user) {
@@ -57,30 +64,33 @@ const $AuthState = _$AuthStateTearOff();
 mixin _$AuthState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
+    required TResult Function() loading,
     required TResult Function() notAuthenticated,
     required TResult Function(PhoneNumber phone) otpRequested,
-    required TResult Function(String verificationId) otpSent,
-    required TResult Function() otpSubmited,
+    required TResult Function(String verificationId, PhoneNumber phone) otpSent,
+    required TResult Function(PhoneNumber phone) otpSubmited,
     required TResult Function(User user) authenticated,
     required TResult Function(String error) authErrorEvenr,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
+    TResult Function()? loading,
     TResult Function()? notAuthenticated,
     TResult Function(PhoneNumber phone)? otpRequested,
-    TResult Function(String verificationId)? otpSent,
-    TResult Function()? otpSubmited,
+    TResult Function(String verificationId, PhoneNumber phone)? otpSent,
+    TResult Function(PhoneNumber phone)? otpSubmited,
     TResult Function(User user)? authenticated,
     TResult Function(String error)? authErrorEvenr,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? loading,
     TResult Function()? notAuthenticated,
     TResult Function(PhoneNumber phone)? otpRequested,
-    TResult Function(String verificationId)? otpSent,
-    TResult Function()? otpSubmited,
+    TResult Function(String verificationId, PhoneNumber phone)? otpSent,
+    TResult Function(PhoneNumber phone)? otpSubmited,
     TResult Function(User user)? authenticated,
     TResult Function(String error)? authErrorEvenr,
     required TResult orElse(),
@@ -88,6 +98,7 @@ mixin _$AuthState {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
+    required TResult Function(AuthLoadingState value) loading,
     required TResult Function(AuthNotAuthenticatedState value) notAuthenticated,
     required TResult Function(AuthOtpRequestedState value) otpRequested,
     required TResult Function(AuthOtpSentState value) otpSent,
@@ -98,6 +109,7 @@ mixin _$AuthState {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(AuthLoadingState value)? loading,
     TResult Function(AuthNotAuthenticatedState value)? notAuthenticated,
     TResult Function(AuthOtpRequestedState value)? otpRequested,
     TResult Function(AuthOtpSentState value)? otpSent,
@@ -108,6 +120,7 @@ mixin _$AuthState {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
+    TResult Function(AuthLoadingState value)? loading,
     TResult Function(AuthNotAuthenticatedState value)? notAuthenticated,
     TResult Function(AuthOtpRequestedState value)? otpRequested,
     TResult Function(AuthOtpSentState value)? otpSent,
@@ -132,6 +145,140 @@ class _$AuthStateCopyWithImpl<$Res> implements $AuthStateCopyWith<$Res> {
   final AuthState _value;
   // ignore: unused_field
   final $Res Function(AuthState) _then;
+}
+
+/// @nodoc
+abstract class $AuthLoadingStateCopyWith<$Res> {
+  factory $AuthLoadingStateCopyWith(
+          AuthLoadingState value, $Res Function(AuthLoadingState) then) =
+      _$AuthLoadingStateCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class _$AuthLoadingStateCopyWithImpl<$Res> extends _$AuthStateCopyWithImpl<$Res>
+    implements $AuthLoadingStateCopyWith<$Res> {
+  _$AuthLoadingStateCopyWithImpl(
+      AuthLoadingState _value, $Res Function(AuthLoadingState) _then)
+      : super(_value, (v) => _then(v as AuthLoadingState));
+
+  @override
+  AuthLoadingState get _value => super._value as AuthLoadingState;
+}
+
+/// @nodoc
+
+class _$AuthLoadingState implements AuthLoadingState {
+  const _$AuthLoadingState();
+
+  @override
+  String toString() {
+    return 'AuthState.loading()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is AuthLoadingState);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() loading,
+    required TResult Function() notAuthenticated,
+    required TResult Function(PhoneNumber phone) otpRequested,
+    required TResult Function(String verificationId, PhoneNumber phone) otpSent,
+    required TResult Function(PhoneNumber phone) otpSubmited,
+    required TResult Function(User user) authenticated,
+    required TResult Function(String error) authErrorEvenr,
+  }) {
+    return loading();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function()? loading,
+    TResult Function()? notAuthenticated,
+    TResult Function(PhoneNumber phone)? otpRequested,
+    TResult Function(String verificationId, PhoneNumber phone)? otpSent,
+    TResult Function(PhoneNumber phone)? otpSubmited,
+    TResult Function(User user)? authenticated,
+    TResult Function(String error)? authErrorEvenr,
+  }) {
+    return loading?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? loading,
+    TResult Function()? notAuthenticated,
+    TResult Function(PhoneNumber phone)? otpRequested,
+    TResult Function(String verificationId, PhoneNumber phone)? otpSent,
+    TResult Function(PhoneNumber phone)? otpSubmited,
+    TResult Function(User user)? authenticated,
+    TResult Function(String error)? authErrorEvenr,
+    required TResult orElse(),
+  }) {
+    if (loading != null) {
+      return loading();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(AuthLoadingState value) loading,
+    required TResult Function(AuthNotAuthenticatedState value) notAuthenticated,
+    required TResult Function(AuthOtpRequestedState value) otpRequested,
+    required TResult Function(AuthOtpSentState value) otpSent,
+    required TResult Function(AuthOtpSubmittedState value) otpSubmited,
+    required TResult Function(AuthAuthenticatedState value) authenticated,
+    required TResult Function(AuthErrorEvent value) authErrorEvenr,
+  }) {
+    return loading(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(AuthLoadingState value)? loading,
+    TResult Function(AuthNotAuthenticatedState value)? notAuthenticated,
+    TResult Function(AuthOtpRequestedState value)? otpRequested,
+    TResult Function(AuthOtpSentState value)? otpSent,
+    TResult Function(AuthOtpSubmittedState value)? otpSubmited,
+    TResult Function(AuthAuthenticatedState value)? authenticated,
+    TResult Function(AuthErrorEvent value)? authErrorEvenr,
+  }) {
+    return loading?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(AuthLoadingState value)? loading,
+    TResult Function(AuthNotAuthenticatedState value)? notAuthenticated,
+    TResult Function(AuthOtpRequestedState value)? otpRequested,
+    TResult Function(AuthOtpSentState value)? otpSent,
+    TResult Function(AuthOtpSubmittedState value)? otpSubmited,
+    TResult Function(AuthAuthenticatedState value)? authenticated,
+    TResult Function(AuthErrorEvent value)? authErrorEvenr,
+    required TResult orElse(),
+  }) {
+    if (loading != null) {
+      return loading(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class AuthLoadingState implements AuthState {
+  const factory AuthLoadingState() = _$AuthLoadingState;
 }
 
 /// @nodoc
@@ -177,10 +324,11 @@ class _$AuthNotAuthenticatedState implements AuthNotAuthenticatedState {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
+    required TResult Function() loading,
     required TResult Function() notAuthenticated,
     required TResult Function(PhoneNumber phone) otpRequested,
-    required TResult Function(String verificationId) otpSent,
-    required TResult Function() otpSubmited,
+    required TResult Function(String verificationId, PhoneNumber phone) otpSent,
+    required TResult Function(PhoneNumber phone) otpSubmited,
     required TResult Function(User user) authenticated,
     required TResult Function(String error) authErrorEvenr,
   }) {
@@ -190,10 +338,11 @@ class _$AuthNotAuthenticatedState implements AuthNotAuthenticatedState {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
+    TResult Function()? loading,
     TResult Function()? notAuthenticated,
     TResult Function(PhoneNumber phone)? otpRequested,
-    TResult Function(String verificationId)? otpSent,
-    TResult Function()? otpSubmited,
+    TResult Function(String verificationId, PhoneNumber phone)? otpSent,
+    TResult Function(PhoneNumber phone)? otpSubmited,
     TResult Function(User user)? authenticated,
     TResult Function(String error)? authErrorEvenr,
   }) {
@@ -203,10 +352,11 @@ class _$AuthNotAuthenticatedState implements AuthNotAuthenticatedState {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? loading,
     TResult Function()? notAuthenticated,
     TResult Function(PhoneNumber phone)? otpRequested,
-    TResult Function(String verificationId)? otpSent,
-    TResult Function()? otpSubmited,
+    TResult Function(String verificationId, PhoneNumber phone)? otpSent,
+    TResult Function(PhoneNumber phone)? otpSubmited,
     TResult Function(User user)? authenticated,
     TResult Function(String error)? authErrorEvenr,
     required TResult orElse(),
@@ -220,6 +370,7 @@ class _$AuthNotAuthenticatedState implements AuthNotAuthenticatedState {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
+    required TResult Function(AuthLoadingState value) loading,
     required TResult Function(AuthNotAuthenticatedState value) notAuthenticated,
     required TResult Function(AuthOtpRequestedState value) otpRequested,
     required TResult Function(AuthOtpSentState value) otpSent,
@@ -233,6 +384,7 @@ class _$AuthNotAuthenticatedState implements AuthNotAuthenticatedState {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(AuthLoadingState value)? loading,
     TResult Function(AuthNotAuthenticatedState value)? notAuthenticated,
     TResult Function(AuthOtpRequestedState value)? otpRequested,
     TResult Function(AuthOtpSentState value)? otpSent,
@@ -246,6 +398,7 @@ class _$AuthNotAuthenticatedState implements AuthNotAuthenticatedState {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
+    TResult Function(AuthLoadingState value)? loading,
     TResult Function(AuthNotAuthenticatedState value)? notAuthenticated,
     TResult Function(AuthOtpRequestedState value)? otpRequested,
     TResult Function(AuthOtpSentState value)? otpSent,
@@ -331,10 +484,11 @@ class _$AuthOtpRequestedState implements AuthOtpRequestedState {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
+    required TResult Function() loading,
     required TResult Function() notAuthenticated,
     required TResult Function(PhoneNumber phone) otpRequested,
-    required TResult Function(String verificationId) otpSent,
-    required TResult Function() otpSubmited,
+    required TResult Function(String verificationId, PhoneNumber phone) otpSent,
+    required TResult Function(PhoneNumber phone) otpSubmited,
     required TResult Function(User user) authenticated,
     required TResult Function(String error) authErrorEvenr,
   }) {
@@ -344,10 +498,11 @@ class _$AuthOtpRequestedState implements AuthOtpRequestedState {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
+    TResult Function()? loading,
     TResult Function()? notAuthenticated,
     TResult Function(PhoneNumber phone)? otpRequested,
-    TResult Function(String verificationId)? otpSent,
-    TResult Function()? otpSubmited,
+    TResult Function(String verificationId, PhoneNumber phone)? otpSent,
+    TResult Function(PhoneNumber phone)? otpSubmited,
     TResult Function(User user)? authenticated,
     TResult Function(String error)? authErrorEvenr,
   }) {
@@ -357,10 +512,11 @@ class _$AuthOtpRequestedState implements AuthOtpRequestedState {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? loading,
     TResult Function()? notAuthenticated,
     TResult Function(PhoneNumber phone)? otpRequested,
-    TResult Function(String verificationId)? otpSent,
-    TResult Function()? otpSubmited,
+    TResult Function(String verificationId, PhoneNumber phone)? otpSent,
+    TResult Function(PhoneNumber phone)? otpSubmited,
     TResult Function(User user)? authenticated,
     TResult Function(String error)? authErrorEvenr,
     required TResult orElse(),
@@ -374,6 +530,7 @@ class _$AuthOtpRequestedState implements AuthOtpRequestedState {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
+    required TResult Function(AuthLoadingState value) loading,
     required TResult Function(AuthNotAuthenticatedState value) notAuthenticated,
     required TResult Function(AuthOtpRequestedState value) otpRequested,
     required TResult Function(AuthOtpSentState value) otpSent,
@@ -387,6 +544,7 @@ class _$AuthOtpRequestedState implements AuthOtpRequestedState {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(AuthLoadingState value)? loading,
     TResult Function(AuthNotAuthenticatedState value)? notAuthenticated,
     TResult Function(AuthOtpRequestedState value)? otpRequested,
     TResult Function(AuthOtpSentState value)? otpSent,
@@ -400,6 +558,7 @@ class _$AuthOtpRequestedState implements AuthOtpRequestedState {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
+    TResult Function(AuthLoadingState value)? loading,
     TResult Function(AuthNotAuthenticatedState value)? notAuthenticated,
     TResult Function(AuthOtpRequestedState value)? otpRequested,
     TResult Function(AuthOtpSentState value)? otpSent,
@@ -430,7 +589,7 @@ abstract class $AuthOtpSentStateCopyWith<$Res> {
   factory $AuthOtpSentStateCopyWith(
           AuthOtpSentState value, $Res Function(AuthOtpSentState) then) =
       _$AuthOtpSentStateCopyWithImpl<$Res>;
-  $Res call({String verificationId});
+  $Res call({String verificationId, PhoneNumber phone});
 }
 
 /// @nodoc
@@ -446,12 +605,17 @@ class _$AuthOtpSentStateCopyWithImpl<$Res> extends _$AuthStateCopyWithImpl<$Res>
   @override
   $Res call({
     Object? verificationId = freezed,
+    Object? phone = freezed,
   }) {
     return _then(AuthOtpSentState(
       verificationId == freezed
           ? _value.verificationId
           : verificationId // ignore: cast_nullable_to_non_nullable
               as String,
+      phone == freezed
+          ? _value.phone
+          : phone // ignore: cast_nullable_to_non_nullable
+              as PhoneNumber,
     ));
   }
 }
@@ -459,14 +623,16 @@ class _$AuthOtpSentStateCopyWithImpl<$Res> extends _$AuthStateCopyWithImpl<$Res>
 /// @nodoc
 
 class _$AuthOtpSentState implements AuthOtpSentState {
-  const _$AuthOtpSentState(this.verificationId);
+  const _$AuthOtpSentState(this.verificationId, this.phone);
 
   @override
   final String verificationId;
+  @override
+  final PhoneNumber phone;
 
   @override
   String toString() {
-    return 'AuthState.otpSent(verificationId: $verificationId)';
+    return 'AuthState.otpSent(verificationId: $verificationId, phone: $phone)';
   }
 
   @override
@@ -475,12 +641,15 @@ class _$AuthOtpSentState implements AuthOtpSentState {
         (other.runtimeType == runtimeType &&
             other is AuthOtpSentState &&
             const DeepCollectionEquality()
-                .equals(other.verificationId, verificationId));
+                .equals(other.verificationId, verificationId) &&
+            const DeepCollectionEquality().equals(other.phone, phone));
   }
 
   @override
   int get hashCode => Object.hash(
-      runtimeType, const DeepCollectionEquality().hash(verificationId));
+      runtimeType,
+      const DeepCollectionEquality().hash(verificationId),
+      const DeepCollectionEquality().hash(phone));
 
   @JsonKey(ignore: true)
   @override
@@ -490,42 +659,45 @@ class _$AuthOtpSentState implements AuthOtpSentState {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
+    required TResult Function() loading,
     required TResult Function() notAuthenticated,
     required TResult Function(PhoneNumber phone) otpRequested,
-    required TResult Function(String verificationId) otpSent,
-    required TResult Function() otpSubmited,
+    required TResult Function(String verificationId, PhoneNumber phone) otpSent,
+    required TResult Function(PhoneNumber phone) otpSubmited,
     required TResult Function(User user) authenticated,
     required TResult Function(String error) authErrorEvenr,
   }) {
-    return otpSent(verificationId);
+    return otpSent(verificationId, phone);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
+    TResult Function()? loading,
     TResult Function()? notAuthenticated,
     TResult Function(PhoneNumber phone)? otpRequested,
-    TResult Function(String verificationId)? otpSent,
-    TResult Function()? otpSubmited,
+    TResult Function(String verificationId, PhoneNumber phone)? otpSent,
+    TResult Function(PhoneNumber phone)? otpSubmited,
     TResult Function(User user)? authenticated,
     TResult Function(String error)? authErrorEvenr,
   }) {
-    return otpSent?.call(verificationId);
+    return otpSent?.call(verificationId, phone);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? loading,
     TResult Function()? notAuthenticated,
     TResult Function(PhoneNumber phone)? otpRequested,
-    TResult Function(String verificationId)? otpSent,
-    TResult Function()? otpSubmited,
+    TResult Function(String verificationId, PhoneNumber phone)? otpSent,
+    TResult Function(PhoneNumber phone)? otpSubmited,
     TResult Function(User user)? authenticated,
     TResult Function(String error)? authErrorEvenr,
     required TResult orElse(),
   }) {
     if (otpSent != null) {
-      return otpSent(verificationId);
+      return otpSent(verificationId, phone);
     }
     return orElse();
   }
@@ -533,6 +705,7 @@ class _$AuthOtpSentState implements AuthOtpSentState {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
+    required TResult Function(AuthLoadingState value) loading,
     required TResult Function(AuthNotAuthenticatedState value) notAuthenticated,
     required TResult Function(AuthOtpRequestedState value) otpRequested,
     required TResult Function(AuthOtpSentState value) otpSent,
@@ -546,6 +719,7 @@ class _$AuthOtpSentState implements AuthOtpSentState {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(AuthLoadingState value)? loading,
     TResult Function(AuthNotAuthenticatedState value)? notAuthenticated,
     TResult Function(AuthOtpRequestedState value)? otpRequested,
     TResult Function(AuthOtpSentState value)? otpSent,
@@ -559,6 +733,7 @@ class _$AuthOtpSentState implements AuthOtpSentState {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
+    TResult Function(AuthLoadingState value)? loading,
     TResult Function(AuthNotAuthenticatedState value)? notAuthenticated,
     TResult Function(AuthOtpRequestedState value)? otpRequested,
     TResult Function(AuthOtpSentState value)? otpSent,
@@ -575,9 +750,11 @@ class _$AuthOtpSentState implements AuthOtpSentState {
 }
 
 abstract class AuthOtpSentState implements AuthState {
-  const factory AuthOtpSentState(String verificationId) = _$AuthOtpSentState;
+  const factory AuthOtpSentState(String verificationId, PhoneNumber phone) =
+      _$AuthOtpSentState;
 
   String get verificationId;
+  PhoneNumber get phone;
   @JsonKey(ignore: true)
   $AuthOtpSentStateCopyWith<AuthOtpSentState> get copyWith =>
       throw _privateConstructorUsedError;
@@ -588,6 +765,7 @@ abstract class $AuthOtpSubmittedStateCopyWith<$Res> {
   factory $AuthOtpSubmittedStateCopyWith(AuthOtpSubmittedState value,
           $Res Function(AuthOtpSubmittedState) then) =
       _$AuthOtpSubmittedStateCopyWithImpl<$Res>;
+  $Res call({PhoneNumber phone});
 }
 
 /// @nodoc
@@ -600,66 +778,93 @@ class _$AuthOtpSubmittedStateCopyWithImpl<$Res>
 
   @override
   AuthOtpSubmittedState get _value => super._value as AuthOtpSubmittedState;
+
+  @override
+  $Res call({
+    Object? phone = freezed,
+  }) {
+    return _then(AuthOtpSubmittedState(
+      phone == freezed
+          ? _value.phone
+          : phone // ignore: cast_nullable_to_non_nullable
+              as PhoneNumber,
+    ));
+  }
 }
 
 /// @nodoc
 
 class _$AuthOtpSubmittedState implements AuthOtpSubmittedState {
-  const _$AuthOtpSubmittedState();
+  const _$AuthOtpSubmittedState(this.phone);
+
+  @override
+  final PhoneNumber phone;
 
   @override
   String toString() {
-    return 'AuthState.otpSubmited()';
+    return 'AuthState.otpSubmited(phone: $phone)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is AuthOtpSubmittedState);
+        (other.runtimeType == runtimeType &&
+            other is AuthOtpSubmittedState &&
+            const DeepCollectionEquality().equals(other.phone, phone));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode =>
+      Object.hash(runtimeType, const DeepCollectionEquality().hash(phone));
+
+  @JsonKey(ignore: true)
+  @override
+  $AuthOtpSubmittedStateCopyWith<AuthOtpSubmittedState> get copyWith =>
+      _$AuthOtpSubmittedStateCopyWithImpl<AuthOtpSubmittedState>(
+          this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
+    required TResult Function() loading,
     required TResult Function() notAuthenticated,
     required TResult Function(PhoneNumber phone) otpRequested,
-    required TResult Function(String verificationId) otpSent,
-    required TResult Function() otpSubmited,
+    required TResult Function(String verificationId, PhoneNumber phone) otpSent,
+    required TResult Function(PhoneNumber phone) otpSubmited,
     required TResult Function(User user) authenticated,
     required TResult Function(String error) authErrorEvenr,
   }) {
-    return otpSubmited();
+    return otpSubmited(phone);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
+    TResult Function()? loading,
     TResult Function()? notAuthenticated,
     TResult Function(PhoneNumber phone)? otpRequested,
-    TResult Function(String verificationId)? otpSent,
-    TResult Function()? otpSubmited,
+    TResult Function(String verificationId, PhoneNumber phone)? otpSent,
+    TResult Function(PhoneNumber phone)? otpSubmited,
     TResult Function(User user)? authenticated,
     TResult Function(String error)? authErrorEvenr,
   }) {
-    return otpSubmited?.call();
+    return otpSubmited?.call(phone);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? loading,
     TResult Function()? notAuthenticated,
     TResult Function(PhoneNumber phone)? otpRequested,
-    TResult Function(String verificationId)? otpSent,
-    TResult Function()? otpSubmited,
+    TResult Function(String verificationId, PhoneNumber phone)? otpSent,
+    TResult Function(PhoneNumber phone)? otpSubmited,
     TResult Function(User user)? authenticated,
     TResult Function(String error)? authErrorEvenr,
     required TResult orElse(),
   }) {
     if (otpSubmited != null) {
-      return otpSubmited();
+      return otpSubmited(phone);
     }
     return orElse();
   }
@@ -667,6 +872,7 @@ class _$AuthOtpSubmittedState implements AuthOtpSubmittedState {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
+    required TResult Function(AuthLoadingState value) loading,
     required TResult Function(AuthNotAuthenticatedState value) notAuthenticated,
     required TResult Function(AuthOtpRequestedState value) otpRequested,
     required TResult Function(AuthOtpSentState value) otpSent,
@@ -680,6 +886,7 @@ class _$AuthOtpSubmittedState implements AuthOtpSubmittedState {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(AuthLoadingState value)? loading,
     TResult Function(AuthNotAuthenticatedState value)? notAuthenticated,
     TResult Function(AuthOtpRequestedState value)? otpRequested,
     TResult Function(AuthOtpSentState value)? otpSent,
@@ -693,6 +900,7 @@ class _$AuthOtpSubmittedState implements AuthOtpSubmittedState {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
+    TResult Function(AuthLoadingState value)? loading,
     TResult Function(AuthNotAuthenticatedState value)? notAuthenticated,
     TResult Function(AuthOtpRequestedState value)? otpRequested,
     TResult Function(AuthOtpSentState value)? otpSent,
@@ -709,7 +917,13 @@ class _$AuthOtpSubmittedState implements AuthOtpSubmittedState {
 }
 
 abstract class AuthOtpSubmittedState implements AuthState {
-  const factory AuthOtpSubmittedState() = _$AuthOtpSubmittedState;
+  const factory AuthOtpSubmittedState(PhoneNumber phone) =
+      _$AuthOtpSubmittedState;
+
+  PhoneNumber get phone;
+  @JsonKey(ignore: true)
+  $AuthOtpSubmittedStateCopyWith<AuthOtpSubmittedState> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -778,10 +992,11 @@ class _$AuthAuthenticatedState implements AuthAuthenticatedState {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
+    required TResult Function() loading,
     required TResult Function() notAuthenticated,
     required TResult Function(PhoneNumber phone) otpRequested,
-    required TResult Function(String verificationId) otpSent,
-    required TResult Function() otpSubmited,
+    required TResult Function(String verificationId, PhoneNumber phone) otpSent,
+    required TResult Function(PhoneNumber phone) otpSubmited,
     required TResult Function(User user) authenticated,
     required TResult Function(String error) authErrorEvenr,
   }) {
@@ -791,10 +1006,11 @@ class _$AuthAuthenticatedState implements AuthAuthenticatedState {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
+    TResult Function()? loading,
     TResult Function()? notAuthenticated,
     TResult Function(PhoneNumber phone)? otpRequested,
-    TResult Function(String verificationId)? otpSent,
-    TResult Function()? otpSubmited,
+    TResult Function(String verificationId, PhoneNumber phone)? otpSent,
+    TResult Function(PhoneNumber phone)? otpSubmited,
     TResult Function(User user)? authenticated,
     TResult Function(String error)? authErrorEvenr,
   }) {
@@ -804,10 +1020,11 @@ class _$AuthAuthenticatedState implements AuthAuthenticatedState {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? loading,
     TResult Function()? notAuthenticated,
     TResult Function(PhoneNumber phone)? otpRequested,
-    TResult Function(String verificationId)? otpSent,
-    TResult Function()? otpSubmited,
+    TResult Function(String verificationId, PhoneNumber phone)? otpSent,
+    TResult Function(PhoneNumber phone)? otpSubmited,
     TResult Function(User user)? authenticated,
     TResult Function(String error)? authErrorEvenr,
     required TResult orElse(),
@@ -821,6 +1038,7 @@ class _$AuthAuthenticatedState implements AuthAuthenticatedState {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
+    required TResult Function(AuthLoadingState value) loading,
     required TResult Function(AuthNotAuthenticatedState value) notAuthenticated,
     required TResult Function(AuthOtpRequestedState value) otpRequested,
     required TResult Function(AuthOtpSentState value) otpSent,
@@ -834,6 +1052,7 @@ class _$AuthAuthenticatedState implements AuthAuthenticatedState {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(AuthLoadingState value)? loading,
     TResult Function(AuthNotAuthenticatedState value)? notAuthenticated,
     TResult Function(AuthOtpRequestedState value)? otpRequested,
     TResult Function(AuthOtpSentState value)? otpSent,
@@ -847,6 +1066,7 @@ class _$AuthAuthenticatedState implements AuthAuthenticatedState {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
+    TResult Function(AuthLoadingState value)? loading,
     TResult Function(AuthNotAuthenticatedState value)? notAuthenticated,
     TResult Function(AuthOtpRequestedState value)? otpRequested,
     TResult Function(AuthOtpSentState value)? otpSent,
@@ -935,10 +1155,11 @@ class _$AuthErrorEvent implements AuthErrorEvent {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
+    required TResult Function() loading,
     required TResult Function() notAuthenticated,
     required TResult Function(PhoneNumber phone) otpRequested,
-    required TResult Function(String verificationId) otpSent,
-    required TResult Function() otpSubmited,
+    required TResult Function(String verificationId, PhoneNumber phone) otpSent,
+    required TResult Function(PhoneNumber phone) otpSubmited,
     required TResult Function(User user) authenticated,
     required TResult Function(String error) authErrorEvenr,
   }) {
@@ -948,10 +1169,11 @@ class _$AuthErrorEvent implements AuthErrorEvent {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
+    TResult Function()? loading,
     TResult Function()? notAuthenticated,
     TResult Function(PhoneNumber phone)? otpRequested,
-    TResult Function(String verificationId)? otpSent,
-    TResult Function()? otpSubmited,
+    TResult Function(String verificationId, PhoneNumber phone)? otpSent,
+    TResult Function(PhoneNumber phone)? otpSubmited,
     TResult Function(User user)? authenticated,
     TResult Function(String error)? authErrorEvenr,
   }) {
@@ -961,10 +1183,11 @@ class _$AuthErrorEvent implements AuthErrorEvent {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? loading,
     TResult Function()? notAuthenticated,
     TResult Function(PhoneNumber phone)? otpRequested,
-    TResult Function(String verificationId)? otpSent,
-    TResult Function()? otpSubmited,
+    TResult Function(String verificationId, PhoneNumber phone)? otpSent,
+    TResult Function(PhoneNumber phone)? otpSubmited,
     TResult Function(User user)? authenticated,
     TResult Function(String error)? authErrorEvenr,
     required TResult orElse(),
@@ -978,6 +1201,7 @@ class _$AuthErrorEvent implements AuthErrorEvent {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
+    required TResult Function(AuthLoadingState value) loading,
     required TResult Function(AuthNotAuthenticatedState value) notAuthenticated,
     required TResult Function(AuthOtpRequestedState value) otpRequested,
     required TResult Function(AuthOtpSentState value) otpSent,
@@ -991,6 +1215,7 @@ class _$AuthErrorEvent implements AuthErrorEvent {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(AuthLoadingState value)? loading,
     TResult Function(AuthNotAuthenticatedState value)? notAuthenticated,
     TResult Function(AuthOtpRequestedState value)? otpRequested,
     TResult Function(AuthOtpSentState value)? otpSent,
@@ -1004,6 +1229,7 @@ class _$AuthErrorEvent implements AuthErrorEvent {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
+    TResult Function(AuthLoadingState value)? loading,
     TResult Function(AuthNotAuthenticatedState value)? notAuthenticated,
     TResult Function(AuthOtpRequestedState value)? otpRequested,
     TResult Function(AuthOtpSentState value)? otpSent,

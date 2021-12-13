@@ -9,7 +9,7 @@ final authStateNotifierProvider =
         (ref) => AuthStateNotifier());
 
 class AuthStateNotifier extends StateNotifier<AuthState> {
-  AuthStateNotifier() : super(const AuthNotAuthenticatedState()) {
+  AuthStateNotifier() : super(const AuthLoadingState()) {
     _subscribeToState();
   }
 
@@ -22,15 +22,15 @@ class AuthStateNotifier extends StateNotifier<AuthState> {
       phoneNumber: phone.value,
       verificationCompleted: (creds) => _signIn(creds),
       verificationFailed: (e) => _onAuthFailed(e),
-      codeSent: (verificationId, _) => _codeSent(verificationId),
+      codeSent: (verificationId, _) => _codeSent(verificationId, phone),
       codeAutoRetrievalTimeout: (_) {},
     );
   }
 
   void submitOtp(String otp) {
     state.maybeWhen(
-      otpSent: (verificationId) {
-        state = const AuthOtpSubmittedState();
+      otpSent: (verificationId, phone) {
+        state = AuthOtpSubmittedState(phone);
         final creds = PhoneAuthProvider.credential(
           verificationId: verificationId,
           smsCode: otp,
@@ -41,8 +41,8 @@ class AuthStateNotifier extends StateNotifier<AuthState> {
     );
   }
 
-  void _codeSent(String verificationId) {
-    state = AuthOtpSentState(verificationId);
+  void _codeSent(String verificationId, PhoneNumber phone) {
+    state = AuthOtpSentState(verificationId, phone);
   }
 
   void _onAuthFailed(FirebaseAuthException exception) {
