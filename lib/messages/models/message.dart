@@ -1,24 +1,21 @@
+// ignore_for_file: invalid_annotation_target
+
 import 'package:freezed_annotation/freezed_annotation.dart';
 
+part 'message.freezed.dart';
 part 'message.g.dart';
 
-@JsonSerializable(explicitToJson: true)
-class Message {
-  final String? id;
-  final String text;
-  final String authorId;
-  final DateTime sentAt;
-  final Set<String> readUsersIds;
+@freezed
+class Message with _$Message {
+  @JsonSerializable(explicitToJson: true)
+  const factory Message({
+    String? id,
+    required String text,
+    required String authorId,
+    required DateTime sentAt,
+    required Set<String> readUsersIds,
+  }) = _Message;
 
-  Message({
-    this.id,
-    required this.text,
-    required this.authorId,
-    required this.sentAt,
-    required this.readUsersIds,
-  });
-
-  factory Message.fromJson(Map<String, dynamic> json) => _$MessageFromJson(json);
-  
-  Map<String, dynamic> toJson() => _$MessageToJson(this);
+  factory Message.fromJson(Map<String, dynamic> json) =>
+      _$MessageFromJson(json);
 }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../../conversations/view/screens/conversation_screen.dart';
 import '../../models/chat_item.dart';
 
 class ChatItemTile extends StatelessWidget {
@@ -9,14 +10,21 @@ class ChatItemTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    void goToConversation(){
+      Navigator.pushNamed(context, ConversationScreen.route, arguments: chat);
+    }
+
     return Card(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-        Text(chat.users.first.name),
-        Text(chat.users.first.phone.value),
-        Text(chat.lastMessage.text),
-      ],),
+      child: InkWell(
+        onTap: () => goToConversation(),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+          Text(chat.users.first.name),
+          Text(chat.users.first.phone.value),
+          Text(chat.lastMessage.text),
+        ],),
+      ),
     );
   }
 }

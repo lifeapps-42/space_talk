@@ -9,6 +9,7 @@ import '../widgets/chats_view.dart';
 class ChatsScreen extends ConsumerWidget {
   const ChatsScreen({Key? key, required this.user}) : super(key: key);
 
+  static const route = 'chats';
   final User user;
 
   @override

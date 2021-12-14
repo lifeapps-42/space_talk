@@ -7,6 +7,8 @@ class ChatItem {
   final Message lastMessage;
   final Set<User> users;
 
+  User get companion => users.first;
+
   ChatItem({required this.id, required this.lastMessage, required this.users});
 
   static ChatItem? fromChatAndCompanions(Chat chat, List<User> companions) {
