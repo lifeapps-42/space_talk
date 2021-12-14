@@ -38,9 +38,10 @@ final chatItemsProvider = Provider<ChatItemsState>((ref) {
 
   ChatItemsState _dependOnChatsState() {
     return chatsState.when(
-      noChats: () => const ChatItemsNoItemsState(),
       initializing: () => const ChatItemsLoadingState(),
-      subscribed: (chats) => _dependOnCompanionsState(chats),
+      subscribed: (chats) => chats.isEmpty
+          ? const ChatItemsNoItemsState()
+          : _dependOnCompanionsState(chats),
     );
   }
 

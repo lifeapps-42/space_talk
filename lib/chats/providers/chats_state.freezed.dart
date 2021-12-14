@@ -21,10 +21,6 @@ class _$ChatsStateTearOff {
     return const ChatsInitializingState();
   }
 
-  ChatsNoChatsState noChats() {
-    return const ChatsNoChatsState();
-  }
-
   ChatsSubscribedState subscribed(List<Chat> chats) {
     return ChatsSubscribedState(
       chats,
@@ -40,21 +36,18 @@ mixin _$ChatsState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initializing,
-    required TResult Function() noChats,
     required TResult Function(List<Chat> chats) subscribed,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? initializing,
-    TResult Function()? noChats,
     TResult Function(List<Chat> chats)? subscribed,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initializing,
-    TResult Function()? noChats,
     TResult Function(List<Chat> chats)? subscribed,
     required TResult orElse(),
   }) =>
@@ -62,21 +55,18 @@ mixin _$ChatsState {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(ChatsInitializingState value) initializing,
-    required TResult Function(ChatsNoChatsState value) noChats,
     required TResult Function(ChatsSubscribedState value) subscribed,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult Function(ChatsInitializingState value)? initializing,
-    TResult Function(ChatsNoChatsState value)? noChats,
     TResult Function(ChatsSubscribedState value)? subscribed,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(ChatsInitializingState value)? initializing,
-    TResult Function(ChatsNoChatsState value)? noChats,
     TResult Function(ChatsSubscribedState value)? subscribed,
     required TResult orElse(),
   }) =>
@@ -141,7 +131,6 @@ class _$ChatsInitializingState implements ChatsInitializingState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initializing,
-    required TResult Function() noChats,
     required TResult Function(List<Chat> chats) subscribed,
   }) {
     return initializing();
@@ -151,7 +140,6 @@ class _$ChatsInitializingState implements ChatsInitializingState {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? initializing,
-    TResult Function()? noChats,
     TResult Function(List<Chat> chats)? subscribed,
   }) {
     return initializing?.call();
@@ -161,7 +149,6 @@ class _$ChatsInitializingState implements ChatsInitializingState {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initializing,
-    TResult Function()? noChats,
     TResult Function(List<Chat> chats)? subscribed,
     required TResult orElse(),
   }) {
@@ -175,7 +162,6 @@ class _$ChatsInitializingState implements ChatsInitializingState {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(ChatsInitializingState value) initializing,
-    required TResult Function(ChatsNoChatsState value) noChats,
     required TResult Function(ChatsSubscribedState value) subscribed,
   }) {
     return initializing(this);
@@ -185,7 +171,6 @@ class _$ChatsInitializingState implements ChatsInitializingState {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult Function(ChatsInitializingState value)? initializing,
-    TResult Function(ChatsNoChatsState value)? noChats,
     TResult Function(ChatsSubscribedState value)? subscribed,
   }) {
     return initializing?.call(this);
@@ -195,7 +180,6 @@ class _$ChatsInitializingState implements ChatsInitializingState {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(ChatsInitializingState value)? initializing,
-    TResult Function(ChatsNoChatsState value)? noChats,
     TResult Function(ChatsSubscribedState value)? subscribed,
     required TResult orElse(),
   }) {
@@ -208,117 +192,6 @@ class _$ChatsInitializingState implements ChatsInitializingState {
 
 abstract class ChatsInitializingState implements ChatsState {
   const factory ChatsInitializingState() = _$ChatsInitializingState;
-}
-
-/// @nodoc
-abstract class $ChatsNoChatsStateCopyWith<$Res> {
-  factory $ChatsNoChatsStateCopyWith(
-          ChatsNoChatsState value, $Res Function(ChatsNoChatsState) then) =
-      _$ChatsNoChatsStateCopyWithImpl<$Res>;
-}
-
-/// @nodoc
-class _$ChatsNoChatsStateCopyWithImpl<$Res>
-    extends _$ChatsStateCopyWithImpl<$Res>
-    implements $ChatsNoChatsStateCopyWith<$Res> {
-  _$ChatsNoChatsStateCopyWithImpl(
-      ChatsNoChatsState _value, $Res Function(ChatsNoChatsState) _then)
-      : super(_value, (v) => _then(v as ChatsNoChatsState));
-
-  @override
-  ChatsNoChatsState get _value => super._value as ChatsNoChatsState;
-}
-
-/// @nodoc
-
-class _$ChatsNoChatsState implements ChatsNoChatsState {
-  const _$ChatsNoChatsState();
-
-  @override
-  String toString() {
-    return 'ChatsState.noChats()';
-  }
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is ChatsNoChatsState);
-  }
-
-  @override
-  int get hashCode => runtimeType.hashCode;
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function() initializing,
-    required TResult Function() noChats,
-    required TResult Function(List<Chat> chats) subscribed,
-  }) {
-    return noChats();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult Function()? initializing,
-    TResult Function()? noChats,
-    TResult Function(List<Chat> chats)? subscribed,
-  }) {
-    return noChats?.call();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? initializing,
-    TResult Function()? noChats,
-    TResult Function(List<Chat> chats)? subscribed,
-    required TResult orElse(),
-  }) {
-    if (noChats != null) {
-      return noChats();
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(ChatsInitializingState value) initializing,
-    required TResult Function(ChatsNoChatsState value) noChats,
-    required TResult Function(ChatsSubscribedState value) subscribed,
-  }) {
-    return noChats(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(ChatsInitializingState value)? initializing,
-    TResult Function(ChatsNoChatsState value)? noChats,
-    TResult Function(ChatsSubscribedState value)? subscribed,
-  }) {
-    return noChats?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(ChatsInitializingState value)? initializing,
-    TResult Function(ChatsNoChatsState value)? noChats,
-    TResult Function(ChatsSubscribedState value)? subscribed,
-    required TResult orElse(),
-  }) {
-    if (noChats != null) {
-      return noChats(this);
-    }
-    return orElse();
-  }
-}
-
-abstract class ChatsNoChatsState implements ChatsState {
-  const factory ChatsNoChatsState() = _$ChatsNoChatsState;
 }
 
 /// @nodoc
@@ -388,7 +261,6 @@ class _$ChatsSubscribedState implements ChatsSubscribedState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initializing,
-    required TResult Function() noChats,
     required TResult Function(List<Chat> chats) subscribed,
   }) {
     return subscribed(chats);
@@ -398,7 +270,6 @@ class _$ChatsSubscribedState implements ChatsSubscribedState {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? initializing,
-    TResult Function()? noChats,
     TResult Function(List<Chat> chats)? subscribed,
   }) {
     return subscribed?.call(chats);
@@ -408,7 +279,6 @@ class _$ChatsSubscribedState implements ChatsSubscribedState {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initializing,
-    TResult Function()? noChats,
     TResult Function(List<Chat> chats)? subscribed,
     required TResult orElse(),
   }) {
@@ -422,7 +292,6 @@ class _$ChatsSubscribedState implements ChatsSubscribedState {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(ChatsInitializingState value) initializing,
-    required TResult Function(ChatsNoChatsState value) noChats,
     required TResult Function(ChatsSubscribedState value) subscribed,
   }) {
     return subscribed(this);
@@ -432,7 +301,6 @@ class _$ChatsSubscribedState implements ChatsSubscribedState {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult Function(ChatsInitializingState value)? initializing,
-    TResult Function(ChatsNoChatsState value)? noChats,
     TResult Function(ChatsSubscribedState value)? subscribed,
   }) {
     return subscribed?.call(this);
@@ -442,7 +310,6 @@ class _$ChatsSubscribedState implements ChatsSubscribedState {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(ChatsInitializingState value)? initializing,
-    TResult Function(ChatsNoChatsState value)? noChats,
     TResult Function(ChatsSubscribedState value)? subscribed,
     required TResult orElse(),
   }) {

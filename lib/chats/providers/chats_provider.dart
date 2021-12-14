@@ -29,10 +29,6 @@ class ChatsStateNotifier extends StateNotifier<ChatsState> {
 
   void _init() async {
     final chats = await _repo.getChatsData(_user.uid);
-    if (chats.isEmpty) {
-      state = const ChatsNoChatsState();
-      return;
-    }
     _subscribeAndListen();
     state = ChatsSubscribedState(chats);
   }

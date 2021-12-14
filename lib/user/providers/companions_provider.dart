@@ -27,8 +27,9 @@ class CompanionsStateNotifier extends StateNotifier<CompanionsState> {
     ref.listen<ChatsState>(chatsStateNotifierProvider, (previous, next) {
       next.when(
         initializing: () => state = const CompanionsInitializingState(),
-        noChats: () => state = const CompanionsSubscribedState([], null),
-        subscribed: (chats) => _fetchAndSubscribe(chats),
+        subscribed: (chats) => chats.isEmpty
+            ? state = const CompanionsSubscribedState([], null)
+            : _fetchAndSubscribe(chats),
       );
     });
   }
