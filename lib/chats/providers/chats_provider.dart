@@ -1,4 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:space_talk/utils/refresh_provider_on_user_changes.dart';
 
 import '../../user/models/user.dart';
 import '../../user/providers/user_provider.dart';
@@ -21,6 +22,7 @@ class ChatsStateNotifier extends StateNotifier<ChatsState> {
           const ChatsInitializingState(),
         ) {
     _init();
+    refreshOnUserChanges(ref, chatsStateNotifierProvider);
   }
 
   final Ref ref;

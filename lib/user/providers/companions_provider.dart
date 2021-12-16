@@ -5,6 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../chats/models/private_chat.dart';
 import '../../chats/providers/chats_provider.dart';
 import '../../chats/providers/chats_state.dart';
+import '../../utils/refresh_provider_on_user_changes.dart';
 import '../models/user.dart';
 import '../repo/companions_repo_provider.dart';
 import 'companions_state.dart';
@@ -18,6 +19,11 @@ class CompanionsStateNotifier extends StateNotifier<CompanionsState> {
       : _repo = ref.read(companionsRepoProvider),
         super(const CompanionsInitializingState()) {
     _init();
+    refreshOnUserChanges(
+      ref,
+      companionsStateNotifierProvider,
+      callback: _cancelSubscription,
+    );
   }
 
   final Ref ref;
@@ -60,5 +66,11 @@ class CompanionsStateNotifier extends StateNotifier<CompanionsState> {
       }
     }
     return newCompanions;
+  }
+
+  void _cancelSubscription() {
+    state.whenOrNull(
+      subscribed: (_, subscription) => subscription?.cancel(),
+    );
   }
 }

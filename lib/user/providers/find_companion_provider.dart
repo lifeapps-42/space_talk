@@ -1,6 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../models/phone.dart';
+import '../../utils/refresh_provider_on_user_changes.dart';
 import '../repo/companions_repo_provider.dart';
 import 'find_companion_state.dart';
 
@@ -14,7 +15,9 @@ final findCompanionStateNotifierProvider = StateNotifierProvider.autoDispose<
 class FindCompanionStateNotifier extends StateNotifier<FindCompanionState> {
   FindCompanionStateNotifier(this.ref)
       : _repo = ref.read(companionsRepoProvider),
-        super(const FindCompanionReadyState());
+        super(const FindCompanionReadyState()) {
+    refreshOnUserChanges(ref, findCompanionStateNotifierProvider);
+  }
 
   final Ref ref;
   final CompanionsRepo _repo;

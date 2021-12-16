@@ -82,6 +82,7 @@ class UserStateNotifier extends StateNotifier<UserState> {
     state = UserLoadingState(fbUser.uid);
     final user = await _repo.getUserById(fbUser.uid);
     state = user == null ? UserNoNameState(fbUser) : UserDataState(user);
+    state.whenOrNull(data: (_) => goOnline());
   }
 
   void _dropUser() {
