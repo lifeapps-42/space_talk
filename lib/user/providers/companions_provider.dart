@@ -45,10 +45,6 @@ class CompanionsStateNotifier extends StateNotifier<CompanionsState> {
     late StreamSubscription<List<User>> subscription;
     final stream = _repo.subscribeToCompanions(companionsIds);
     subscription = stream.listen((companions) {
-      state.maybeWhen(
-        subscribed: (_, oldSubscription) => oldSubscription?.cancel(),
-        orElse: () {},
-      );
       state = CompanionsSubscribedState(companions, subscription);
     });
     return subscription;

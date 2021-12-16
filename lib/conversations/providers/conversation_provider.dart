@@ -11,11 +11,13 @@ import 'conversation_state.dart';
 import 'conversation_state_data.dart';
 
 final conversationStateNotifierProvider =
-    StateNotifierProvider<ConversationStateNotifier, ConversationState>(
-        (ref) => ConversationStateNotifier(ref));
+    StateNotifierProvider.family<ConversationStateNotifier, ConversationState, String>(
+        (ref, chatId) => ConversationStateNotifier(ref, chatId));
+
+final singleMessageProvider = Provider<Message?>((_)=> null);
 
 class ConversationStateNotifier extends StateNotifier<ConversationState> {
-  ConversationStateNotifier(this.ref)
+  ConversationStateNotifier(this.ref, this.chatId)
       : _repo = ref.read(conversationRepoProvider),
         _user = ref
             .read(userStateNotifierProvider)
@@ -24,9 +26,10 @@ class ConversationStateNotifier extends StateNotifier<ConversationState> {
 
   final Ref ref;
   final ConversationRepo _repo;
+  final String chatId;
   final User? _user;
 
-  void fetchMessagesAndSubscribeOnEvents(String chatId) async {
+  void fetchMessagesAndSubscribeOnEvents() async {
     state = const ConversationLoadingState();
     final messages = await _repo.fetchMessages(chatId);
     final hasMoreToFetch = messages.length == _repo.paginationRate;
@@ -55,7 +58,7 @@ class ConversationStateNotifier extends StateNotifier<ConversationState> {
     );
   }
 
-  void sendMessage(String chatId, String text) {
+  void sendMessage(String text) {
     final message = Message(
       authorId: _user!.uid,
       text: text,
@@ -65,7 +68,10 @@ class ConversationStateNotifier extends StateNotifier<ConversationState> {
     _repo.sendMessage(chatId, message);
   }
 
-  void _subscribeToEvents(ConversationStateData stateData, {StreamSubscription<List<ConversationEvent>>? subscription,}) {
+  void _subscribeToEvents(
+    ConversationStateData stateData, {
+    StreamSubscription<List<ConversationEvent>>? subscription,
+  }) {
     subscription?.cancel();
     final eventsStream = _repo.getEventsStream(stateData.chatId);
     final newSubscription = eventsStream.listen((event) => _onEvent(event));
@@ -85,7 +91,7 @@ class ConversationStateNotifier extends StateNotifier<ConversationState> {
   void _addMessageEvent(Message message) {
     state.maybeWhen(
       live: (oldStateData, subscription) {
-        if(oldStateData.messages.contains(message)) return;
+        if (oldStateData.messages.contains(message)) return;
         final messages = [message, ...oldStateData.messages];
         final stateData = oldStateData.copyWith(messages: messages);
         _subscribeToEvents(stateData, subscription: subscription);

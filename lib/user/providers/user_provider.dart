@@ -40,6 +40,11 @@ class UserStateNotifier extends StateNotifier<UserState> {
     );
   }
 
+  User? get user => state.whenOrNull(
+        data: (user) => user,
+        updating: (user) => user,
+      );
+
   void updateUser(User user) {
     state.maybeWhen(
       data: (prevUser) async {
@@ -51,6 +56,28 @@ class UserStateNotifier extends StateNotifier<UserState> {
     );
   }
 
+  void goOnline(){
+    if(user == null) return;
+    const status = UserOnlineStatus();
+    final newUser = user!.copyWith(status: status);
+    _repo.setUser(newUser);
+  }
+
+  void goOffline(){
+    if(user == null) return;
+    final lastSeen = DateTime.now().toUtc();
+    final status = UserOfflineStatus(lastSeen);
+    final newUser = user!.copyWith(status: status);
+    _repo.setUser(newUser);
+  }
+
+  void typing(String chatId){
+     if(user == null) return;
+    final status = UserPrintingStatus(chatId);
+    final newUser = user!.copyWith(status: status);
+    _repo.setUser(newUser);
+  }
+
   void _fetchUser(fba.User fbUser) async {
     state = UserLoadingState(fbUser.uid);
     final user = await _repo.getUserById(fbUser.uid);
@@ -58,6 +85,7 @@ class UserStateNotifier extends StateNotifier<UserState> {
   }
 
   void _dropUser() {
+    goOffline();
     ref.refresh(userStateNotifierProvider);
   }
 

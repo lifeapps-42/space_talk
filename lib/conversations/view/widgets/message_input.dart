@@ -20,8 +20,8 @@ class MessageInput extends HookConsumerWidget {
 
     void sendMessage() {
       ref
-          .read(conversationStateNotifierProvider.notifier)
-          .sendMessage(chatId, messageController.text);
+          .read(conversationStateNotifierProvider(chatId).notifier)
+          .sendMessage(messageController.text);
       messageController.clear();
     }
 

@@ -18,7 +18,7 @@ class ConversationScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final conversationState = ref.watch(conversationStateNotifierProvider);
+    final conversationState = ref.watch(conversationStateNotifierProvider(chatItem.id));
     final userId = ref.read(userStateNotifierProvider).maybeWhen(
           data: (user) => user.uid,
           updating: (user) => user.uid,
@@ -27,8 +27,8 @@ class ConversationScreen extends ConsumerWidget {
 
     void init() {
       ref
-          .read(conversationStateNotifierProvider.notifier)
-          .fetchMessagesAndSubscribeOnEvents(chatItem.id);
+          .read(conversationStateNotifierProvider(chatItem.id).notifier)
+          .fetchMessagesAndSubscribeOnEvents();
     }
 
     scheduleMicrotask(() => conversationState.maybeWhen(

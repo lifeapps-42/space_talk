@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../messages/models/message.dart';
+import '../../providers/conversation_provider.dart';
 import 'message_bubble.dart';
 
 class MessagesList extends StatelessWidget {
@@ -17,7 +19,9 @@ class MessagesList extends StatelessWidget {
       itemBuilder: (context, i) {
         final message = messages[i];
         final isMyMessage = message.authorId == currentUserId;
-        return MessageBubble(isMyMessge: isMyMessage, message: message,);
+        return ProviderScope(
+          overrides: [singleMessageProvider.overrideWithValue(message)],
+          child: MessageBubble(isMyMessge: isMyMessage));
       },
     );
   }

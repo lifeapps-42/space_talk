@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../conversations/view/screens/conversation_screen.dart';
+import '../../../widgets/online_status_label.dart';
 import '../../models/chat_item.dart';
 
 class ChatItemTile extends StatelessWidget {
@@ -20,7 +21,13 @@ class ChatItemTile extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-          Text(chat.users.first.name),
+          Row(
+            children: [
+              Text(chat.users.first.name),
+              const SizedBox(width: 15,),
+              OnlineStatusLabel(userId: chat.users.first.uid, chatId: chat.id),
+            ],
+          ),
           Text(chat.users.first.phone.value),
           Text(chat.lastMessage.text),
         ],),
