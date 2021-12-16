@@ -1,3 +1,4 @@
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -23,6 +24,8 @@ class MainRouter extends ConsumerWidget {
     void goOffline() {
       ref.read(userStateNotifierProvider.notifier).goOffline();
     }
+
+    FirebaseMessaging.instance.requestPermission();
 
     return LifecycleHandler(
      onStateChanged: (state) {
