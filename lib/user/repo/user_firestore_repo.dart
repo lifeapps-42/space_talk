@@ -21,7 +21,7 @@ class UserFirestoreRepo with FirestoreUsersModelRef implements UserRepo {
   //TODO: move to separate collection to avoid extra dispatching and more atomic sructure
   Future<void> _setFcmToken(String uid) async {
     final fcm = FirebaseMessaging.instance;
-    final fcmToken = fcm.getToken();
+    final fcmToken = await fcm.getToken();
     final data = {'fcmToken': fcmToken};
     return usersRef.doc(uid).update(data);
   }

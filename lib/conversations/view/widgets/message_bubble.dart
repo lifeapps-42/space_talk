@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../user/providers/user_provider.dart';
+import '../../../utils/date_time_extensions/date_time_extensions.dart';
 import '../../providers/conversation_provider.dart';
 
 class MessageBubble extends ConsumerWidget {
@@ -26,9 +27,18 @@ class MessageBubble extends ConsumerWidget {
                 isMyMessage ? Alignment.centerRight : Alignment.centerLeft,
             child: Card(
               color: color,
-              child: Text(
-                message!.text,
-                style: TextStyle(color: textColor),
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: [
+                    Text(
+                      message!.text,
+                      style: TextStyle(color: textColor),
+                    ),
+                    Text(message.sentAt.timeOnly, style: TextStyle(color: textColor.withOpacity(0.7), fontSize: 10),),
+                  ],
+                ),
               ),
             ),
           ),
