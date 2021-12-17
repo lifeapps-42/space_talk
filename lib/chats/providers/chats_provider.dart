@@ -1,8 +1,8 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:space_talk/utils/refresh_provider_on_user_changes.dart';
 
 import '../../user/models/user.dart';
 import '../../user/providers/user_provider.dart';
+import '../../utils/refresh_provider_on_user_changes.dart';
 import '../repo/chats_repo_provider.dart';
 import 'chats_state.dart';
 

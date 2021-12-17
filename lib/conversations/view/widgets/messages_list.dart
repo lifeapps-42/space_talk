@@ -6,10 +6,9 @@ import '../../providers/conversation_provider.dart';
 import 'message_bubble.dart';
 
 class MessagesList extends StatelessWidget {
-  const MessagesList({ Key? key, required this.messages, required this.currentUserId }) : super(key: key);
+  const MessagesList({Key? key, required this.messages}) : super(key: key);
 
   final List<Message> messages;
-  final String currentUserId;
 
   @override
   Widget build(BuildContext context) {
@@ -18,10 +17,10 @@ class MessagesList extends StatelessWidget {
       reverse: true,
       itemBuilder: (context, i) {
         final message = messages[i];
-        final isMyMessage = message.authorId == currentUserId;
         return ProviderScope(
           overrides: [singleMessageProvider.overrideWithValue(message)],
-          child: MessageBubble(isMyMessge: isMyMessage));
+          child: const MessageBubble(),
+        );
       },
     );
   }

@@ -1,8 +1,6 @@
 import 'dart:async';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:space_talk/auth/providers/auth_provider.dart';
-import 'package:space_talk/auth/providers/auth_state.dart';
 
 import '../../messages/models/message.dart';
 import '../../user/models/user.dart';

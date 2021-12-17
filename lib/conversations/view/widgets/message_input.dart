@@ -15,7 +15,7 @@ class MessageInput extends HookConsumerWidget {
     final canSend = useState(false);
 
     messageController.addListener(() {
-      canSend.value = messageController.text.isNotEmpty;
+      canSend.value = messageController.text.trim().isNotEmpty;
     });
 
     void sendMessage() {
@@ -36,8 +36,7 @@ class MessageInput extends HookConsumerWidget {
             ),
           ),
           IconButton(
-            onPressed:
-                canSend.value ? () => sendMessage() : null,
+            onPressed: canSend.value ? () => sendMessage() : null,
             icon: const Icon(Icons.send),
           ),
         ],

@@ -1,29 +1,29 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../../user/providers/user_provider.dart';
 import '../../providers/conversation_provider.dart';
 
 class MessageBubble extends ConsumerWidget {
-  const MessageBubble(
-      {Key? key, required this.isMyMessge})
-      : super(key: key);
-
-  final bool isMyMessge;
+  const MessageBubble({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final user = ref.read(userStateNotifierProvider.notifier).user;
     final message = ref.watch(singleMessageProvider);
-    final color = isMyMessge ? Colors.blue[700] : Colors.blue[200];
-    final textColor = isMyMessge ? Colors.white : Colors.black;
+    final isMyMessage = user != null && message?.authorId == user.uid;
+    final color = isMyMessage ? Colors.blue[700] : Colors.blue[200];
+    final textColor = isMyMessage ? Colors.white : Colors.black;
     return Row(
       children: [
-        if (isMyMessge)
+        if (isMyMessage)
           const SizedBox(
             width: 50,
           ),
         Expanded(
           child: Container(
-            alignment: isMyMessge ? Alignment.centerRight : Alignment.centerLeft,
+            alignment:
+                isMyMessage ? Alignment.centerRight : Alignment.centerLeft,
             child: Card(
               color: color,
               child: Text(
@@ -33,7 +33,7 @@ class MessageBubble extends ConsumerWidget {
             ),
           ),
         ),
-        if (!isMyMessge)
+        if (!isMyMessage)
           const SizedBox(
             width: 50,
           ),

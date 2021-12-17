@@ -1,7 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:space_talk/user/providers/user_provider.dart';
 
 import '../../user/models/user.dart';
+import '../../user/providers/user_provider.dart';
 import '../models/private_chat.dart';
 import 'chats_firestore_repo.dart';
 
