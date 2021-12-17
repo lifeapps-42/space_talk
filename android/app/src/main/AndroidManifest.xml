@@ -1,5 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.lifeapps.spacetalk">
+    <uses-permission android:name="android.permission.INTERNET"/>
    <application
         android:label="space_talk"
         android:icon="@mipmap/ic_launcher">
