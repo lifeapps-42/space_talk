@@ -19,12 +19,11 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         title: 'Flutter Demo',
         theme: ThemeData(
-          primarySwatch: Colors.blue,
+          primaryColor: const Color.fromARGB(0xFF, 59, 29, 27),
+          fontFamily: 'LibreFranklin'
         ),
         home: const AuthConsumer(),
       ),
     );
   }
 }
-
-

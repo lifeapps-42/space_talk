@@ -10,11 +10,12 @@ import '../repo/conversation_repo_provider.dart';
 import 'conversation_state.dart';
 import 'conversation_state_data.dart';
 
-final conversationStateNotifierProvider =
-    StateNotifierProvider.family<ConversationStateNotifier, ConversationState, String>(
-        (ref, chatId) => ConversationStateNotifier(ref, chatId));
+final conversationStateNotifierProvider = StateNotifierProvider.family<
+    ConversationStateNotifier,
+    ConversationState,
+    String>((ref, chatId) => ConversationStateNotifier(ref, chatId));
 
-final singleMessageProvider = Provider<Message?>((_)=> null);
+final singleMessageProvider = Provider<Message?>((_) => null);
 
 class ConversationStateNotifier extends StateNotifier<ConversationState> {
   ConversationStateNotifier(this.ref, this.chatId)
@@ -22,14 +23,16 @@ class ConversationStateNotifier extends StateNotifier<ConversationState> {
         _user = ref
             .read(userStateNotifierProvider)
             .whenOrNull(data: (user) => user, updating: (user) => user),
-        super(const ConversationNotInitializedState());
+        super(const ConversationNotInitializedState()) {
+    _fetchMessagesAndSubscribeOnEvents();
+  }
 
   final Ref ref;
   final ConversationRepo _repo;
   final String chatId;
   final User? _user;
 
-  void fetchMessagesAndSubscribeOnEvents() async {
+  void _fetchMessagesAndSubscribeOnEvents() async {
     state = const ConversationLoadingState();
     final messages = await _repo.fetchMessages(chatId);
     final hasMoreToFetch = messages.length == _repo.paginationRate;

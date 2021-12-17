@@ -44,7 +44,7 @@ class ChatsFirestoreRepo implements ChatsRepo {
   @override
   Stream<List<Chat>> getChatsStreams(String uid) {
     final queryStream =
-        _collectionRef.where('users', arrayContains: uid).snapshots();
+        _collectionRef.where('users', arrayContains: uid).orderBy('lastMessage.sentAt', descending: true).snapshots();
     return queryStream.map((snap) => snap.docs.map((e) => e.data()).toList());
   }
 

@@ -1,14 +1,10 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../chats/models/chat_item.dart';
-import '../../providers/conversation_provider.dart';
+import '../widgets/conversation_screen_body.dart';
 import '../widgets/message_input.dart';
-import '../widgets/messages_list.dart';
 
-class ConversationScreen extends ConsumerWidget {
+class ConversationScreen extends StatelessWidget {
   const ConversationScreen({Key? key, required this.chatItem})
       : super(key: key);
 
@@ -16,34 +12,15 @@ class ConversationScreen extends ConsumerWidget {
   final ChatItem chatItem;
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final conversationState =
-        ref.watch(conversationStateNotifierProvider(chatItem.id));
-
-    void init() {
-      ref
-          .read(conversationStateNotifierProvider(chatItem.id).notifier)
-          .fetchMessagesAndSubscribeOnEvents();
-    }
-
-    scheduleMicrotask(() => conversationState.maybeWhen(
-          notInitialized: () => init(),
-          orElse: () {},
-        ));
+  Widget build(BuildContext context) {
     return Scaffold(
+      extendBodyBehindAppBar: true,
+      resizeToAvoidBottomInset: false,
       appBar: AppBar(
+        backgroundColor: Colors.transparent,
         title: Text(chatItem.companion.name),
       ),
-      bottomNavigationBar: MessageInput(
-        chatId: chatItem.id,
-      ),
-      body: conversationState.maybeWhen(
-        live: (stateData, _) => MessagesList(messages: stateData.messages),
-        updating: (stateData) => MessagesList(messages: stateData.messages),
-        orElse: () => const Center(
-          child: CircularProgressIndicator(),
-        ),
-      ),
+      body: ConversationScreenBody(chatItem: chatItem),
     );
   }
 }

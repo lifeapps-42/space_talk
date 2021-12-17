@@ -1,3 +1,4 @@
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -13,7 +14,9 @@ class MessageBubble extends ConsumerWidget {
     final user = ref.read(userStateNotifierProvider.notifier).user;
     final message = ref.watch(singleMessageProvider);
     final isMyMessage = user != null && message?.authorId == user.uid;
-    final color = isMyMessage ? Colors.blue[700] : Colors.blue[200];
+    final color = isMyMessage
+        ? const Color.fromARGB(1, 59, 29, 27)
+        : const Color.fromARGB(1, 200, 200, 200);
     final textColor = isMyMessage ? Colors.white : Colors.black;
     return Row(
       children: [
@@ -25,19 +28,33 @@ class MessageBubble extends ConsumerWidget {
           child: Container(
             alignment:
                 isMyMessage ? Alignment.centerRight : Alignment.centerLeft,
-            child: Card(
-              color: color,
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.end,
-                  children: [
-                    Text(
-                      message!.text,
-                      style: TextStyle(color: textColor),
-                    ),
-                    Text(message.sentAt.timeOnly, style: TextStyle(color: textColor.withOpacity(0.7), fontSize: 10),),
-                  ],
+            child: Padding(
+              padding: const EdgeInsets.all(4.0),
+              child: Card(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8),
+                  side: const BorderSide(width: 0.5, color: Colors.black38),
+                ),
+                margin: EdgeInsets.zero,
+                clipBehavior: Clip.antiAlias,
+                elevation: 0,
+                color: color.withOpacity(0.9),
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: [
+                      Text(
+                        message!.text,
+                        style: TextStyle(color: textColor),
+                      ),
+                      Text(
+                        message.sentAt.timeOnly,
+                        style: TextStyle(
+                            color: textColor.withOpacity(0.7), fontSize: 10),
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),
