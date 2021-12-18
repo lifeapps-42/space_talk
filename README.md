@@ -1,5 +1,5 @@
 # space_talk
-
+[![Codemagic build status](https://api.codemagic.io/apps/61bccdd868cc9c0aceb9c694/61bccdd868cc9c0aceb9c693/status_badge.svg)](https://codemagic.io/apps/61bccdd868cc9c0aceb9c694/61bccdd868cc9c0aceb9c693/latest_build)
 A new Flutter project.
 
 ## Getting Started
