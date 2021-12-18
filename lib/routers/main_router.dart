@@ -37,16 +37,12 @@ class MainRouter extends ConsumerWidget {
         }
       },
       child: Navigator(
-        initialRoute: ChatsScreen.route,
+        initialRoute: ConversationScreen.route,
         onGenerateRoute: (settings) {
           switch (settings.name) {
-            case ChatsScreen.route:
-              return MaterialPageRoute(
-                builder: (context) => ChatsScreen(user: user),
-              );
              case ConversationScreen.route:
               return MaterialPageRoute(
-                builder: (context) => ConversationScreen(chatItem: settings.arguments as ChatItem,),
+                builder: (context) => ConversationScreen(user: user,),
               );
           }
         },

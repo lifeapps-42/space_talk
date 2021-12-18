@@ -8,7 +8,9 @@ import '../../../widgets/keyboard_placeholder.dart';
 import '../../providers/conversation_provider.dart';
 
 class MessageInput extends HookConsumerWidget {
-  const MessageInput({required this.chatId, Key? key, required this.scrollController}) : super(key: key);
+  const MessageInput(
+      {required this.chatId, Key? key, required this.scrollController})
+      : super(key: key);
 
   final String chatId;
   final ScrollController scrollController;
@@ -59,8 +61,9 @@ class MessageInput extends HookConsumerWidget {
                         child: Container(
                           alignment: Alignment.center,
                           decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(8),
-                              color: Colors.black12),
+                            borderRadius: BorderRadius.circular(8),
+                            color: Colors.black12,
+                          ),
                           child: TextField(
                             focusNode: focusNode,
                             style: const TextStyle(color: Colors.white70),
@@ -68,9 +71,12 @@ class MessageInput extends HookConsumerWidget {
                             minLines: 1,
                             maxLines: 5,
                             decoration: const InputDecoration(
-                          isDense: true,
-                                border: InputBorder.none,
-                                contentPadding: EdgeInsets.all(4)),
+                              isDense: true,
+                              border: InputBorder.none,
+                              contentPadding: EdgeInsets.all(4),
+                              hintText: 'message...',
+                              hintStyle: TextStyle(color: Colors.white30),
+                            ),
                           ),
                         ),
                       ),

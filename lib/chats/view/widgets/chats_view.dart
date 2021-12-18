@@ -5,7 +5,9 @@ import '../../providers/chat_items_provider.dart';
 import 'chats_list.dart';
 
 class ChatView extends ConsumerWidget {
-  const ChatView({Key? key}) : super(key: key);
+  const ChatView({Key? key, required this.scrollController}) : super(key: key);
+
+  final ScrollController scrollController;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -13,7 +15,10 @@ class ChatView extends ConsumerWidget {
     return chatItemsState.when(
       loading: () => const CircularProgressIndicator(),
       noChats: () => const Text('No chats yet'),
-      subscribed: (chats) => ChatsItemsList(chats: chats),
+      subscribed: (chats) => ChatsItemsList(
+        chats: chats,
+        scrollController: scrollController,
+      ),
     );
   }
 }

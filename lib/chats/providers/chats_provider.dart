@@ -13,30 +13,25 @@ final chatsStateNotifierProvider =
 class ChatsStateNotifier extends StateNotifier<ChatsState> {
   ChatsStateNotifier(this.ref)
       : _repo = ref.read(chatsRepoProvider),
-        _user = ref.read(userStateNotifierProvider).maybeWhen(
-              data: (user) => user,
-              updating: (user) => user,
-              orElse: () => throw 'User state management error',
-            ),
-        super(
-          const ChatsInitializingState(),
-        ) {
+        _user = ref.read(userStateNotifierProvider.notifier).user,
+        super(const ChatsInitializingState()) {
+    assert(_user != null);
     _init();
     refreshOnUserChanges(ref, chatsStateNotifierProvider);
   }
 
   final Ref ref;
   final ChatsRepo _repo;
-  final User _user;
+  final User? _user;
 
   void _init() async {
-    final chats = await _repo.getChatsData(_user.uid);
+    final chats = await _repo.getChatsData(_user!.uid);
     _subscribeAndListen();
     state = ChatsSubscribedState(chats);
   }
 
   void _subscribeAndListen() {
-    final stream = _repo.getChatsStreams(_user.uid);
+    final stream = _repo.getChatsStreams(_user!.uid);
     stream.listen((chats) => state = ChatsSubscribedState(chats));
   }
 

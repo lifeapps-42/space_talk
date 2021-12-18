@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:space_talk/user/models/user.dart';
+
+import '../ui_kit/colors.dart';
+import '../user/models/user.dart';
 
 class UserAvatar extends StatelessWidget {
   const UserAvatar({ Key? key, required this.user }) : super(key: key);
@@ -9,6 +11,8 @@ class UserAvatar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CircleAvatar(
+      backgroundColor: TalkColors.main,
+      foregroundColor: Colors.white,
       child: _NoPhoto(user: user,),
     );
   }
