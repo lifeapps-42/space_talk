@@ -25,7 +25,7 @@ class ParallaxBackground extends HookConsumerWidget {
 
     leadingController.addListener(() {
       scrollController.jumpTo(isReversed
-          ? -(leadingController.offset / 3) +5000
+          ? -(leadingController.offset / 3) + 5000
           : (leadingController.offset / 3) + 5000);
     });
 
@@ -57,33 +57,35 @@ class ParallaxBackground extends HookConsumerWidget {
     );
     return ListView.builder(
       itemExtent: 400,
-      controller: scrollController,
-      itemBuilder: (_, __) => _TilesRow(
-        scrollController: crossScrollController,
+      scrollDirection: Axis.horizontal,
+      controller: crossScrollController,
+      itemBuilder: (_, __) => _TilesColumn(
+        scrollController: scrollController,
       ),
     );
   }
 }
 
-class _TilesRow extends StatelessWidget {
-  const _TilesRow({Key? key, required this.scrollController}) : super(key: key);
+class _TilesColumn extends StatelessWidget {
+  const _TilesColumn({Key? key, required this.scrollController}) : super(key: key);
 
   final ScrollController scrollController;
 
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
-      scrollDirection: Axis.horizontal,
       controller: scrollController,
-      itemBuilder: (_, __) => AspectRatio(
-        aspectRatio: 1,
-        child: Container(
-          child: Image.asset(
-            'assets/Hnet.com-image.jpg',
-            fit: BoxFit.contain,
+      itemBuilder: (_, __) {
+        return AspectRatio(
+          aspectRatio: 1,
+          child: Container(
+            child: Image.asset(
+              'assets/Hnet.com-image.jpg',
+              fit: BoxFit.contain,
+            ),
           ),
-        ),
-      ),
+        );
+      },
     );
   }
 }
