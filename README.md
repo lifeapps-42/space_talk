@@ -6,12 +6,13 @@ A new Flutter project.
 
 Phone and code for development 
 
-Phone number	    Verification code	
-+7 911 690-96-52	791818	
-+7 911 690-96-53	791919	
-+7 911 690-96-50	791616	
-+7 911 690-96-51	791717	
-+7 911 690-96-54	792020
+| Phone number	| Verification code |
+|---|---|
+| +7 911 690-96-52 |	791818	|
+| +7 911 690-96-53 |	791919	|
+| +7 911 690-96-50 |	791616	|
+| +7 911 690-96-51 |	791717	|
+| +7 911 690-96-54 |	792020 |
 
 This project is a starting point for a Flutter application.
 
