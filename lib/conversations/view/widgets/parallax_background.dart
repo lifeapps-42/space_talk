@@ -14,7 +14,7 @@ class ParallaxBackground extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final scrollController = useScrollController(initialScrollOffset: 5000);
-    final crossScrollController = useScrollController();
+    final crossScrollController = useScrollController(initialScrollOffset: 100);
     final mainScreenState = ref.watch(mainScreenStateNotifierProvider);
     final screenWidth = MediaQuery.of(context).size.width;
 
@@ -56,8 +56,8 @@ class ParallaxBackground extends HookConsumerWidget {
       },
     );
     return ListView.builder(
-      itemExtent: 400,
       scrollDirection: Axis.horizontal,
+      itemExtent: 380,
       controller: crossScrollController,
       itemBuilder: (_, __) => _TilesColumn(
         scrollController: scrollController,
@@ -67,7 +67,8 @@ class ParallaxBackground extends HookConsumerWidget {
 }
 
 class _TilesColumn extends StatelessWidget {
-  const _TilesColumn({Key? key, required this.scrollController}) : super(key: key);
+  const _TilesColumn({Key? key, required this.scrollController})
+      : super(key: key);
 
   final ScrollController scrollController;
 
