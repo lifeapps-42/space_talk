@@ -23,8 +23,8 @@ class MainScreenConsumer extends ConsumerWidget {
       reversed: reversedTransition,
       child: mainScreenState.when(
         chats: () => ChatView(scrollController: scrollController),
-        conversation: (chatItem) => ConversationScreenBody(
-          chatItem: chatItem,
+        conversation: (data) => ConversationScreenBody(
+          chatItem: data.chatItem,
           scrollController: scrollController,
         ),
       ),

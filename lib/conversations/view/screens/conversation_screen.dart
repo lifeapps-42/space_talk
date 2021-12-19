@@ -1,49 +1,64 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:space_talk/chats/view/modals/create_chat_modal.dart';
+import 'package:space_talk/conversations/view/widgets/message_input.dart';
+import 'package:space_talk/ui_kit/colors.dart';
 
 import '../../../user/models/user.dart';
 import '../providers/main_screen_state_provider.dart';
 import '../widgets/main_screen_consumer.dart';
 import '../widgets/parallax_background.dart';
 
-class ConversationScreen extends StatelessWidget {
+class ConversationScreen extends ConsumerWidget {
   const ConversationScreen({Key? key, required this.user}) : super(key: key);
 
   static const route = 'conversation';
   final User user;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final mainScreenState = ref.watch(mainScreenStateNotifierProvider);
+
+    void goBack() {
+      ref.read(mainScreenStateNotifierProvider.notifier).goToChats();
+    }
+
+    void findUserAndCreateChat() {
+      showDialog(
+        context: context,
+        builder: (context) => const CreateChatModal(),
+      );
+    }
+
+    final title = mainScreenState.when(
+      chats: () => user.phone.value,
+      conversation: (data) => data.chatItem.companion.name,
+    );
+    final leading = mainScreenState.maybeWhen(
+      conversation: (_) => IconButton(
+        onPressed: () => goBack(),
+        icon: const Icon(Icons.chevron_left_rounded),
+      ),
+      orElse: () => const SizedBox(),
+    );
+
+    final fab = mainScreenState.whenOrNull(chats: ()=> FloatingActionButton(
+      onPressed: () => findUserAndCreateChat(),
+      child: const Icon(Icons.comment_outlined),
+      backgroundColor: TalkColors.main,
+    ));
+
     return Scaffold(
       extendBodyBehindAppBar: true,
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
         backgroundColor: Colors.transparent,
-        title: Consumer(builder: (context, ref, _) {
-          final mainScreenState = ref.watch(mainScreenStateNotifierProvider);
-          final title = mainScreenState.when(
-            chats: () => user.phone.value,
-            conversation: (chatItem) => chatItem.companion.name,
-          );
-          return Text(title);
-        }),
-        leading: Consumer(builder: (context, ref, _) {
-          final mainScreenState = ref.watch(mainScreenStateNotifierProvider);
-          void goBack() {
-            ref.read(mainScreenStateNotifierProvider.notifier).goToChats();
-          }
-
-          return mainScreenState.maybeWhen(
-            conversation: (_) => IconButton(
-              onPressed: () => goBack(),
-              icon: const Icon(Icons.chevron_left_rounded),
-            ),
-            orElse: () => const SizedBox(),
-          );
-        }),
+        title: Text(title),
+        leading: leading,
       ),
       body: const MainBodyWithParallax(),
+      floatingActionButton: fab,
     );
   }
 }
@@ -64,6 +79,14 @@ class MainBodyWithParallax extends HookWidget {
         ),
         Positioned.fill(
           child: MainScreenConsumer(
+            scrollController: scrollController,
+          ),
+        ),
+        Positioned(
+          left: 0,
+          right: 0,
+          bottom: 0,
+          child: MessageInput(
             scrollController: scrollController,
           ),
         ),

@@ -26,15 +26,7 @@ class ConversationScreenBody extends HookWidget {
             scrollController: scrollController,
           ),
         ),
-        Positioned(
-          left: 0,
-          right: 0,
-          bottom: 0,
-          child: MessageInput(
-            chatId: chatItem.id,
-            scrollController: scrollController,
-          ),
-        ),
+        
       ],
     );
   }

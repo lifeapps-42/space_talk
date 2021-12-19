@@ -21,9 +21,10 @@ class _$MainScreenStateTearOff {
     return const MainScreenChatsState();
   }
 
-  MainScreenConversationState conversation(ChatItem chatItem) {
+  MainScreenConversationState conversation(
+      MainScreenConversationStateData data) {
     return MainScreenConversationState(
-      chatItem,
+      data,
     );
   }
 }
@@ -36,19 +37,20 @@ mixin _$MainScreenState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() chats,
-    required TResult Function(ChatItem chatItem) conversation,
+    required TResult Function(MainScreenConversationStateData data)
+        conversation,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? chats,
-    TResult Function(ChatItem chatItem)? conversation,
+    TResult Function(MainScreenConversationStateData data)? conversation,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? chats,
-    TResult Function(ChatItem chatItem)? conversation,
+    TResult Function(MainScreenConversationStateData data)? conversation,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -132,7 +134,8 @@ class _$MainScreenChatsState implements MainScreenChatsState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() chats,
-    required TResult Function(ChatItem chatItem) conversation,
+    required TResult Function(MainScreenConversationStateData data)
+        conversation,
   }) {
     return chats();
   }
@@ -141,7 +144,7 @@ class _$MainScreenChatsState implements MainScreenChatsState {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? chats,
-    TResult Function(ChatItem chatItem)? conversation,
+    TResult Function(MainScreenConversationStateData data)? conversation,
   }) {
     return chats?.call();
   }
@@ -150,7 +153,7 @@ class _$MainScreenChatsState implements MainScreenChatsState {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? chats,
-    TResult Function(ChatItem chatItem)? conversation,
+    TResult Function(MainScreenConversationStateData data)? conversation,
     required TResult orElse(),
   }) {
     if (chats != null) {
@@ -201,7 +204,7 @@ abstract class $MainScreenConversationStateCopyWith<$Res> {
           MainScreenConversationState value,
           $Res Function(MainScreenConversationState) then) =
       _$MainScreenConversationStateCopyWithImpl<$Res>;
-  $Res call({ChatItem chatItem});
+  $Res call({MainScreenConversationStateData data});
 }
 
 /// @nodoc
@@ -218,13 +221,13 @@ class _$MainScreenConversationStateCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object? chatItem = freezed,
+    Object? data = freezed,
   }) {
     return _then(MainScreenConversationState(
-      chatItem == freezed
-          ? _value.chatItem
-          : chatItem // ignore: cast_nullable_to_non_nullable
-              as ChatItem,
+      data == freezed
+          ? _value.data
+          : data // ignore: cast_nullable_to_non_nullable
+              as MainScreenConversationStateData,
     ));
   }
 }
@@ -232,14 +235,14 @@ class _$MainScreenConversationStateCopyWithImpl<$Res>
 /// @nodoc
 
 class _$MainScreenConversationState implements MainScreenConversationState {
-  const _$MainScreenConversationState(this.chatItem);
+  const _$MainScreenConversationState(this.data);
 
   @override
-  final ChatItem chatItem;
+  final MainScreenConversationStateData data;
 
   @override
   String toString() {
-    return 'MainScreenState.conversation(chatItem: $chatItem)';
+    return 'MainScreenState.conversation(data: $data)';
   }
 
   @override
@@ -247,12 +250,12 @@ class _$MainScreenConversationState implements MainScreenConversationState {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is MainScreenConversationState &&
-            const DeepCollectionEquality().equals(other.chatItem, chatItem));
+            const DeepCollectionEquality().equals(other.data, data));
   }
 
   @override
   int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(chatItem));
+      Object.hash(runtimeType, const DeepCollectionEquality().hash(data));
 
   @JsonKey(ignore: true)
   @override
@@ -264,29 +267,30 @@ class _$MainScreenConversationState implements MainScreenConversationState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() chats,
-    required TResult Function(ChatItem chatItem) conversation,
+    required TResult Function(MainScreenConversationStateData data)
+        conversation,
   }) {
-    return conversation(chatItem);
+    return conversation(data);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? chats,
-    TResult Function(ChatItem chatItem)? conversation,
+    TResult Function(MainScreenConversationStateData data)? conversation,
   }) {
-    return conversation?.call(chatItem);
+    return conversation?.call(data);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? chats,
-    TResult Function(ChatItem chatItem)? conversation,
+    TResult Function(MainScreenConversationStateData data)? conversation,
     required TResult orElse(),
   }) {
     if (conversation != null) {
-      return conversation(chatItem);
+      return conversation(data);
     }
     return orElse();
   }
@@ -324,10 +328,10 @@ class _$MainScreenConversationState implements MainScreenConversationState {
 }
 
 abstract class MainScreenConversationState implements MainScreenState {
-  const factory MainScreenConversationState(ChatItem chatItem) =
-      _$MainScreenConversationState;
+  const factory MainScreenConversationState(
+      MainScreenConversationStateData data) = _$MainScreenConversationState;
 
-  ChatItem get chatItem;
+  MainScreenConversationStateData get data;
   @JsonKey(ignore: true)
   $MainScreenConversationStateCopyWith<MainScreenConversationState>
       get copyWith => throw _privateConstructorUsedError;

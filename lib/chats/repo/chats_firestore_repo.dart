@@ -23,9 +23,8 @@ class ChatsFirestoreRepo implements ChatsRepo {
     },
   );
 
-  static CollectionReference<Message> _messagesCollectionRef(
-      DocumentReference<Chat> chatRef) {
-    const path = 'messages';
+  static CollectionReference<Message> _messagesCollectionRef(String chatId) {
+    final path = 'chats/$chatId/messages';
     const timestampField = 'sentAt';
     return FirebaseFirestore.instance.collection(path).withConverter<Message>(
       fromFirestore: (snap, _) {
@@ -81,7 +80,7 @@ class ChatsFirestoreRepo implements ChatsRepo {
       },
     );
     final chatRef = await _collectionRef.add(chat);
-    await _messagesCollectionRef(chatRef).doc().set(message);
+    await _messagesCollectionRef(chatRef.id).doc().set(message);
   }
 
   // @override

@@ -64,7 +64,7 @@ class ConversationStateNotifier extends StateNotifier<ConversationState> {
   void sendMessage(String text) {
     final message = Message(
       authorId: _user!.uid,
-      text: text,
+      text: text.trim(),
       sentAt: DateTime.now(),
       readUsersIds: {},
     );
