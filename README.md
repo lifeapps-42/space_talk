@@ -6,13 +6,14 @@ A new Flutter project.
 
 Phone and code for development 
 
-| Phone number	| Verification code |
-|---|---|
-| +7 911 690-96-52 |	791818	|
-| +7 911 690-96-53 |	791919	|
-| +7 911 690-96-50 |	791616	|
-| +7 911 690-96-51 |	791717	|
-| +7 911 690-96-54 |	792020 |
+| Phone number	| Verification code | User Type |
+|---|---|---|
+| +7 911 690-96-52 |	791818	| tester |
+| +7 911 690-96-53 |	791919	| tester |
+| +7 911 690-96-50 |	791616	| tester |
+| +7 911 690-96-51 |	791717	| tester |
+| +7 911 690-96-54 |	792020  | tester |
+| +1 650-555-2020  |	830945  | Apple review |
 
 This project is a starting point for a Flutter application.
 

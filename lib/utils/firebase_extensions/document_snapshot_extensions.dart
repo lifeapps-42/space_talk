@@ -9,3 +9,18 @@ extension FirestoreDocumentSnapshotExtension
     return doc;
   }
 }
+
+extension FirestoreTimestampHandler
+    on Map<String, dynamic> {
+    Map<String, dynamic> setServerTimestamp(String field){
+      return this..[field] = FieldValue.serverTimestamp();
+    }
+    Map<String, dynamic> handleTimeStamp(String field){
+      final date = this[field];
+      if (date is Timestamp) {
+        this[field] = date.toDate().toString();
+      }
+      return this;
+    }
+ 
+}

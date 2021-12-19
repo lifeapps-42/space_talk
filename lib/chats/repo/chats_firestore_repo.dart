@@ -23,14 +23,17 @@ class ChatsFirestoreRepo implements ChatsRepo {
     },
   );
 
-  CollectionReference<Message> _messagesCollectionRef(
+  static CollectionReference<Message> _messagesCollectionRef(
       DocumentReference<Chat> chatRef) {
-    return chatRef.collection('messages').withConverter<Message>(
+    const path = 'messages';
+    const timestampField = 'sentAt';
+    return FirebaseFirestore.instance.collection(path).withConverter<Message>(
       fromFirestore: (snap, _) {
-        return Message.fromJson(snap.dataWithId());
+        return Message.fromJson(
+            snap.dataWithId().handleTimeStamp(timestampField));
       },
       toFirestore: (message, _) {
-        return message.toJson();
+        return message.toJson().setServerTimestamp(timestampField);
       },
     );
   }
@@ -43,8 +46,10 @@ class ChatsFirestoreRepo implements ChatsRepo {
 
   @override
   Stream<List<Chat>> getChatsStreams(String uid) {
-    final queryStream =
-        _collectionRef.where('users', arrayContains: uid).orderBy('lastMessage.sentAt', descending: true).snapshots();
+    final queryStream = _collectionRef
+        .where('users', arrayContains: uid)
+        .orderBy('lastMessage.sentAt', descending: true)
+        .snapshots();
     return queryStream.map((snap) => snap.docs.map((e) => e.data()).toList());
   }
 

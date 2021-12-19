@@ -9,27 +9,41 @@ import 'conversation_repo_provider.dart';
 class ConversationFirestoreRepo implements ConversationRepo {
   static CollectionReference<Message> _messagesReference(String chatId) {
     final path = 'chats/$chatId/messages';
+    const timestampField = 'sentAt';
     return FirebaseFirestore.instance.collection(path).withConverter<Message>(
       fromFirestore: (snap, _) {
-        return Message.fromJson(snap.dataWithId());
+        return Message.fromJson(
+            snap.dataWithId().handleTimeStamp(timestampField));
       },
-      toFirestore: (chat, _) {
-        return chat.toJson();
+      toFirestore: (message, _) {
+        return message.toJson().setServerTimestamp(timestampField);
       },
     );
   }
 
-  static CollectionReference<ConversationEvent> _eventsReference(
-      String chatId) {
+  static CollectionReference<ConversationEvent> _eventsReference(String chatId,
+      {bool setServerTime = false}) {
     final path = 'chats/$chatId/events';
+    const timestampField = 'sentAt';
+    const messageField = 'message';
     return FirebaseFirestore.instance
         .collection(path)
         .withConverter<ConversationEvent>(
       fromFirestore: (snap, _) {
-        return ConversationEvent.fromJson(snap.dataWithId());
+        final json = snap.dataWithId();
+        final message = json[messageField] as Map<String, dynamic>;
+        final messageWithDate = message.handleTimeStamp(timestampField);
+        json[messageField] = messageWithDate;
+        return ConversationEvent.fromJson(json);
       },
       toFirestore: (chat, _) {
-        return chat.toJson();
+        if (setServerTime) {
+          final message = chat.toJson()[messageField] as Map<String, dynamic>;
+          final messageWithDate = message.setServerTimestamp(timestampField);
+          return chat.toJson()..[messageField] = messageWithDate;
+        } else {
+          return chat.toJson();
+        }
       },
     );
   }
@@ -53,33 +67,39 @@ class ConversationFirestoreRepo implements ConversationRepo {
   Future<List<Message>> fetchMessages(String chatId,
       {List<Message> fetchedMessages = const []}) async {
     final collectionRef = _messagesReference(chatId);
-    final snap = await collectionRef.orderBy('sentAt', descending: true).limit(paginationRate).get();
+    final snap = await collectionRef
+        .orderBy('sentAt', descending: true)
+        .limit(paginationRate)
+        .get();
     return snap.docs.map((e) => e.data()).toList();
   }
 
   @override
   Stream<List<ConversationEvent>> getEventsStream(String chatId) {
     final collectionRef = _eventsReference(chatId);
-    final snapStream = collectionRef.orderBy('message.sentAt', descending: true).limit(1).snapshots();
+    final snapStream = collectionRef
+        .orderBy('message.sentAt', descending: true)
+        .limit(1)
+        .snapshots();
     return snapStream.map((snap) => snap.docs.map((e) => e.data()).toList());
   }
 
   @override
   Future<void> sendMessage(String chatId, Message message) async {
-    final messageId =  await _postMessage(chatId, message);
-    final messageWithId = message.copyWith(id: messageId);
-    await _postEvent(chatId, messageWithId);
-    await _updateChat(chatId, messageWithId);
+    final newMessage = await _postMessage(chatId, message);
+    await _postEvent(chatId, newMessage);
+    await _updateChat(chatId, newMessage);
   }
 
-  Future<String> _postMessage(String chatId, Message message) async {
+  Future<Message> _postMessage(String chatId, Message message) async {
     final collectionRef = _messagesReference(chatId);
     final docRef = await collectionRef.add(message);
-    return docRef.id;
+    final created = await docRef.get();
+    return created.data()!;
   }
 
   Future<void> _postEvent(String chatId, Message message) {
-    final collectionRef = _eventsReference(chatId);
+    final collectionRef = _eventsReference(chatId, setServerTime: false);
     final event = ConversationAddEvent(message);
     return collectionRef.doc().set(event);
   }
