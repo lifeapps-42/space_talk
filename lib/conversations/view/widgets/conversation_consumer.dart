@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:space_talk/widgets/fullscreen_loader.dart';
 
 import '../../../chats/models/chat_item.dart';
+import '../../../widgets/fullscreen_loader.dart';
 import '../../providers/conversation_provider.dart';
 import 'messages_list.dart';
 
@@ -23,7 +23,7 @@ class ConversationConsumer extends ConsumerWidget {
     return AnimatedSwitcher(
       duration: const Duration(milliseconds: 300),
       child: conversationState.maybeWhen(
-        live: (stateData, _) => MessagesList(
+        live: (stateData) => MessagesList(
           messages: stateData.messages,
           scrollController: scrollController,
         ),

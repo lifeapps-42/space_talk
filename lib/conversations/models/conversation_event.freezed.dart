@@ -21,8 +21,6 @@ ConversationEvent _$ConversationEventFromJson(Map<String, dynamic> json) {
       return ConversationEditEvent.fromJson(json);
     case 'delete':
       return ConversationDeleteEvent.fromJson(json);
-    case 'messageRead':
-      return ConversationMessageReadEvent.fromJson(json);
 
     default:
       throw CheckedFromJsonException(json, 'runtimeType', 'ConversationEvent',
@@ -52,12 +50,6 @@ class _$ConversationEventTearOff {
     );
   }
 
-  ConversationMessageReadEvent messageRead(String messageId) {
-    return ConversationMessageReadEvent(
-      messageId,
-    );
-  }
-
   ConversationEvent fromJson(Map<String, Object?> json) {
     return ConversationEvent.fromJson(json);
   }
@@ -73,7 +65,6 @@ mixin _$ConversationEvent {
     required TResult Function(Message message) add,
     required TResult Function(Message message) edit,
     required TResult Function(String messageId) delete,
-    required TResult Function(String messageId) messageRead,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -81,7 +72,6 @@ mixin _$ConversationEvent {
     TResult Function(Message message)? add,
     TResult Function(Message message)? edit,
     TResult Function(String messageId)? delete,
-    TResult Function(String messageId)? messageRead,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -89,7 +79,6 @@ mixin _$ConversationEvent {
     TResult Function(Message message)? add,
     TResult Function(Message message)? edit,
     TResult Function(String messageId)? delete,
-    TResult Function(String messageId)? messageRead,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -98,7 +87,6 @@ mixin _$ConversationEvent {
     required TResult Function(ConversationAddEvent value) add,
     required TResult Function(ConversationEditEvent value) edit,
     required TResult Function(ConversationDeleteEvent value) delete,
-    required TResult Function(ConversationMessageReadEvent value) messageRead,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -106,7 +94,6 @@ mixin _$ConversationEvent {
     TResult Function(ConversationAddEvent value)? add,
     TResult Function(ConversationEditEvent value)? edit,
     TResult Function(ConversationDeleteEvent value)? delete,
-    TResult Function(ConversationMessageReadEvent value)? messageRead,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -114,7 +101,6 @@ mixin _$ConversationEvent {
     TResult Function(ConversationAddEvent value)? add,
     TResult Function(ConversationEditEvent value)? edit,
     TResult Function(ConversationDeleteEvent value)? delete,
-    TResult Function(ConversationMessageReadEvent value)? messageRead,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -224,7 +210,6 @@ class _$ConversationAddEvent implements ConversationAddEvent {
     required TResult Function(Message message) add,
     required TResult Function(Message message) edit,
     required TResult Function(String messageId) delete,
-    required TResult Function(String messageId) messageRead,
   }) {
     return add(message);
   }
@@ -235,7 +220,6 @@ class _$ConversationAddEvent implements ConversationAddEvent {
     TResult Function(Message message)? add,
     TResult Function(Message message)? edit,
     TResult Function(String messageId)? delete,
-    TResult Function(String messageId)? messageRead,
   }) {
     return add?.call(message);
   }
@@ -246,7 +230,6 @@ class _$ConversationAddEvent implements ConversationAddEvent {
     TResult Function(Message message)? add,
     TResult Function(Message message)? edit,
     TResult Function(String messageId)? delete,
-    TResult Function(String messageId)? messageRead,
     required TResult orElse(),
   }) {
     if (add != null) {
@@ -261,7 +244,6 @@ class _$ConversationAddEvent implements ConversationAddEvent {
     required TResult Function(ConversationAddEvent value) add,
     required TResult Function(ConversationEditEvent value) edit,
     required TResult Function(ConversationDeleteEvent value) delete,
-    required TResult Function(ConversationMessageReadEvent value) messageRead,
   }) {
     return add(this);
   }
@@ -272,7 +254,6 @@ class _$ConversationAddEvent implements ConversationAddEvent {
     TResult Function(ConversationAddEvent value)? add,
     TResult Function(ConversationEditEvent value)? edit,
     TResult Function(ConversationDeleteEvent value)? delete,
-    TResult Function(ConversationMessageReadEvent value)? messageRead,
   }) {
     return add?.call(this);
   }
@@ -283,7 +264,6 @@ class _$ConversationAddEvent implements ConversationAddEvent {
     TResult Function(ConversationAddEvent value)? add,
     TResult Function(ConversationEditEvent value)? edit,
     TResult Function(ConversationDeleteEvent value)? delete,
-    TResult Function(ConversationMessageReadEvent value)? messageRead,
     required TResult orElse(),
   }) {
     if (add != null) {
@@ -352,7 +332,8 @@ class _$ConversationEditEventCopyWithImpl<$Res>
 }
 
 /// @nodoc
-@JsonSerializable()
+
+@JsonSerializable(explicitToJson: true)
 class _$ConversationEditEvent implements ConversationEditEvent {
   const _$ConversationEditEvent(this.message, {String? $type})
       : $type = $type ?? 'edit';
@@ -395,7 +376,6 @@ class _$ConversationEditEvent implements ConversationEditEvent {
     required TResult Function(Message message) add,
     required TResult Function(Message message) edit,
     required TResult Function(String messageId) delete,
-    required TResult Function(String messageId) messageRead,
   }) {
     return edit(message);
   }
@@ -406,7 +386,6 @@ class _$ConversationEditEvent implements ConversationEditEvent {
     TResult Function(Message message)? add,
     TResult Function(Message message)? edit,
     TResult Function(String messageId)? delete,
-    TResult Function(String messageId)? messageRead,
   }) {
     return edit?.call(message);
   }
@@ -417,7 +396,6 @@ class _$ConversationEditEvent implements ConversationEditEvent {
     TResult Function(Message message)? add,
     TResult Function(Message message)? edit,
     TResult Function(String messageId)? delete,
-    TResult Function(String messageId)? messageRead,
     required TResult orElse(),
   }) {
     if (edit != null) {
@@ -432,7 +410,6 @@ class _$ConversationEditEvent implements ConversationEditEvent {
     required TResult Function(ConversationAddEvent value) add,
     required TResult Function(ConversationEditEvent value) edit,
     required TResult Function(ConversationDeleteEvent value) delete,
-    required TResult Function(ConversationMessageReadEvent value) messageRead,
   }) {
     return edit(this);
   }
@@ -443,7 +420,6 @@ class _$ConversationEditEvent implements ConversationEditEvent {
     TResult Function(ConversationAddEvent value)? add,
     TResult Function(ConversationEditEvent value)? edit,
     TResult Function(ConversationDeleteEvent value)? delete,
-    TResult Function(ConversationMessageReadEvent value)? messageRead,
   }) {
     return edit?.call(this);
   }
@@ -454,7 +430,6 @@ class _$ConversationEditEvent implements ConversationEditEvent {
     TResult Function(ConversationAddEvent value)? add,
     TResult Function(ConversationEditEvent value)? edit,
     TResult Function(ConversationDeleteEvent value)? delete,
-    TResult Function(ConversationMessageReadEvent value)? messageRead,
     required TResult orElse(),
   }) {
     if (edit != null) {
@@ -515,7 +490,8 @@ class _$ConversationDeleteEventCopyWithImpl<$Res>
 }
 
 /// @nodoc
-@JsonSerializable()
+
+@JsonSerializable(explicitToJson: true)
 class _$ConversationDeleteEvent implements ConversationDeleteEvent {
   const _$ConversationDeleteEvent(this.messageId, {String? $type})
       : $type = $type ?? 'delete';
@@ -558,7 +534,6 @@ class _$ConversationDeleteEvent implements ConversationDeleteEvent {
     required TResult Function(Message message) add,
     required TResult Function(Message message) edit,
     required TResult Function(String messageId) delete,
-    required TResult Function(String messageId) messageRead,
   }) {
     return delete(messageId);
   }
@@ -569,7 +544,6 @@ class _$ConversationDeleteEvent implements ConversationDeleteEvent {
     TResult Function(Message message)? add,
     TResult Function(Message message)? edit,
     TResult Function(String messageId)? delete,
-    TResult Function(String messageId)? messageRead,
   }) {
     return delete?.call(messageId);
   }
@@ -580,7 +554,6 @@ class _$ConversationDeleteEvent implements ConversationDeleteEvent {
     TResult Function(Message message)? add,
     TResult Function(Message message)? edit,
     TResult Function(String messageId)? delete,
-    TResult Function(String messageId)? messageRead,
     required TResult orElse(),
   }) {
     if (delete != null) {
@@ -595,7 +568,6 @@ class _$ConversationDeleteEvent implements ConversationDeleteEvent {
     required TResult Function(ConversationAddEvent value) add,
     required TResult Function(ConversationEditEvent value) edit,
     required TResult Function(ConversationDeleteEvent value) delete,
-    required TResult Function(ConversationMessageReadEvent value) messageRead,
   }) {
     return delete(this);
   }
@@ -606,7 +578,6 @@ class _$ConversationDeleteEvent implements ConversationDeleteEvent {
     TResult Function(ConversationAddEvent value)? add,
     TResult Function(ConversationEditEvent value)? edit,
     TResult Function(ConversationDeleteEvent value)? delete,
-    TResult Function(ConversationMessageReadEvent value)? messageRead,
   }) {
     return delete?.call(this);
   }
@@ -617,7 +588,6 @@ class _$ConversationDeleteEvent implements ConversationDeleteEvent {
     TResult Function(ConversationAddEvent value)? add,
     TResult Function(ConversationEditEvent value)? edit,
     TResult Function(ConversationDeleteEvent value)? delete,
-    TResult Function(ConversationMessageReadEvent value)? messageRead,
     required TResult orElse(),
   }) {
     if (delete != null) {
@@ -643,170 +613,4 @@ abstract class ConversationDeleteEvent implements ConversationEvent {
   @JsonKey(ignore: true)
   $ConversationDeleteEventCopyWith<ConversationDeleteEvent> get copyWith =>
       throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class $ConversationMessageReadEventCopyWith<$Res> {
-  factory $ConversationMessageReadEventCopyWith(
-          ConversationMessageReadEvent value,
-          $Res Function(ConversationMessageReadEvent) then) =
-      _$ConversationMessageReadEventCopyWithImpl<$Res>;
-  $Res call({String messageId});
-}
-
-/// @nodoc
-class _$ConversationMessageReadEventCopyWithImpl<$Res>
-    extends _$ConversationEventCopyWithImpl<$Res>
-    implements $ConversationMessageReadEventCopyWith<$Res> {
-  _$ConversationMessageReadEventCopyWithImpl(
-      ConversationMessageReadEvent _value,
-      $Res Function(ConversationMessageReadEvent) _then)
-      : super(_value, (v) => _then(v as ConversationMessageReadEvent));
-
-  @override
-  ConversationMessageReadEvent get _value =>
-      super._value as ConversationMessageReadEvent;
-
-  @override
-  $Res call({
-    Object? messageId = freezed,
-  }) {
-    return _then(ConversationMessageReadEvent(
-      messageId == freezed
-          ? _value.messageId
-          : messageId // ignore: cast_nullable_to_non_nullable
-              as String,
-    ));
-  }
-}
-
-/// @nodoc
-@JsonSerializable()
-class _$ConversationMessageReadEvent implements ConversationMessageReadEvent {
-  const _$ConversationMessageReadEvent(this.messageId, {String? $type})
-      : $type = $type ?? 'messageRead';
-
-  factory _$ConversationMessageReadEvent.fromJson(Map<String, dynamic> json) =>
-      _$$ConversationMessageReadEventFromJson(json);
-
-  @override
-  final String messageId;
-
-  @JsonKey(name: 'runtimeType')
-  final String $type;
-
-  @override
-  String toString() {
-    return 'ConversationEvent.messageRead(messageId: $messageId)';
-  }
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is ConversationMessageReadEvent &&
-            const DeepCollectionEquality().equals(other.messageId, messageId));
-  }
-
-  @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(messageId));
-
-  @JsonKey(ignore: true)
-  @override
-  $ConversationMessageReadEventCopyWith<ConversationMessageReadEvent>
-      get copyWith => _$ConversationMessageReadEventCopyWithImpl<
-          ConversationMessageReadEvent>(this, _$identity);
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function(Message message) add,
-    required TResult Function(Message message) edit,
-    required TResult Function(String messageId) delete,
-    required TResult Function(String messageId) messageRead,
-  }) {
-    return messageRead(messageId);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(Message message)? add,
-    TResult Function(Message message)? edit,
-    TResult Function(String messageId)? delete,
-    TResult Function(String messageId)? messageRead,
-  }) {
-    return messageRead?.call(messageId);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function(Message message)? add,
-    TResult Function(Message message)? edit,
-    TResult Function(String messageId)? delete,
-    TResult Function(String messageId)? messageRead,
-    required TResult orElse(),
-  }) {
-    if (messageRead != null) {
-      return messageRead(messageId);
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(ConversationAddEvent value) add,
-    required TResult Function(ConversationEditEvent value) edit,
-    required TResult Function(ConversationDeleteEvent value) delete,
-    required TResult Function(ConversationMessageReadEvent value) messageRead,
-  }) {
-    return messageRead(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(ConversationAddEvent value)? add,
-    TResult Function(ConversationEditEvent value)? edit,
-    TResult Function(ConversationDeleteEvent value)? delete,
-    TResult Function(ConversationMessageReadEvent value)? messageRead,
-  }) {
-    return messageRead?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(ConversationAddEvent value)? add,
-    TResult Function(ConversationEditEvent value)? edit,
-    TResult Function(ConversationDeleteEvent value)? delete,
-    TResult Function(ConversationMessageReadEvent value)? messageRead,
-    required TResult orElse(),
-  }) {
-    if (messageRead != null) {
-      return messageRead(this);
-    }
-    return orElse();
-  }
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$ConversationMessageReadEventToJson(this);
-  }
-}
-
-abstract class ConversationMessageReadEvent implements ConversationEvent {
-  const factory ConversationMessageReadEvent(String messageId) =
-      _$ConversationMessageReadEvent;
-
-  factory ConversationMessageReadEvent.fromJson(Map<String, dynamic> json) =
-      _$ConversationMessageReadEvent.fromJson;
-
-  String get messageId;
-  @JsonKey(ignore: true)
-  $ConversationMessageReadEventCopyWith<ConversationMessageReadEvent>
-      get copyWith => throw _privateConstructorUsedError;
 }

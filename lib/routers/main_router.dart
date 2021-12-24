@@ -2,8 +2,6 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../chats/models/chat_item.dart';
-import '../chats/view/screens/chats_screen.dart';
 import '../conversations/view/screens/conversation_screen.dart';
 import '../user/models/user.dart';
 import '../user/providers/user_provider.dart';

@@ -1,5 +1,4 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:space_talk/conversations/providers/conversation_state_data.dart';
 
 import '../../../chats/models/chat_item.dart';
 import '../../../utils/refresh_provider_on_user_changes.dart';

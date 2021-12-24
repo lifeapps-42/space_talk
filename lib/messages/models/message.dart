@@ -7,13 +7,14 @@ part 'message.g.dart';
 
 @freezed
 class Message with _$Message {
-  @JsonSerializable(explicitToJson: true)
+  @JsonSerializable(explicitToJson: true, )
   const factory Message({
     String? id,
+    required String chatId,
     required String text,
     required String authorId,
     required DateTime sentAt,
-    required Set<String> readUsersIds,
+    required List<String?> readUsersIds,
   }) = _Message;
 
   factory Message.fromJson(Map<String, dynamic> json) =>

@@ -10,17 +10,22 @@ extension FirestoreDocumentSnapshotExtension
   }
 }
 
-extension FirestoreTimestampHandler
-    on Map<String, dynamic> {
-    Map<String, dynamic> setServerTimestamp(String field){
-      return this..[field] = FieldValue.serverTimestamp();
+extension FirestoreTimestampHandler on Map<String, dynamic> {
+  Map<String, dynamic> setServerTimestamp(String field) {
+    return this..[field] = FieldValue.serverTimestamp();
+  }
+
+  Map<String, dynamic> handleTimeStamp(String field) {
+    final date = this[field];
+    if (date is Timestamp) {
+      this[field] = date.toDate().toString();
     }
-    Map<String, dynamic> handleTimeStamp(String field){
-      final date = this[field];
-      if (date is Timestamp) {
-        this[field] = date.toDate().toString();
-      }
-      return this;
-    }
- 
+    return this;
+  }
+}
+
+extension FirestoreChatIdForMessage on Map<String, dynamic> {
+  Map<String, dynamic> setChatId(String chatId) {
+    return this..['chatId'] = chatId;
+  }
 }

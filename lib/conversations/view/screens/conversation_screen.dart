@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:space_talk/chats/view/modals/create_chat_modal.dart';
-import 'package:space_talk/conversations/view/widgets/message_input.dart';
-import 'package:space_talk/ui_kit/colors.dart';
 
+import '../../../chats/view/modals/create_chat_modal.dart';
+import '../../../ui_kit/colors.dart';
 import '../../../user/models/user.dart';
 import '../providers/main_screen_state_provider.dart';
 import '../widgets/main_screen_consumer.dart';
+import '../widgets/message_input.dart';
 import '../widgets/parallax_background.dart';
 
 class ConversationScreen extends ConsumerWidget {

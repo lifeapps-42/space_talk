@@ -15,4 +15,8 @@ abstract class ConversationRepo {
   Stream<List<ConversationEvent>> getEventsStream(String chatId);
 
   Future<void> sendMessage(String chatId, Message message);
+
+  Future<void> markAsRead(Message message);
+
+   Stream<List<ConversationEvent>> getMessagesStream(String chatId);
 }

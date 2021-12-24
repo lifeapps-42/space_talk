@@ -1,4 +1,3 @@
-import 'dart:async';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -34,72 +33,127 @@ class ConversationStateNotifier extends StateNotifier<ConversationState> {
 
   void _fetchMessagesAndSubscribeOnEvents() async {
     state = const ConversationLoadingState();
-    final messages = await _repo.fetchMessages(chatId);
-    final hasMoreToFetch = messages.length == _repo.paginationRate;
-    final stateData = ConversationStateData(
-      messages: messages,
-      hasMoreToFetch: hasMoreToFetch,
-      chatId: chatId,
-    );
-    _subscribeToEvents(stateData);
+    _subscribeOnMessages(chatId);
   }
 
-  void fetchMore() {
-    state.maybeWhen(
-      live: (oldStateData, subscription) async {
-        if (!oldStateData.hasMoreToFetch) return;
-        state = ConversationUpdatingState(oldStateData);
-        final newMessages = await _repo.fetchMessages(oldStateData.chatId,
-            fetchedMessages: oldStateData.messages);
-        final stateData = oldStateData.copyWith(
-          messages: [...oldStateData.messages, ...newMessages],
-          hasMoreToFetch: newMessages.length == _repo.paginationRate,
-        );
-        state = ConversationLiveState(stateData, subscription);
-      },
-      orElse: () {},
-    );
-  }
+  // void fetchMore() {
+  //   state.maybeWhen(
+  //     live: (oldStateData, subscription) async {
+  //       if (!oldStateData.hasMoreToFetch) return;
+  //       state = ConversationUpdatingState(oldStateData);
+  //       final newMessages = await _repo.fetchMessages(oldStateData.chatId,
+  //           fetchedMessages: oldStateData.messages);
+  //       final stateData = oldStateData.copyWith(
+  //         messages: [...oldStateData.messages, ...newMessages],
+  //         hasMoreToFetch: newMessages.length == _repo.paginationRate,
+  //       );
+  //       state = ConversationLiveState(stateData, subscription);
+  //     },
+  //     orElse: () {},
+  //   );
+  // }
 
   void sendMessage(String text) {
     final message = Message(
       authorId: _user!.uid,
+      chatId: chatId,
       text: text.trim(),
       sentAt: DateTime.now(),
-      readUsersIds: {},
+      readUsersIds: [],
     );
     _repo.sendMessage(chatId, message);
   }
 
-  void _subscribeToEvents(
-    ConversationStateData stateData, {
-    StreamSubscription<List<ConversationEvent>>? subscription,
-  }) {
-    subscription?.cancel();
-    final eventsStream = _repo.getEventsStream(stateData.chatId);
-    final newSubscription = eventsStream.listen((event) => _onEvent(event));
-    state = ConversationLiveState(stateData, newSubscription);
+  void markAsRead(Message message) {
+    // if(message.readUsersIds.contains(_user!.uid)) return;
+    // final readState = message.readUsersIds;
+    // readState.add(_user!.uid);
+    // final readMessage = message.copyWith(readUsersIds: readState);
+    // _repo.markAsRead(readMessage);
   }
 
-  void _onEvent(List<ConversationEvent> event) {
-    if (event.isEmpty) return;
-    event.first.when(
-      add: (message) => _addMessageEvent(message),
-      edit: (_) {},
-      delete: (_) {},
-      messageRead: (_) {},
-    );
+  void _subscribeOnMessages(String chatId) async {
+    final eventsStream = _repo.getMessagesStream(chatId);
+    eventsStream.listen((events) => _onEvents(events, chatId));
   }
 
-  void _addMessageEvent(Message message) {
-    state.maybeWhen(
-      live: (oldStateData, subscription) {
-        if (oldStateData.messages.contains(message)) return;
-        final messages = [message, ...oldStateData.messages];
-        final stateData = oldStateData.copyWith(messages: messages);
-        _subscribeToEvents(stateData, subscription: subscription);
+  // void _onMessages(
+  //   String chatId,
+  //   List<Message> messages,
+  // ) {
+  //   state.maybeWhen(
+  //     live: (oldStateData) {
+  //       final stateData = oldStateData.copyWith(messages: messages);
+  //       state = ConversationLiveState(stateData);
+  //     },
+  //     loading: () {
+  //       final stateData = ConversationStateData(
+  //         chatId: chatId,
+  //         hasMoreToFetch: true,
+  //         messages: messages,
+  //       );
+  //       state = ConversationLiveState(stateData);
+  //     },
+  //     orElse: () {},
+  //   );
+  // }
+
+  // void _subscribeToEvents(
+  //   ConversationStateData stateData, {
+  //   StreamSubscription<List<ConversationEvent>>? subscription,
+  // }) {
+  //   subscription?.cancel();
+  //   final eventsStream = _repo.getEventsStream(stateData.chatId);
+  //   final newSubscription = eventsStream.listen((event) => _onEvent(event));
+  //   state = ConversationLiveState(stateData, newSubscription);
+  // }
+
+  void _onEvents(List<ConversationEvent> events, String chatId) {
+    if (events.isEmpty) return;
+    state.whenOrNull(
+      live: (stateData) {
+        for (final e in events.reversed) {
+          e.when(
+            add: (message) => _addMessageEvent(message, stateData),
+            edit: (message) => _editMessageEvent(message, stateData),
+            delete: (id) => _deleteMessageEvent(id, stateData),
+          );
+        }
+        state = ConversationLiveState(stateData);
       },
-      orElse: () {},
+      loading: () {
+        final stateData = ConversationStateData(
+          chatId: chatId,
+          hasMoreToFetch: true,
+          messages: [],
+        );
+        for (final e in events.reversed) {
+          e.whenOrNull(
+            add: (message) => _addMessageEvent(message, stateData),
+          );
+        }
+        state = ConversationLiveState(stateData);
+      },
     );
+  }
+
+  void _addMessageEvent(Message message, ConversationStateData stateData) {
+    if (stateData.messages.contains(message)) return;
+    stateData.messages.insert(0, message);
+  }
+
+  void _editMessageEvent(Message message, ConversationStateData stateData) {
+    final i = stateData.messages.indexWhere((m) => m.id == message.id);
+    if(i < 0) {
+      _addMessageEvent(message, stateData);
+      return;
+    }
+    stateData.messages[i] = message;
+  }
+
+  void _deleteMessageEvent(String messageId, ConversationStateData stateData) {
+    final i = stateData.messages.indexWhere((m) => m.id == messageId);
+    if (i < 0) return;
+    stateData.messages.removeAt(i);
   }
 }

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:space_talk/ui_kit/animations/fade_trough_with_offset.dart';
-import 'package:space_talk/widgets/fullscreen_loader.dart';
 
+import '../../../ui_kit/animations/fade_trough_with_offset.dart';
+import '../../../widgets/fullscreen_loader.dart';
 import '../../providers/chat_items_provider.dart';
 import 'chats_list.dart';
 

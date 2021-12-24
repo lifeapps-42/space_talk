@@ -30,7 +30,7 @@ _$ConversationEditEvent _$$ConversationEditEventFromJson(
 Map<String, dynamic> _$$ConversationEditEventToJson(
         _$ConversationEditEvent instance) =>
     <String, dynamic>{
-      'message': instance.message,
+      'message': instance.message.toJson(),
       'runtimeType': instance.$type,
     };
 
@@ -43,20 +43,6 @@ _$ConversationDeleteEvent _$$ConversationDeleteEventFromJson(
 
 Map<String, dynamic> _$$ConversationDeleteEventToJson(
         _$ConversationDeleteEvent instance) =>
-    <String, dynamic>{
-      'messageId': instance.messageId,
-      'runtimeType': instance.$type,
-    };
-
-_$ConversationMessageReadEvent _$$ConversationMessageReadEventFromJson(
-        Map<String, dynamic> json) =>
-    _$ConversationMessageReadEvent(
-      json['messageId'] as String,
-      $type: json['runtimeType'] as String?,
-    );
-
-Map<String, dynamic> _$$ConversationMessageReadEventToJson(
-        _$ConversationMessageReadEvent instance) =>
     <String, dynamic>{
       'messageId': instance.messageId,
       'runtimeType': instance.$type,

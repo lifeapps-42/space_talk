@@ -23,12 +23,14 @@ class _$MessageTearOff {
 
   _Message call(
       {String? id,
+      required String chatId,
       required String text,
       required String authorId,
       required DateTime sentAt,
-      required Set<String> readUsersIds}) {
+      required List<String?> readUsersIds}) {
     return _Message(
       id: id,
+      chatId: chatId,
       text: text,
       authorId: authorId,
       sentAt: sentAt,
@@ -47,10 +49,11 @@ const $Message = _$MessageTearOff();
 /// @nodoc
 mixin _$Message {
   String? get id => throw _privateConstructorUsedError;
+  String get chatId => throw _privateConstructorUsedError;
   String get text => throw _privateConstructorUsedError;
   String get authorId => throw _privateConstructorUsedError;
   DateTime get sentAt => throw _privateConstructorUsedError;
-  Set<String> get readUsersIds => throw _privateConstructorUsedError;
+  List<String?> get readUsersIds => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -63,10 +66,11 @@ abstract class $MessageCopyWith<$Res> {
       _$MessageCopyWithImpl<$Res>;
   $Res call(
       {String? id,
+      String chatId,
       String text,
       String authorId,
       DateTime sentAt,
-      Set<String> readUsersIds});
+      List<String?> readUsersIds});
 }
 
 /// @nodoc
@@ -80,6 +84,7 @@ class _$MessageCopyWithImpl<$Res> implements $MessageCopyWith<$Res> {
   @override
   $Res call({
     Object? id = freezed,
+    Object? chatId = freezed,
     Object? text = freezed,
     Object? authorId = freezed,
     Object? sentAt = freezed,
@@ -90,6 +95,10 @@ class _$MessageCopyWithImpl<$Res> implements $MessageCopyWith<$Res> {
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as String?,
+      chatId: chatId == freezed
+          ? _value.chatId
+          : chatId // ignore: cast_nullable_to_non_nullable
+              as String,
       text: text == freezed
           ? _value.text
           : text // ignore: cast_nullable_to_non_nullable
@@ -105,7 +114,7 @@ class _$MessageCopyWithImpl<$Res> implements $MessageCopyWith<$Res> {
       readUsersIds: readUsersIds == freezed
           ? _value.readUsersIds
           : readUsersIds // ignore: cast_nullable_to_non_nullable
-              as Set<String>,
+              as List<String?>,
     ));
   }
 }
@@ -117,10 +126,11 @@ abstract class _$MessageCopyWith<$Res> implements $MessageCopyWith<$Res> {
   @override
   $Res call(
       {String? id,
+      String chatId,
       String text,
       String authorId,
       DateTime sentAt,
-      Set<String> readUsersIds});
+      List<String?> readUsersIds});
 }
 
 /// @nodoc
@@ -135,6 +145,7 @@ class __$MessageCopyWithImpl<$Res> extends _$MessageCopyWithImpl<$Res>
   @override
   $Res call({
     Object? id = freezed,
+    Object? chatId = freezed,
     Object? text = freezed,
     Object? authorId = freezed,
     Object? sentAt = freezed,
@@ -145,6 +156,10 @@ class __$MessageCopyWithImpl<$Res> extends _$MessageCopyWithImpl<$Res>
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as String?,
+      chatId: chatId == freezed
+          ? _value.chatId
+          : chatId // ignore: cast_nullable_to_non_nullable
+              as String,
       text: text == freezed
           ? _value.text
           : text // ignore: cast_nullable_to_non_nullable
@@ -160,7 +175,7 @@ class __$MessageCopyWithImpl<$Res> extends _$MessageCopyWithImpl<$Res>
       readUsersIds: readUsersIds == freezed
           ? _value.readUsersIds
           : readUsersIds // ignore: cast_nullable_to_non_nullable
-              as Set<String>,
+              as List<String?>,
     ));
   }
 }
@@ -171,6 +186,7 @@ class __$MessageCopyWithImpl<$Res> extends _$MessageCopyWithImpl<$Res>
 class _$_Message implements _Message {
   const _$_Message(
       {this.id,
+      required this.chatId,
       required this.text,
       required this.authorId,
       required this.sentAt,
@@ -182,17 +198,19 @@ class _$_Message implements _Message {
   @override
   final String? id;
   @override
+  final String chatId;
+  @override
   final String text;
   @override
   final String authorId;
   @override
   final DateTime sentAt;
   @override
-  final Set<String> readUsersIds;
+  final List<String?> readUsersIds;
 
   @override
   String toString() {
-    return 'Message(id: $id, text: $text, authorId: $authorId, sentAt: $sentAt, readUsersIds: $readUsersIds)';
+    return 'Message(id: $id, chatId: $chatId, text: $text, authorId: $authorId, sentAt: $sentAt, readUsersIds: $readUsersIds)';
   }
 
   @override
@@ -201,6 +219,7 @@ class _$_Message implements _Message {
         (other.runtimeType == runtimeType &&
             other is _Message &&
             const DeepCollectionEquality().equals(other.id, id) &&
+            const DeepCollectionEquality().equals(other.chatId, chatId) &&
             const DeepCollectionEquality().equals(other.text, text) &&
             const DeepCollectionEquality().equals(other.authorId, authorId) &&
             const DeepCollectionEquality().equals(other.sentAt, sentAt) &&
@@ -212,6 +231,7 @@ class _$_Message implements _Message {
   int get hashCode => Object.hash(
       runtimeType,
       const DeepCollectionEquality().hash(id),
+      const DeepCollectionEquality().hash(chatId),
       const DeepCollectionEquality().hash(text),
       const DeepCollectionEquality().hash(authorId),
       const DeepCollectionEquality().hash(sentAt),
@@ -231,15 +251,18 @@ class _$_Message implements _Message {
 abstract class _Message implements Message {
   const factory _Message(
       {String? id,
+      required String chatId,
       required String text,
       required String authorId,
       required DateTime sentAt,
-      required Set<String> readUsersIds}) = _$_Message;
+      required List<String?> readUsersIds}) = _$_Message;
 
   factory _Message.fromJson(Map<String, dynamic> json) = _$_Message.fromJson;
 
   @override
   String? get id;
+  @override
+  String get chatId;
   @override
   String get text;
   @override
@@ -247,7 +270,7 @@ abstract class _Message implements Message {
   @override
   DateTime get sentAt;
   @override
-  Set<String> get readUsersIds;
+  List<String?> get readUsersIds;
   @override
   @JsonKey(ignore: true)
   _$MessageCopyWith<_Message> get copyWith =>

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:space_talk/widgets/keyboard_placeholder.dart';
 
 import '../../../messages/models/message.dart';
+import '../../../widgets/keyboard_placeholder.dart';
 import '../../providers/conversation_provider.dart';
 import 'message_bubble.dart';
 

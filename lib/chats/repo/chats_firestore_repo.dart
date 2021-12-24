@@ -29,7 +29,7 @@ class ChatsFirestoreRepo implements ChatsRepo {
     return FirebaseFirestore.instance.collection(path).withConverter<Message>(
       fromFirestore: (snap, _) {
         return Message.fromJson(
-            snap.dataWithId().handleTimeStamp(timestampField));
+            snap.dataWithId().handleTimeStamp(timestampField).setChatId(chatId));
       },
       toFirestore: (message, _) {
         return message.toJson().setServerTimestamp(timestampField);
@@ -67,7 +67,8 @@ class ChatsFirestoreRepo implements ChatsRepo {
     required String text,
   }) async {
     final message = Message(
-      readUsersIds: {},
+      chatId: 'temp',
+      readUsersIds: [],
       sentAt: DateTime.now(),
       authorId: user.uid,
       text: text,
@@ -80,7 +81,8 @@ class ChatsFirestoreRepo implements ChatsRepo {
       },
     );
     final chatRef = await _collectionRef.add(chat);
-    await _messagesCollectionRef(chatRef.id).doc().set(message);
+    final messageWithChatId = message.copyWith(chatId: chatRef.id);
+    await _messagesCollectionRef(chatRef.id).doc().set(messageWithChatId);
   }
 
   // @override

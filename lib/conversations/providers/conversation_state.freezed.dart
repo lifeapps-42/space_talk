@@ -31,11 +31,9 @@ class _$ConversationStateTearOff {
     );
   }
 
-  ConversationLiveState live(ConversationStateData data,
-      StreamSubscription<List<ConversationEvent>> eventsSubscription) {
+  ConversationLiveState live(ConversationStateData data) {
     return ConversationLiveState(
       data,
-      eventsSubscription,
     );
   }
 }
@@ -50,9 +48,7 @@ mixin _$ConversationState {
     required TResult Function() notInitialized,
     required TResult Function() loading,
     required TResult Function(ConversationStateData data) updating,
-    required TResult Function(ConversationStateData data,
-            StreamSubscription<List<ConversationEvent>> eventsSubscription)
-        live,
+    required TResult Function(ConversationStateData data) live,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -60,9 +56,7 @@ mixin _$ConversationState {
     TResult Function()? notInitialized,
     TResult Function()? loading,
     TResult Function(ConversationStateData data)? updating,
-    TResult Function(ConversationStateData data,
-            StreamSubscription<List<ConversationEvent>> eventsSubscription)?
-        live,
+    TResult Function(ConversationStateData data)? live,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -70,9 +64,7 @@ mixin _$ConversationState {
     TResult Function()? notInitialized,
     TResult Function()? loading,
     TResult Function(ConversationStateData data)? updating,
-    TResult Function(ConversationStateData data,
-            StreamSubscription<List<ConversationEvent>> eventsSubscription)?
-        live,
+    TResult Function(ConversationStateData data)? live,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -170,9 +162,7 @@ class _$ConversationNotInitializedState
     required TResult Function() notInitialized,
     required TResult Function() loading,
     required TResult Function(ConversationStateData data) updating,
-    required TResult Function(ConversationStateData data,
-            StreamSubscription<List<ConversationEvent>> eventsSubscription)
-        live,
+    required TResult Function(ConversationStateData data) live,
   }) {
     return notInitialized();
   }
@@ -183,9 +173,7 @@ class _$ConversationNotInitializedState
     TResult Function()? notInitialized,
     TResult Function()? loading,
     TResult Function(ConversationStateData data)? updating,
-    TResult Function(ConversationStateData data,
-            StreamSubscription<List<ConversationEvent>> eventsSubscription)?
-        live,
+    TResult Function(ConversationStateData data)? live,
   }) {
     return notInitialized?.call();
   }
@@ -196,9 +184,7 @@ class _$ConversationNotInitializedState
     TResult Function()? notInitialized,
     TResult Function()? loading,
     TResult Function(ConversationStateData data)? updating,
-    TResult Function(ConversationStateData data,
-            StreamSubscription<List<ConversationEvent>> eventsSubscription)?
-        live,
+    TResult Function(ConversationStateData data)? live,
     required TResult orElse(),
   }) {
     if (notInitialized != null) {
@@ -296,9 +282,7 @@ class _$ConversationLoadingState implements ConversationLoadingState {
     required TResult Function() notInitialized,
     required TResult Function() loading,
     required TResult Function(ConversationStateData data) updating,
-    required TResult Function(ConversationStateData data,
-            StreamSubscription<List<ConversationEvent>> eventsSubscription)
-        live,
+    required TResult Function(ConversationStateData data) live,
   }) {
     return loading();
   }
@@ -309,9 +293,7 @@ class _$ConversationLoadingState implements ConversationLoadingState {
     TResult Function()? notInitialized,
     TResult Function()? loading,
     TResult Function(ConversationStateData data)? updating,
-    TResult Function(ConversationStateData data,
-            StreamSubscription<List<ConversationEvent>> eventsSubscription)?
-        live,
+    TResult Function(ConversationStateData data)? live,
   }) {
     return loading?.call();
   }
@@ -322,9 +304,7 @@ class _$ConversationLoadingState implements ConversationLoadingState {
     TResult Function()? notInitialized,
     TResult Function()? loading,
     TResult Function(ConversationStateData data)? updating,
-    TResult Function(ConversationStateData data,
-            StreamSubscription<List<ConversationEvent>> eventsSubscription)?
-        live,
+    TResult Function(ConversationStateData data)? live,
     required TResult orElse(),
   }) {
     if (loading != null) {
@@ -455,9 +435,7 @@ class _$ConversationUpdatingState implements ConversationUpdatingState {
     required TResult Function() notInitialized,
     required TResult Function() loading,
     required TResult Function(ConversationStateData data) updating,
-    required TResult Function(ConversationStateData data,
-            StreamSubscription<List<ConversationEvent>> eventsSubscription)
-        live,
+    required TResult Function(ConversationStateData data) live,
   }) {
     return updating(data);
   }
@@ -468,9 +446,7 @@ class _$ConversationUpdatingState implements ConversationUpdatingState {
     TResult Function()? notInitialized,
     TResult Function()? loading,
     TResult Function(ConversationStateData data)? updating,
-    TResult Function(ConversationStateData data,
-            StreamSubscription<List<ConversationEvent>> eventsSubscription)?
-        live,
+    TResult Function(ConversationStateData data)? live,
   }) {
     return updating?.call(data);
   }
@@ -481,9 +457,7 @@ class _$ConversationUpdatingState implements ConversationUpdatingState {
     TResult Function()? notInitialized,
     TResult Function()? loading,
     TResult Function(ConversationStateData data)? updating,
-    TResult Function(ConversationStateData data,
-            StreamSubscription<List<ConversationEvent>> eventsSubscription)?
-        live,
+    TResult Function(ConversationStateData data)? live,
     required TResult orElse(),
   }) {
     if (updating != null) {
@@ -546,9 +520,7 @@ abstract class $ConversationLiveStateCopyWith<$Res> {
   factory $ConversationLiveStateCopyWith(ConversationLiveState value,
           $Res Function(ConversationLiveState) then) =
       _$ConversationLiveStateCopyWithImpl<$Res>;
-  $Res call(
-      {ConversationStateData data,
-      StreamSubscription<List<ConversationEvent>> eventsSubscription});
+  $Res call({ConversationStateData data});
 
   $ConversationStateDataCopyWith<$Res> get data;
 }
@@ -567,17 +539,12 @@ class _$ConversationLiveStateCopyWithImpl<$Res>
   @override
   $Res call({
     Object? data = freezed,
-    Object? eventsSubscription = freezed,
   }) {
     return _then(ConversationLiveState(
       data == freezed
           ? _value.data
           : data // ignore: cast_nullable_to_non_nullable
               as ConversationStateData,
-      eventsSubscription == freezed
-          ? _value.eventsSubscription
-          : eventsSubscription // ignore: cast_nullable_to_non_nullable
-              as StreamSubscription<List<ConversationEvent>>,
     ));
   }
 
@@ -592,16 +559,14 @@ class _$ConversationLiveStateCopyWithImpl<$Res>
 /// @nodoc
 
 class _$ConversationLiveState implements ConversationLiveState {
-  const _$ConversationLiveState(this.data, this.eventsSubscription);
+  const _$ConversationLiveState(this.data);
 
   @override
   final ConversationStateData data;
-  @override
-  final StreamSubscription<List<ConversationEvent>> eventsSubscription;
 
   @override
   String toString() {
-    return 'ConversationState.live(data: $data, eventsSubscription: $eventsSubscription)';
+    return 'ConversationState.live(data: $data)';
   }
 
   @override
@@ -609,16 +574,12 @@ class _$ConversationLiveState implements ConversationLiveState {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is ConversationLiveState &&
-            const DeepCollectionEquality().equals(other.data, data) &&
-            const DeepCollectionEquality()
-                .equals(other.eventsSubscription, eventsSubscription));
+            const DeepCollectionEquality().equals(other.data, data));
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(data),
-      const DeepCollectionEquality().hash(eventsSubscription));
+  int get hashCode =>
+      Object.hash(runtimeType, const DeepCollectionEquality().hash(data));
 
   @JsonKey(ignore: true)
   @override
@@ -632,11 +593,9 @@ class _$ConversationLiveState implements ConversationLiveState {
     required TResult Function() notInitialized,
     required TResult Function() loading,
     required TResult Function(ConversationStateData data) updating,
-    required TResult Function(ConversationStateData data,
-            StreamSubscription<List<ConversationEvent>> eventsSubscription)
-        live,
+    required TResult Function(ConversationStateData data) live,
   }) {
-    return live(data, eventsSubscription);
+    return live(data);
   }
 
   @override
@@ -645,11 +604,9 @@ class _$ConversationLiveState implements ConversationLiveState {
     TResult Function()? notInitialized,
     TResult Function()? loading,
     TResult Function(ConversationStateData data)? updating,
-    TResult Function(ConversationStateData data,
-            StreamSubscription<List<ConversationEvent>> eventsSubscription)?
-        live,
+    TResult Function(ConversationStateData data)? live,
   }) {
-    return live?.call(data, eventsSubscription);
+    return live?.call(data);
   }
 
   @override
@@ -658,13 +615,11 @@ class _$ConversationLiveState implements ConversationLiveState {
     TResult Function()? notInitialized,
     TResult Function()? loading,
     TResult Function(ConversationStateData data)? updating,
-    TResult Function(ConversationStateData data,
-            StreamSubscription<List<ConversationEvent>> eventsSubscription)?
-        live,
+    TResult Function(ConversationStateData data)? live,
     required TResult orElse(),
   }) {
     if (live != null) {
-      return live(data, eventsSubscription);
+      return live(data);
     }
     return orElse();
   }
@@ -709,12 +664,10 @@ class _$ConversationLiveState implements ConversationLiveState {
 }
 
 abstract class ConversationLiveState implements ConversationState {
-  const factory ConversationLiveState(ConversationStateData data,
-          StreamSubscription<List<ConversationEvent>> eventsSubscription) =
+  const factory ConversationLiveState(ConversationStateData data) =
       _$ConversationLiveState;
 
   ConversationStateData get data;
-  StreamSubscription<List<ConversationEvent>> get eventsSubscription;
   @JsonKey(ignore: true)
   $ConversationLiveStateCopyWith<ConversationLiveState> get copyWith =>
       throw _privateConstructorUsedError;

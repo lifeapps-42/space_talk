@@ -3,8 +3,6 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 
 import '../../../chats/models/chat_item.dart';
 import 'conversation_consumer.dart';
-import 'message_input.dart';
-import 'parallax_background.dart';
 
 class ConversationScreenBody extends HookWidget {
   const ConversationScreenBody({
