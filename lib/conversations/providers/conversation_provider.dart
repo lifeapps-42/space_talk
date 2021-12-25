@@ -65,11 +65,9 @@ class ConversationStateNotifier extends StateNotifier<ConversationState> {
   }
 
   void markAsRead(Message message) {
-    // if(message.readUsersIds.contains(_user!.uid)) return;
-    // final readState = message.readUsersIds;
-    // readState.add(_user!.uid);
-    // final readMessage = message.copyWith(readUsersIds: readState);
-    // _repo.markAsRead(readMessage);
+    if(message.readUsersIds.contains(_user!.uid)) return;
+    final isMyMessage = message.authorId == _user!.uid;
+    _repo.markAsRead(message, isMyMessage);
   }
 
   void _subscribeOnMessages(String chatId) async {

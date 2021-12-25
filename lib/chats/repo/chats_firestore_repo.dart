@@ -28,8 +28,10 @@ class ChatsFirestoreRepo implements ChatsRepo {
     const timestampField = 'sentAt';
     return FirebaseFirestore.instance.collection(path).withConverter<Message>(
       fromFirestore: (snap, _) {
-        return Message.fromJson(
-            snap.dataWithId().handleTimeStamp(timestampField).setChatId(chatId));
+        return Message.fromJson(snap
+            .dataWithId()
+            .handleTimeStamp(timestampField)
+            .setChatId(chatId));
       },
       toFirestore: (message, _) {
         return message.toJson().setServerTimestamp(timestampField);
@@ -79,6 +81,8 @@ class ChatsFirestoreRepo implements ChatsRepo {
         user.uid,
         companion.uid,
       },
+      messagesCount: 1,
+      readBy: {user.uid: 1},
     );
     final chatRef = await _collectionRef.add(chat);
     final messageWithChatId = message.copyWith(chatId: chatRef.id);

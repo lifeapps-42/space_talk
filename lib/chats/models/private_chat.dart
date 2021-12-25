@@ -9,11 +9,14 @@ class Chat {
   final String? id;
   final Message lastMessage;
   final Set<String> users;
+  final int? messagesCount;
+  final Map<String, int>? readBy;
 
   Chat({
     this.id,
     required this.lastMessage,
     required this.users,
+    required this.messagesCount, required this.readBy, 
   });
   factory Chat.fromJson(Map<String, dynamic> json) => _$ChatFromJson(json);
 

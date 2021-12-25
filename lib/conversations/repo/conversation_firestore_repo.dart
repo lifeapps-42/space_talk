@@ -1,14 +1,22 @@
 import 'dart:async';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../chats/models/private_chat.dart';
 import '../../messages/models/message.dart';
+import '../../user/models/user.dart';
+import '../../user/providers/user_provider.dart';
 import '../../utils/firebase_extensions/document_snapshot_extensions.dart';
 import '../models/conversation_event.dart';
 import 'conversation_repo_provider.dart';
 
 class ConversationFirestoreRepo implements ConversationRepo {
+  final User _user;
+
+  ConversationFirestoreRepo(Ref ref)
+      : _user = ref.read(userStateNotifierProvider.notifier).user!;
+
   static CollectionReference<Message> _messagesReference(String chatId) {
     final path = 'chats/$chatId/messages';
     const timestampField = 'sentAt';
@@ -21,34 +29,6 @@ class ConversationFirestoreRepo implements ConversationRepo {
       },
       toFirestore: (message, _) {
         return message.toJson().setServerTimestamp(timestampField);
-      },
-    );
-  }
-
-  static CollectionReference<ConversationEvent> _eventsReference(String chatId,
-      {bool setServerTime = false}) {
-    final path = 'chats/$chatId/events';
-    const timestampField = 'sentAt';
-    const messageField = 'message';
-    return FirebaseFirestore.instance
-        .collection(path)
-        .withConverter<ConversationEvent>(
-      fromFirestore: (snap, _) {
-        final json = snap.dataWithId();
-        final message = json[messageField] as Map<String, dynamic>;
-        final messageWithDateAndChatId =
-            message.handleTimeStamp(timestampField).setChatId(chatId);
-        json[messageField] = messageWithDateAndChatId;
-        return ConversationEvent.fromJson(json);
-      },
-      toFirestore: (chat, _) {
-        if (setServerTime) {
-          final message = chat.toJson()[messageField] as Map<String, dynamic>;
-          final messageWithDate = message.setServerTimestamp(timestampField);
-          return chat.toJson()..[messageField] = messageWithDate;
-        } else {
-          return chat.toJson();
-        }
       },
     );
   }
@@ -117,17 +97,8 @@ class ConversationFirestoreRepo implements ConversationRepo {
   }
 
   @override
-  Stream<List<ConversationEvent>> getEventsStream(String chatId) {
-    final collectionRef = _eventsReference(chatId);
-    final snapStream = collectionRef
-        .orderBy('message.sentAt', descending: true)
-        .limit(1)
-        .snapshots();
-    return snapStream.map((snap) => snap.docs.map((e) => e.data()).toList());
-  }
-
-  @override
   Future<void> sendMessage(String chatId, Message message) async {
+    _updateChatOnNewMessage(message);
     await _postMessage(chatId, message);
     // final event = ConversationAddEvent(newMessage);
     // await _postEvent(event);
@@ -135,11 +106,16 @@ class ConversationFirestoreRepo implements ConversationRepo {
   }
 
   @override
-  Future<void> markAsRead(Message message) async {
-    // final event = ConversationMessageReadEvent(message);
-    // await _setMessage(message);
-    // // await _postEvent(event);
-    // // await _updateChat(chatId, newMessage);
+  Future<void> markAsRead(Message message, bool isMyMessage) async {
+    final messageRef = _messagesReference(message.chatId).doc(message.id);
+    final union = FieldValue.arrayUnion([_user.uid]);
+    final data = {'readUsersIds': union};
+    if(!isMyMessage) {
+      _updateChatOnReadEvent(message.chatId, 1);
+    }
+    return messageRef.update(data);
+
+    // await _postEvent(event);
   }
 
   Future<Message> _postMessage(String chatId, Message message) async {
@@ -149,20 +125,21 @@ class ConversationFirestoreRepo implements ConversationRepo {
     return created.data()!;
   }
 
-  // Future<void> _setMessage(Message message) async {
-  //   final collectionRef = _messagesReference(message.chatId);
-  //   return collectionRef.doc(message.id).set(message);
-  // }
+  Future<void> _updateChatOnNewMessage(Message message) {
+    final collectionRef = _chatsReference();
+    final data = {
+      'lastMessage': message.toJson(),
+      'messagesCount': FieldValue.increment(1),
+      'readBy.${_user.uid}': FieldValue.increment(1),
+    };
+    return collectionRef.doc(message.chatId).update(data);
+  }
 
-  // Future<void> _postEvent(ConversationEvent event) {
-  //   final chatId = event.message.chatId;
-  //   final collectionRef = _eventsReference(chatId, setServerTime: false);
-  //   return collectionRef.doc().set(event);
-  // }
-
-  // Future<void> _updateChat(String chatId, Message message) {
-  //   final collectionRef = _chatsReference();
-  //   final data = {'lastMessage': message.toJson()};
-  //   return collectionRef.doc(chatId).update(data);
-  // }
+  Future<void> _updateChatOnReadEvent(String chatId, int readMessagesCount) {
+    final collectionRef = _chatsReference();
+    final data = {
+      'readBy.${_user.uid}': FieldValue.increment(1),
+    };
+    return collectionRef.doc(chatId).update(data);
+  }
 }

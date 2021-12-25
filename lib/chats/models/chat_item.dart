@@ -6,10 +6,18 @@ class ChatItem {
   final String id;
   final Message lastMessage;
   final Set<User> users;
+  final int messagesCount;
+  final Map<String, int> readByUsers;
 
   User get companion => users.first;
 
-  ChatItem({required this.id, required this.lastMessage, required this.users});
+  ChatItem({
+    required this.id,
+    required this.lastMessage,
+    required this.users,
+    required this.messagesCount,
+    required this.readByUsers,
+  });
 
   static ChatItem? fromChatAndCompanions(Chat chat, List<User> companions) {
     final companionsResult = <User>{};
@@ -23,8 +31,14 @@ class ChatItem {
       }
     }
     if (companionsResult.isEmpty) return null;
+
     return ChatItem(
-        id: chat.id!, lastMessage: chat.lastMessage, users: companionsResult);
+      id: chat.id!,
+      lastMessage: chat.lastMessage,
+      users: companionsResult,
+      messagesCount: chat.messagesCount ?? 0,
+      readByUsers: chat.readBy ?? {},
+    );
   }
 
   static List<ChatItem> itemsListFromChatsAndCompanions(

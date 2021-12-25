@@ -2,10 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../conversations/view/providers/main_screen_state_provider.dart';
+import '../../../user/providers/user_provider.dart';
 import '../../../utils/date_time_extensions/date_time_extensions.dart';
 import '../../../widgets/online_status_label.dart';
 import '../../../widgets/user_avatar.dart';
 import '../../models/chat_item.dart';
+import 'new_messages_badge.dart';
 
 class ChatItemTile extends ConsumerWidget {
   const ChatItemTile({Key? key, required this.chat}) : super(key: key);
@@ -14,6 +16,13 @@ class ChatItemTile extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final user = ref.read(userStateNotifierProvider.notifier).user;
+
+    final newMessagesCount = user == null
+        ? 0
+        : (chat.messagesCount - (chat.readByUsers[user.uid] ?? 0))
+            .clamp(0, 100);
+
     void goToConversation() {
       ref.read(mainScreenStateNotifierProvider.notifier).goToConversation(chat);
     }
@@ -56,11 +65,22 @@ class ChatItemTile extends ConsumerWidget {
                         Text(chat.lastMessage.sentAt.timeOnly)
                       ],
                     ),
-                    Text(chat.users.first.phone.value),
-                    Text(
-                      chat.lastMessage.text,
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
+                    Row(
+                      children: [
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(chat.users.first.phone.value),
+                            Text(
+                              chat.lastMessage.text,
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                          ],
+                        ),
+                        const Spacer(),
+                        NewMessagesBadge(count: newMessagesCount),
+                      ],
                     ),
                   ],
                 ),
