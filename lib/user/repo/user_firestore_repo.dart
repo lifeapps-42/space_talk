@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 
 import '../models/user.dart';
@@ -20,9 +21,13 @@ class UserFirestoreRepo with FirestoreUsersModelRef implements UserRepo {
 
   //TODO: move to separate collection to avoid extra dispatching and more atomic sructure
   Future<void> _setFcmToken(String uid) async {
-    final fcm = FirebaseMessaging.instance;
-    final fcmToken = await fcm.getToken();
-    final data = {'fcmToken': fcmToken};
-    return usersRef.doc(uid).update(data);
+    //TODO: move permission handling from here
+    final permission = await FirebaseMessaging.instance.requestPermission();
+    if (permission.authorizationStatus == AuthorizationStatus.authorized) {
+      final fcm = FirebaseMessaging.instance;
+      final fcmToken = await fcm.getToken();
+      final data = {'fcmToken': FieldValue.arrayUnion([fcmToken])};
+      return usersRef.doc(uid).update(data);
+    }
   }
 }

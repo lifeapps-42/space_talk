@@ -15,7 +15,6 @@ class ChatsItemsList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final chats = [...this.chats, ...this.chats,...this.chats,...this.chats,];
     return ListView.builder(
       controller: scrollController,
       itemCount: chats.length,

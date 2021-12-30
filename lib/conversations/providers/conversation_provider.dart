@@ -110,12 +110,23 @@ class ConversationStateNotifier extends StateNotifier<ConversationState> {
     if (events.isEmpty) return;
     state.whenOrNull(
       live: (stateData) {
+        final newMessages = <Message>[];
+        final newMessagesIndexes = <int>[];
         for (final e in events.reversed) {
           e.when(
-            add: (message) => _addMessageEvent(message, stateData),
+            add: (message) {
+              newMessages.add(message);
+              _addMessageEvent(message, stateData, dispatchNewMessageEvent: true);
+            },
             edit: (message) => _editMessageEvent(message, stateData),
             delete: (id) => _deleteMessageEvent(id, stateData),
           );
+        }
+        if(newMessages.isNotEmpty) {
+          for (final nm in newMessages) {
+            newMessagesIndexes.add(stateData.messages.indexOf(nm));
+          }
+           state = ConversationNewMessagesEvent(newMessagesIndexes);
         }
         state = ConversationLiveState(stateData);
       },
@@ -127,7 +138,7 @@ class ConversationStateNotifier extends StateNotifier<ConversationState> {
         );
         for (final e in events.reversed) {
           e.whenOrNull(
-            add: (message) => _addMessageEvent(message, stateData),
+            add: (message) => _addMessageEvent(message, stateData, dispatchNewMessageEvent: false),
           );
         }
         state = ConversationLiveState(stateData);
@@ -135,7 +146,7 @@ class ConversationStateNotifier extends StateNotifier<ConversationState> {
     );
   }
 
-  void _addMessageEvent(Message message, ConversationStateData stateData) {
+  void _addMessageEvent(Message message, ConversationStateData stateData, {required bool dispatchNewMessageEvent,}) {
     if (stateData.messages.contains(message)) return;
     stateData.messages.insert(0, message);
   }
@@ -143,7 +154,7 @@ class ConversationStateNotifier extends StateNotifier<ConversationState> {
   void _editMessageEvent(Message message, ConversationStateData stateData) {
     final i = stateData.messages.indexWhere((m) => m.id == message.id);
     if(i < 0) {
-      _addMessageEvent(message, stateData);
+      _addMessageEvent(message, stateData, dispatchNewMessageEvent: false);
       return;
     }
     stateData.messages[i] = message;

@@ -49,16 +49,20 @@ class ConversationScreen extends ConsumerWidget {
       backgroundColor: TalkColors.main,
     ));
 
-    return Scaffold(
-      extendBodyBehindAppBar: true,
-      resizeToAvoidBottomInset: false,
-      appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        title: Text(title),
-        leading: leading,
+    return WillPopScope(
+      onWillPop: () async => false,
+      child: Scaffold(
+        
+        extendBodyBehindAppBar: true,
+        resizeToAvoidBottomInset: false,
+        appBar: AppBar(
+          backgroundColor: Colors.transparent,
+          title: Text(title),
+          leading: leading,
+        ),
+        body: const MainBodyWithParallax(),
+        floatingActionButton: fab,
       ),
-      body: const MainBodyWithParallax(),
-      floatingActionButton: fab,
     );
   }
 }

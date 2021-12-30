@@ -36,6 +36,12 @@ class _$ConversationStateTearOff {
       data,
     );
   }
+
+  ConversationNewMessagesEvent newMessagesEvent(List<int> indexes) {
+    return ConversationNewMessagesEvent(
+      indexes,
+    );
+  }
 }
 
 /// @nodoc
@@ -49,6 +55,7 @@ mixin _$ConversationState {
     required TResult Function() loading,
     required TResult Function(ConversationStateData data) updating,
     required TResult Function(ConversationStateData data) live,
+    required TResult Function(List<int> indexes) newMessagesEvent,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -57,6 +64,7 @@ mixin _$ConversationState {
     TResult Function()? loading,
     TResult Function(ConversationStateData data)? updating,
     TResult Function(ConversationStateData data)? live,
+    TResult Function(List<int> indexes)? newMessagesEvent,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -65,6 +73,7 @@ mixin _$ConversationState {
     TResult Function()? loading,
     TResult Function(ConversationStateData data)? updating,
     TResult Function(ConversationStateData data)? live,
+    TResult Function(List<int> indexes)? newMessagesEvent,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -75,6 +84,8 @@ mixin _$ConversationState {
     required TResult Function(ConversationLoadingState value) loading,
     required TResult Function(ConversationUpdatingState value) updating,
     required TResult Function(ConversationLiveState value) live,
+    required TResult Function(ConversationNewMessagesEvent value)
+        newMessagesEvent,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -83,6 +94,7 @@ mixin _$ConversationState {
     TResult Function(ConversationLoadingState value)? loading,
     TResult Function(ConversationUpdatingState value)? updating,
     TResult Function(ConversationLiveState value)? live,
+    TResult Function(ConversationNewMessagesEvent value)? newMessagesEvent,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -91,6 +103,7 @@ mixin _$ConversationState {
     TResult Function(ConversationLoadingState value)? loading,
     TResult Function(ConversationUpdatingState value)? updating,
     TResult Function(ConversationLiveState value)? live,
+    TResult Function(ConversationNewMessagesEvent value)? newMessagesEvent,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -163,6 +176,7 @@ class _$ConversationNotInitializedState
     required TResult Function() loading,
     required TResult Function(ConversationStateData data) updating,
     required TResult Function(ConversationStateData data) live,
+    required TResult Function(List<int> indexes) newMessagesEvent,
   }) {
     return notInitialized();
   }
@@ -174,6 +188,7 @@ class _$ConversationNotInitializedState
     TResult Function()? loading,
     TResult Function(ConversationStateData data)? updating,
     TResult Function(ConversationStateData data)? live,
+    TResult Function(List<int> indexes)? newMessagesEvent,
   }) {
     return notInitialized?.call();
   }
@@ -185,6 +200,7 @@ class _$ConversationNotInitializedState
     TResult Function()? loading,
     TResult Function(ConversationStateData data)? updating,
     TResult Function(ConversationStateData data)? live,
+    TResult Function(List<int> indexes)? newMessagesEvent,
     required TResult orElse(),
   }) {
     if (notInitialized != null) {
@@ -201,6 +217,8 @@ class _$ConversationNotInitializedState
     required TResult Function(ConversationLoadingState value) loading,
     required TResult Function(ConversationUpdatingState value) updating,
     required TResult Function(ConversationLiveState value) live,
+    required TResult Function(ConversationNewMessagesEvent value)
+        newMessagesEvent,
   }) {
     return notInitialized(this);
   }
@@ -212,6 +230,7 @@ class _$ConversationNotInitializedState
     TResult Function(ConversationLoadingState value)? loading,
     TResult Function(ConversationUpdatingState value)? updating,
     TResult Function(ConversationLiveState value)? live,
+    TResult Function(ConversationNewMessagesEvent value)? newMessagesEvent,
   }) {
     return notInitialized?.call(this);
   }
@@ -223,6 +242,7 @@ class _$ConversationNotInitializedState
     TResult Function(ConversationLoadingState value)? loading,
     TResult Function(ConversationUpdatingState value)? updating,
     TResult Function(ConversationLiveState value)? live,
+    TResult Function(ConversationNewMessagesEvent value)? newMessagesEvent,
     required TResult orElse(),
   }) {
     if (notInitialized != null) {
@@ -283,6 +303,7 @@ class _$ConversationLoadingState implements ConversationLoadingState {
     required TResult Function() loading,
     required TResult Function(ConversationStateData data) updating,
     required TResult Function(ConversationStateData data) live,
+    required TResult Function(List<int> indexes) newMessagesEvent,
   }) {
     return loading();
   }
@@ -294,6 +315,7 @@ class _$ConversationLoadingState implements ConversationLoadingState {
     TResult Function()? loading,
     TResult Function(ConversationStateData data)? updating,
     TResult Function(ConversationStateData data)? live,
+    TResult Function(List<int> indexes)? newMessagesEvent,
   }) {
     return loading?.call();
   }
@@ -305,6 +327,7 @@ class _$ConversationLoadingState implements ConversationLoadingState {
     TResult Function()? loading,
     TResult Function(ConversationStateData data)? updating,
     TResult Function(ConversationStateData data)? live,
+    TResult Function(List<int> indexes)? newMessagesEvent,
     required TResult orElse(),
   }) {
     if (loading != null) {
@@ -321,6 +344,8 @@ class _$ConversationLoadingState implements ConversationLoadingState {
     required TResult Function(ConversationLoadingState value) loading,
     required TResult Function(ConversationUpdatingState value) updating,
     required TResult Function(ConversationLiveState value) live,
+    required TResult Function(ConversationNewMessagesEvent value)
+        newMessagesEvent,
   }) {
     return loading(this);
   }
@@ -332,6 +357,7 @@ class _$ConversationLoadingState implements ConversationLoadingState {
     TResult Function(ConversationLoadingState value)? loading,
     TResult Function(ConversationUpdatingState value)? updating,
     TResult Function(ConversationLiveState value)? live,
+    TResult Function(ConversationNewMessagesEvent value)? newMessagesEvent,
   }) {
     return loading?.call(this);
   }
@@ -343,6 +369,7 @@ class _$ConversationLoadingState implements ConversationLoadingState {
     TResult Function(ConversationLoadingState value)? loading,
     TResult Function(ConversationUpdatingState value)? updating,
     TResult Function(ConversationLiveState value)? live,
+    TResult Function(ConversationNewMessagesEvent value)? newMessagesEvent,
     required TResult orElse(),
   }) {
     if (loading != null) {
@@ -436,6 +463,7 @@ class _$ConversationUpdatingState implements ConversationUpdatingState {
     required TResult Function() loading,
     required TResult Function(ConversationStateData data) updating,
     required TResult Function(ConversationStateData data) live,
+    required TResult Function(List<int> indexes) newMessagesEvent,
   }) {
     return updating(data);
   }
@@ -447,6 +475,7 @@ class _$ConversationUpdatingState implements ConversationUpdatingState {
     TResult Function()? loading,
     TResult Function(ConversationStateData data)? updating,
     TResult Function(ConversationStateData data)? live,
+    TResult Function(List<int> indexes)? newMessagesEvent,
   }) {
     return updating?.call(data);
   }
@@ -458,6 +487,7 @@ class _$ConversationUpdatingState implements ConversationUpdatingState {
     TResult Function()? loading,
     TResult Function(ConversationStateData data)? updating,
     TResult Function(ConversationStateData data)? live,
+    TResult Function(List<int> indexes)? newMessagesEvent,
     required TResult orElse(),
   }) {
     if (updating != null) {
@@ -474,6 +504,8 @@ class _$ConversationUpdatingState implements ConversationUpdatingState {
     required TResult Function(ConversationLoadingState value) loading,
     required TResult Function(ConversationUpdatingState value) updating,
     required TResult Function(ConversationLiveState value) live,
+    required TResult Function(ConversationNewMessagesEvent value)
+        newMessagesEvent,
   }) {
     return updating(this);
   }
@@ -485,6 +517,7 @@ class _$ConversationUpdatingState implements ConversationUpdatingState {
     TResult Function(ConversationLoadingState value)? loading,
     TResult Function(ConversationUpdatingState value)? updating,
     TResult Function(ConversationLiveState value)? live,
+    TResult Function(ConversationNewMessagesEvent value)? newMessagesEvent,
   }) {
     return updating?.call(this);
   }
@@ -496,6 +529,7 @@ class _$ConversationUpdatingState implements ConversationUpdatingState {
     TResult Function(ConversationLoadingState value)? loading,
     TResult Function(ConversationUpdatingState value)? updating,
     TResult Function(ConversationLiveState value)? live,
+    TResult Function(ConversationNewMessagesEvent value)? newMessagesEvent,
     required TResult orElse(),
   }) {
     if (updating != null) {
@@ -594,6 +628,7 @@ class _$ConversationLiveState implements ConversationLiveState {
     required TResult Function() loading,
     required TResult Function(ConversationStateData data) updating,
     required TResult Function(ConversationStateData data) live,
+    required TResult Function(List<int> indexes) newMessagesEvent,
   }) {
     return live(data);
   }
@@ -605,6 +640,7 @@ class _$ConversationLiveState implements ConversationLiveState {
     TResult Function()? loading,
     TResult Function(ConversationStateData data)? updating,
     TResult Function(ConversationStateData data)? live,
+    TResult Function(List<int> indexes)? newMessagesEvent,
   }) {
     return live?.call(data);
   }
@@ -616,6 +652,7 @@ class _$ConversationLiveState implements ConversationLiveState {
     TResult Function()? loading,
     TResult Function(ConversationStateData data)? updating,
     TResult Function(ConversationStateData data)? live,
+    TResult Function(List<int> indexes)? newMessagesEvent,
     required TResult orElse(),
   }) {
     if (live != null) {
@@ -632,6 +669,8 @@ class _$ConversationLiveState implements ConversationLiveState {
     required TResult Function(ConversationLoadingState value) loading,
     required TResult Function(ConversationUpdatingState value) updating,
     required TResult Function(ConversationLiveState value) live,
+    required TResult Function(ConversationNewMessagesEvent value)
+        newMessagesEvent,
   }) {
     return live(this);
   }
@@ -643,6 +682,7 @@ class _$ConversationLiveState implements ConversationLiveState {
     TResult Function(ConversationLoadingState value)? loading,
     TResult Function(ConversationUpdatingState value)? updating,
     TResult Function(ConversationLiveState value)? live,
+    TResult Function(ConversationNewMessagesEvent value)? newMessagesEvent,
   }) {
     return live?.call(this);
   }
@@ -654,6 +694,7 @@ class _$ConversationLiveState implements ConversationLiveState {
     TResult Function(ConversationLoadingState value)? loading,
     TResult Function(ConversationUpdatingState value)? updating,
     TResult Function(ConversationLiveState value)? live,
+    TResult Function(ConversationNewMessagesEvent value)? newMessagesEvent,
     required TResult orElse(),
   }) {
     if (live != null) {
@@ -671,4 +712,163 @@ abstract class ConversationLiveState implements ConversationState {
   @JsonKey(ignore: true)
   $ConversationLiveStateCopyWith<ConversationLiveState> get copyWith =>
       throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $ConversationNewMessagesEventCopyWith<$Res> {
+  factory $ConversationNewMessagesEventCopyWith(
+          ConversationNewMessagesEvent value,
+          $Res Function(ConversationNewMessagesEvent) then) =
+      _$ConversationNewMessagesEventCopyWithImpl<$Res>;
+  $Res call({List<int> indexes});
+}
+
+/// @nodoc
+class _$ConversationNewMessagesEventCopyWithImpl<$Res>
+    extends _$ConversationStateCopyWithImpl<$Res>
+    implements $ConversationNewMessagesEventCopyWith<$Res> {
+  _$ConversationNewMessagesEventCopyWithImpl(
+      ConversationNewMessagesEvent _value,
+      $Res Function(ConversationNewMessagesEvent) _then)
+      : super(_value, (v) => _then(v as ConversationNewMessagesEvent));
+
+  @override
+  ConversationNewMessagesEvent get _value =>
+      super._value as ConversationNewMessagesEvent;
+
+  @override
+  $Res call({
+    Object? indexes = freezed,
+  }) {
+    return _then(ConversationNewMessagesEvent(
+      indexes == freezed
+          ? _value.indexes
+          : indexes // ignore: cast_nullable_to_non_nullable
+              as List<int>,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$ConversationNewMessagesEvent implements ConversationNewMessagesEvent {
+  const _$ConversationNewMessagesEvent(this.indexes);
+
+  @override
+  final List<int> indexes;
+
+  @override
+  String toString() {
+    return 'ConversationState.newMessagesEvent(indexes: $indexes)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is ConversationNewMessagesEvent &&
+            const DeepCollectionEquality().equals(other.indexes, indexes));
+  }
+
+  @override
+  int get hashCode =>
+      Object.hash(runtimeType, const DeepCollectionEquality().hash(indexes));
+
+  @JsonKey(ignore: true)
+  @override
+  $ConversationNewMessagesEventCopyWith<ConversationNewMessagesEvent>
+      get copyWith => _$ConversationNewMessagesEventCopyWithImpl<
+          ConversationNewMessagesEvent>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() notInitialized,
+    required TResult Function() loading,
+    required TResult Function(ConversationStateData data) updating,
+    required TResult Function(ConversationStateData data) live,
+    required TResult Function(List<int> indexes) newMessagesEvent,
+  }) {
+    return newMessagesEvent(indexes);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function()? notInitialized,
+    TResult Function()? loading,
+    TResult Function(ConversationStateData data)? updating,
+    TResult Function(ConversationStateData data)? live,
+    TResult Function(List<int> indexes)? newMessagesEvent,
+  }) {
+    return newMessagesEvent?.call(indexes);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? notInitialized,
+    TResult Function()? loading,
+    TResult Function(ConversationStateData data)? updating,
+    TResult Function(ConversationStateData data)? live,
+    TResult Function(List<int> indexes)? newMessagesEvent,
+    required TResult orElse(),
+  }) {
+    if (newMessagesEvent != null) {
+      return newMessagesEvent(indexes);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(ConversationNotInitializedState value)
+        notInitialized,
+    required TResult Function(ConversationLoadingState value) loading,
+    required TResult Function(ConversationUpdatingState value) updating,
+    required TResult Function(ConversationLiveState value) live,
+    required TResult Function(ConversationNewMessagesEvent value)
+        newMessagesEvent,
+  }) {
+    return newMessagesEvent(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(ConversationNotInitializedState value)? notInitialized,
+    TResult Function(ConversationLoadingState value)? loading,
+    TResult Function(ConversationUpdatingState value)? updating,
+    TResult Function(ConversationLiveState value)? live,
+    TResult Function(ConversationNewMessagesEvent value)? newMessagesEvent,
+  }) {
+    return newMessagesEvent?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(ConversationNotInitializedState value)? notInitialized,
+    TResult Function(ConversationLoadingState value)? loading,
+    TResult Function(ConversationUpdatingState value)? updating,
+    TResult Function(ConversationLiveState value)? live,
+    TResult Function(ConversationNewMessagesEvent value)? newMessagesEvent,
+    required TResult orElse(),
+  }) {
+    if (newMessagesEvent != null) {
+      return newMessagesEvent(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class ConversationNewMessagesEvent implements ConversationState {
+  const factory ConversationNewMessagesEvent(List<int> indexes) =
+      _$ConversationNewMessagesEvent;
+
+  List<int> get indexes;
+  @JsonKey(ignore: true)
+  $ConversationNewMessagesEventCopyWith<ConversationNewMessagesEvent>
+      get copyWith => throw _privateConstructorUsedError;
 }

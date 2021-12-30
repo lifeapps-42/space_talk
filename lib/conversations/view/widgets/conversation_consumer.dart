@@ -26,10 +26,12 @@ class ConversationConsumer extends ConsumerWidget {
         live: (stateData) => MessagesList(
           messages: stateData.messages,
           scrollController: scrollController,
+          chatId: stateData.chatId,
         ),
         updating: (stateData) => MessagesList(
           messages: stateData.messages,
           scrollController: scrollController,
+          chatId: stateData.chatId,
         ),
         orElse: () => const FullscreenLoader(),
       ),

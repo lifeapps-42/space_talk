@@ -23,8 +23,6 @@ class MainRouter extends ConsumerWidget {
       ref.read(userStateNotifierProvider.notifier).goOffline();
     }
 
-    FirebaseMessaging.instance.requestPermission();
-
     return LifecycleHandler(
      onStateChanged: (state) {
         if (state == AppLifecycleState.inactive) {
@@ -39,8 +37,8 @@ class MainRouter extends ConsumerWidget {
         onGenerateRoute: (settings) {
           switch (settings.name) {
              case ConversationScreen.route:
-              return MaterialPageRoute(
-                builder: (context) => ConversationScreen(user: user,),
+              return PageRouteBuilder(
+                pageBuilder: (context, _, __) => ConversationScreen(user: user,),
               );
           }
         },

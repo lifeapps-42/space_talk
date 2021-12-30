@@ -14,4 +14,6 @@ class ConversationState with _$ConversationState {
       ConversationUpdatingState;
   const factory ConversationState.live(ConversationStateData data) =
       ConversationLiveState;
+  const factory ConversationState.newMessagesEvent(List<int> indexes) =
+      ConversationNewMessagesEvent;
 }
