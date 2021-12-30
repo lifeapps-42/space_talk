@@ -105,10 +105,10 @@ class MessageInput extends HookConsumerWidget {
       child: ClipRect(
         child: BackdropFilter(
           filter: ImageFilter.blur(
-              sigmaX: 15, sigmaY: 15, tileMode: TileMode.mirror),
+              sigmaX: 30, sigmaY: 40, tileMode: TileMode.mirror),
           child: Container(
             alignment: Alignment.center,
-            color: const Color.fromRGBO(59, 29, 27, 0.24),
+            color: const Color.fromRGBO(59, 29, 27, 0.7),
             child: Column(
               children: [
                 Container(
@@ -156,6 +156,7 @@ class MessageInput extends HookConsumerWidget {
                         width: 45,
                         child: const Icon(
                           Icons.send,
+                          color: Colors.white54,
                         ),
                       ),
                     ),

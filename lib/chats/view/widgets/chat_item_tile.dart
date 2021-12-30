@@ -67,18 +67,19 @@ class ChatItemTile extends ConsumerWidget {
                     ),
                     Row(
                       children: [
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(chat.users.first.phone.value),
-                            Text(
-                              chat.lastMessage.text,
-                              maxLines: 1,
-                              overflow: TextOverflow.ellipsis,
-                            ),
-                          ],
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(chat.users.first.phone.value),
+                              Text(
+                                chat.lastMessage.text,
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                            ],
+                          ),
                         ),
-                        const Spacer(),
                         NewMessagesBadge(count: newMessagesCount),
                       ],
                     ),

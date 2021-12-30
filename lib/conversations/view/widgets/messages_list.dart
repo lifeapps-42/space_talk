@@ -101,7 +101,7 @@ class MessagesList extends HookConsumerWidget {
               offset: Offset(dragPosition.value, 0.0),
               child: AnimatedList(
                 key: listKey.value,
-                initialItemCount: initialMessagesCount.value,
+                initialItemCount: messages.length + 1,
                 controller: scrollController,
                 physics: const BouncingScrollPhysics(),
                 reverse: true,
@@ -109,7 +109,7 @@ class MessagesList extends HookConsumerWidget {
                   if (i == 0) {
                     return const KeyboardPlaceholder(
                       minSize: 75,
-                      correction: 5,
+                      correction: 60,
                     );
                   }
                   final message = messages[i - 1];

@@ -29,7 +29,7 @@ class MessageBubble extends HookConsumerWidget {
     final textColor = isMyMessage ? Colors.white : Colors.black;
 
     void onVisibilityChanged(VisibilityInfo info) {
-      if (info.visibleFraction < 0.9 || isReadByMe) return;
+      if (info.size.height != info.visibleBounds.bottom || isReadByMe) return;
       ref
           .read(conversationStateNotifierProvider(message.chatId).notifier)
           .markAsRead(message);
