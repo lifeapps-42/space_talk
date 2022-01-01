@@ -1,8 +1,5 @@
-import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:visibility_detector/visibility_detector.dart';
 
@@ -61,7 +58,7 @@ class MessageBubble extends HookConsumerWidget {
                           alignment: Alignment.bottomCenter,
                           child: Card(
                             shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(8),
+                              borderRadius: BorderRadius.circular(12),
                               side: const BorderSide(
                                   width: 0.5, color: Colors.black38),
                             ),
@@ -76,7 +73,7 @@ class MessageBubble extends HookConsumerWidget {
                                 children: [
                                   Text(
                                     message.text,
-                                    style: TextStyle(color: textColor),
+                                    style: TextStyle(color: textColor, fontSize: 15),
                                   ),
                                   MessageBubbleTimeAndStatus(
                                     message: message,

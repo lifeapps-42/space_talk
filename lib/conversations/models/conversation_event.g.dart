@@ -37,13 +37,13 @@ Map<String, dynamic> _$$ConversationEditEventToJson(
 _$ConversationDeleteEvent _$$ConversationDeleteEventFromJson(
         Map<String, dynamic> json) =>
     _$ConversationDeleteEvent(
-      json['messageId'] as String,
+      Message.fromJson(json['message'] as Map<String, dynamic>),
       $type: json['runtimeType'] as String?,
     );
 
 Map<String, dynamic> _$$ConversationDeleteEventToJson(
         _$ConversationDeleteEvent instance) =>
     <String, dynamic>{
-      'messageId': instance.messageId,
+      'message': instance.message.toJson(),
       'runtimeType': instance.$type,
     };

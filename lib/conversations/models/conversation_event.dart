@@ -14,7 +14,7 @@ class ConversationEvent with _$ConversationEvent{
   @JsonSerializable(explicitToJson: true)
   const factory ConversationEvent.edit(Message message) = ConversationEditEvent;
   @JsonSerializable(explicitToJson: true)
-  const factory ConversationEvent.delete(String messageId) = ConversationDeleteEvent;
+  const factory ConversationEvent.delete(Message message) = ConversationDeleteEvent;
   
   factory ConversationEvent.fromJson(Map<String, dynamic> json) => _$ConversationEventFromJson(json);
 

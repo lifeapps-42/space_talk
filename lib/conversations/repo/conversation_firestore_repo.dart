@@ -86,7 +86,7 @@ class ConversationFirestoreRepo implements ConversationRepo {
           events.add(ConversationAddEvent(event.doc.data()!));
           break;
         case DocumentChangeType.removed:
-          events.add(ConversationDeleteEvent(event.doc.id));
+          events.add(ConversationDeleteEvent(event.doc.data()!));
           break;
         case DocumentChangeType.modified:
           events.add(ConversationEditEvent(event.doc.data()!));

@@ -56,6 +56,7 @@ class MessageInput extends HookConsumerWidget {
     }
 
     void sendMessage() {
+      if (messageController.text.trim().isEmpty) return;
       final currentChat =
           ref.read(mainScreenStateNotifierProvider.notifier).chat;
       ref

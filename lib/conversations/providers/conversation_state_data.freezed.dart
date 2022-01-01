@@ -19,10 +19,12 @@ class _$ConversationStateDataTearOff {
 
   _ConversationStateData call(
       {required List<Message> messages,
+      required List<GroupedMessages> groupedMessages,
       required bool hasMoreToFetch,
       required String chatId}) {
     return _ConversationStateData(
       messages: messages,
+      groupedMessages: groupedMessages,
       hasMoreToFetch: hasMoreToFetch,
       chatId: chatId,
     );
@@ -35,6 +37,8 @@ const $ConversationStateData = _$ConversationStateDataTearOff();
 /// @nodoc
 mixin _$ConversationStateData {
   List<Message> get messages => throw _privateConstructorUsedError;
+  List<GroupedMessages> get groupedMessages =>
+      throw _privateConstructorUsedError;
   bool get hasMoreToFetch => throw _privateConstructorUsedError;
   String get chatId => throw _privateConstructorUsedError;
 
@@ -48,7 +52,11 @@ abstract class $ConversationStateDataCopyWith<$Res> {
   factory $ConversationStateDataCopyWith(ConversationStateData value,
           $Res Function(ConversationStateData) then) =
       _$ConversationStateDataCopyWithImpl<$Res>;
-  $Res call({List<Message> messages, bool hasMoreToFetch, String chatId});
+  $Res call(
+      {List<Message> messages,
+      List<GroupedMessages> groupedMessages,
+      bool hasMoreToFetch,
+      String chatId});
 }
 
 /// @nodoc
@@ -63,6 +71,7 @@ class _$ConversationStateDataCopyWithImpl<$Res>
   @override
   $Res call({
     Object? messages = freezed,
+    Object? groupedMessages = freezed,
     Object? hasMoreToFetch = freezed,
     Object? chatId = freezed,
   }) {
@@ -71,6 +80,10 @@ class _$ConversationStateDataCopyWithImpl<$Res>
           ? _value.messages
           : messages // ignore: cast_nullable_to_non_nullable
               as List<Message>,
+      groupedMessages: groupedMessages == freezed
+          ? _value.groupedMessages
+          : groupedMessages // ignore: cast_nullable_to_non_nullable
+              as List<GroupedMessages>,
       hasMoreToFetch: hasMoreToFetch == freezed
           ? _value.hasMoreToFetch
           : hasMoreToFetch // ignore: cast_nullable_to_non_nullable
@@ -90,7 +103,11 @@ abstract class _$ConversationStateDataCopyWith<$Res>
           $Res Function(_ConversationStateData) then) =
       __$ConversationStateDataCopyWithImpl<$Res>;
   @override
-  $Res call({List<Message> messages, bool hasMoreToFetch, String chatId});
+  $Res call(
+      {List<Message> messages,
+      List<GroupedMessages> groupedMessages,
+      bool hasMoreToFetch,
+      String chatId});
 }
 
 /// @nodoc
@@ -107,6 +124,7 @@ class __$ConversationStateDataCopyWithImpl<$Res>
   @override
   $Res call({
     Object? messages = freezed,
+    Object? groupedMessages = freezed,
     Object? hasMoreToFetch = freezed,
     Object? chatId = freezed,
   }) {
@@ -115,6 +133,10 @@ class __$ConversationStateDataCopyWithImpl<$Res>
           ? _value.messages
           : messages // ignore: cast_nullable_to_non_nullable
               as List<Message>,
+      groupedMessages: groupedMessages == freezed
+          ? _value.groupedMessages
+          : groupedMessages // ignore: cast_nullable_to_non_nullable
+              as List<GroupedMessages>,
       hasMoreToFetch: hasMoreToFetch == freezed
           ? _value.hasMoreToFetch
           : hasMoreToFetch // ignore: cast_nullable_to_non_nullable
@@ -129,14 +151,18 @@ class __$ConversationStateDataCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_ConversationStateData implements _ConversationStateData {
+class _$_ConversationStateData extends _ConversationStateData {
   const _$_ConversationStateData(
       {required this.messages,
+      required this.groupedMessages,
       required this.hasMoreToFetch,
-      required this.chatId});
+      required this.chatId})
+      : super._();
 
   @override
   final List<Message> messages;
+  @override
+  final List<GroupedMessages> groupedMessages;
   @override
   final bool hasMoreToFetch;
   @override
@@ -144,7 +170,7 @@ class _$_ConversationStateData implements _ConversationStateData {
 
   @override
   String toString() {
-    return 'ConversationStateData(messages: $messages, hasMoreToFetch: $hasMoreToFetch, chatId: $chatId)';
+    return 'ConversationStateData(messages: $messages, groupedMessages: $groupedMessages, hasMoreToFetch: $hasMoreToFetch, chatId: $chatId)';
   }
 
   @override
@@ -154,6 +180,8 @@ class _$_ConversationStateData implements _ConversationStateData {
             other is _ConversationStateData &&
             const DeepCollectionEquality().equals(other.messages, messages) &&
             const DeepCollectionEquality()
+                .equals(other.groupedMessages, groupedMessages) &&
+            const DeepCollectionEquality()
                 .equals(other.hasMoreToFetch, hasMoreToFetch) &&
             const DeepCollectionEquality().equals(other.chatId, chatId));
   }
@@ -162,6 +190,7 @@ class _$_ConversationStateData implements _ConversationStateData {
   int get hashCode => Object.hash(
       runtimeType,
       const DeepCollectionEquality().hash(messages),
+      const DeepCollectionEquality().hash(groupedMessages),
       const DeepCollectionEquality().hash(hasMoreToFetch),
       const DeepCollectionEquality().hash(chatId));
 
@@ -172,14 +201,18 @@ class _$_ConversationStateData implements _ConversationStateData {
           this, _$identity);
 }
 
-abstract class _ConversationStateData implements ConversationStateData {
+abstract class _ConversationStateData extends ConversationStateData {
   const factory _ConversationStateData(
       {required List<Message> messages,
+      required List<GroupedMessages> groupedMessages,
       required bool hasMoreToFetch,
       required String chatId}) = _$_ConversationStateData;
+  const _ConversationStateData._() : super._();
 
   @override
   List<Message> get messages;
+  @override
+  List<GroupedMessages> get groupedMessages;
   @override
   bool get hasMoreToFetch;
   @override

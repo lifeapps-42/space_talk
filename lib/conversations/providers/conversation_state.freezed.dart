@@ -37,9 +37,17 @@ class _$ConversationStateTearOff {
     );
   }
 
-  ConversationNewMessagesEvent newMessagesEvent(List<int> indexes) {
+  ConversationNewMessagesEvent newMessagesEvent(
+      Map<DateTime, List<int>> locations) {
     return ConversationNewMessagesEvent(
-      indexes,
+      locations,
+    );
+  }
+
+  ConversationRemovedMessagesEvent removedMessagesEvent(
+      Map<DateTime, List<int>> locations) {
+    return ConversationRemovedMessagesEvent(
+      locations,
     );
   }
 }
@@ -55,7 +63,10 @@ mixin _$ConversationState {
     required TResult Function() loading,
     required TResult Function(ConversationStateData data) updating,
     required TResult Function(ConversationStateData data) live,
-    required TResult Function(List<int> indexes) newMessagesEvent,
+    required TResult Function(Map<DateTime, List<int>> locations)
+        newMessagesEvent,
+    required TResult Function(Map<DateTime, List<int>> locations)
+        removedMessagesEvent,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -64,7 +75,8 @@ mixin _$ConversationState {
     TResult Function()? loading,
     TResult Function(ConversationStateData data)? updating,
     TResult Function(ConversationStateData data)? live,
-    TResult Function(List<int> indexes)? newMessagesEvent,
+    TResult Function(Map<DateTime, List<int>> locations)? newMessagesEvent,
+    TResult Function(Map<DateTime, List<int>> locations)? removedMessagesEvent,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -73,7 +85,8 @@ mixin _$ConversationState {
     TResult Function()? loading,
     TResult Function(ConversationStateData data)? updating,
     TResult Function(ConversationStateData data)? live,
-    TResult Function(List<int> indexes)? newMessagesEvent,
+    TResult Function(Map<DateTime, List<int>> locations)? newMessagesEvent,
+    TResult Function(Map<DateTime, List<int>> locations)? removedMessagesEvent,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -86,6 +99,8 @@ mixin _$ConversationState {
     required TResult Function(ConversationLiveState value) live,
     required TResult Function(ConversationNewMessagesEvent value)
         newMessagesEvent,
+    required TResult Function(ConversationRemovedMessagesEvent value)
+        removedMessagesEvent,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -95,6 +110,8 @@ mixin _$ConversationState {
     TResult Function(ConversationUpdatingState value)? updating,
     TResult Function(ConversationLiveState value)? live,
     TResult Function(ConversationNewMessagesEvent value)? newMessagesEvent,
+    TResult Function(ConversationRemovedMessagesEvent value)?
+        removedMessagesEvent,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -104,6 +121,8 @@ mixin _$ConversationState {
     TResult Function(ConversationUpdatingState value)? updating,
     TResult Function(ConversationLiveState value)? live,
     TResult Function(ConversationNewMessagesEvent value)? newMessagesEvent,
+    TResult Function(ConversationRemovedMessagesEvent value)?
+        removedMessagesEvent,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -176,7 +195,10 @@ class _$ConversationNotInitializedState
     required TResult Function() loading,
     required TResult Function(ConversationStateData data) updating,
     required TResult Function(ConversationStateData data) live,
-    required TResult Function(List<int> indexes) newMessagesEvent,
+    required TResult Function(Map<DateTime, List<int>> locations)
+        newMessagesEvent,
+    required TResult Function(Map<DateTime, List<int>> locations)
+        removedMessagesEvent,
   }) {
     return notInitialized();
   }
@@ -188,7 +210,8 @@ class _$ConversationNotInitializedState
     TResult Function()? loading,
     TResult Function(ConversationStateData data)? updating,
     TResult Function(ConversationStateData data)? live,
-    TResult Function(List<int> indexes)? newMessagesEvent,
+    TResult Function(Map<DateTime, List<int>> locations)? newMessagesEvent,
+    TResult Function(Map<DateTime, List<int>> locations)? removedMessagesEvent,
   }) {
     return notInitialized?.call();
   }
@@ -200,7 +223,8 @@ class _$ConversationNotInitializedState
     TResult Function()? loading,
     TResult Function(ConversationStateData data)? updating,
     TResult Function(ConversationStateData data)? live,
-    TResult Function(List<int> indexes)? newMessagesEvent,
+    TResult Function(Map<DateTime, List<int>> locations)? newMessagesEvent,
+    TResult Function(Map<DateTime, List<int>> locations)? removedMessagesEvent,
     required TResult orElse(),
   }) {
     if (notInitialized != null) {
@@ -219,6 +243,8 @@ class _$ConversationNotInitializedState
     required TResult Function(ConversationLiveState value) live,
     required TResult Function(ConversationNewMessagesEvent value)
         newMessagesEvent,
+    required TResult Function(ConversationRemovedMessagesEvent value)
+        removedMessagesEvent,
   }) {
     return notInitialized(this);
   }
@@ -231,6 +257,8 @@ class _$ConversationNotInitializedState
     TResult Function(ConversationUpdatingState value)? updating,
     TResult Function(ConversationLiveState value)? live,
     TResult Function(ConversationNewMessagesEvent value)? newMessagesEvent,
+    TResult Function(ConversationRemovedMessagesEvent value)?
+        removedMessagesEvent,
   }) {
     return notInitialized?.call(this);
   }
@@ -243,6 +271,8 @@ class _$ConversationNotInitializedState
     TResult Function(ConversationUpdatingState value)? updating,
     TResult Function(ConversationLiveState value)? live,
     TResult Function(ConversationNewMessagesEvent value)? newMessagesEvent,
+    TResult Function(ConversationRemovedMessagesEvent value)?
+        removedMessagesEvent,
     required TResult orElse(),
   }) {
     if (notInitialized != null) {
@@ -303,7 +333,10 @@ class _$ConversationLoadingState implements ConversationLoadingState {
     required TResult Function() loading,
     required TResult Function(ConversationStateData data) updating,
     required TResult Function(ConversationStateData data) live,
-    required TResult Function(List<int> indexes) newMessagesEvent,
+    required TResult Function(Map<DateTime, List<int>> locations)
+        newMessagesEvent,
+    required TResult Function(Map<DateTime, List<int>> locations)
+        removedMessagesEvent,
   }) {
     return loading();
   }
@@ -315,7 +348,8 @@ class _$ConversationLoadingState implements ConversationLoadingState {
     TResult Function()? loading,
     TResult Function(ConversationStateData data)? updating,
     TResult Function(ConversationStateData data)? live,
-    TResult Function(List<int> indexes)? newMessagesEvent,
+    TResult Function(Map<DateTime, List<int>> locations)? newMessagesEvent,
+    TResult Function(Map<DateTime, List<int>> locations)? removedMessagesEvent,
   }) {
     return loading?.call();
   }
@@ -327,7 +361,8 @@ class _$ConversationLoadingState implements ConversationLoadingState {
     TResult Function()? loading,
     TResult Function(ConversationStateData data)? updating,
     TResult Function(ConversationStateData data)? live,
-    TResult Function(List<int> indexes)? newMessagesEvent,
+    TResult Function(Map<DateTime, List<int>> locations)? newMessagesEvent,
+    TResult Function(Map<DateTime, List<int>> locations)? removedMessagesEvent,
     required TResult orElse(),
   }) {
     if (loading != null) {
@@ -346,6 +381,8 @@ class _$ConversationLoadingState implements ConversationLoadingState {
     required TResult Function(ConversationLiveState value) live,
     required TResult Function(ConversationNewMessagesEvent value)
         newMessagesEvent,
+    required TResult Function(ConversationRemovedMessagesEvent value)
+        removedMessagesEvent,
   }) {
     return loading(this);
   }
@@ -358,6 +395,8 @@ class _$ConversationLoadingState implements ConversationLoadingState {
     TResult Function(ConversationUpdatingState value)? updating,
     TResult Function(ConversationLiveState value)? live,
     TResult Function(ConversationNewMessagesEvent value)? newMessagesEvent,
+    TResult Function(ConversationRemovedMessagesEvent value)?
+        removedMessagesEvent,
   }) {
     return loading?.call(this);
   }
@@ -370,6 +409,8 @@ class _$ConversationLoadingState implements ConversationLoadingState {
     TResult Function(ConversationUpdatingState value)? updating,
     TResult Function(ConversationLiveState value)? live,
     TResult Function(ConversationNewMessagesEvent value)? newMessagesEvent,
+    TResult Function(ConversationRemovedMessagesEvent value)?
+        removedMessagesEvent,
     required TResult orElse(),
   }) {
     if (loading != null) {
@@ -463,7 +504,10 @@ class _$ConversationUpdatingState implements ConversationUpdatingState {
     required TResult Function() loading,
     required TResult Function(ConversationStateData data) updating,
     required TResult Function(ConversationStateData data) live,
-    required TResult Function(List<int> indexes) newMessagesEvent,
+    required TResult Function(Map<DateTime, List<int>> locations)
+        newMessagesEvent,
+    required TResult Function(Map<DateTime, List<int>> locations)
+        removedMessagesEvent,
   }) {
     return updating(data);
   }
@@ -475,7 +519,8 @@ class _$ConversationUpdatingState implements ConversationUpdatingState {
     TResult Function()? loading,
     TResult Function(ConversationStateData data)? updating,
     TResult Function(ConversationStateData data)? live,
-    TResult Function(List<int> indexes)? newMessagesEvent,
+    TResult Function(Map<DateTime, List<int>> locations)? newMessagesEvent,
+    TResult Function(Map<DateTime, List<int>> locations)? removedMessagesEvent,
   }) {
     return updating?.call(data);
   }
@@ -487,7 +532,8 @@ class _$ConversationUpdatingState implements ConversationUpdatingState {
     TResult Function()? loading,
     TResult Function(ConversationStateData data)? updating,
     TResult Function(ConversationStateData data)? live,
-    TResult Function(List<int> indexes)? newMessagesEvent,
+    TResult Function(Map<DateTime, List<int>> locations)? newMessagesEvent,
+    TResult Function(Map<DateTime, List<int>> locations)? removedMessagesEvent,
     required TResult orElse(),
   }) {
     if (updating != null) {
@@ -506,6 +552,8 @@ class _$ConversationUpdatingState implements ConversationUpdatingState {
     required TResult Function(ConversationLiveState value) live,
     required TResult Function(ConversationNewMessagesEvent value)
         newMessagesEvent,
+    required TResult Function(ConversationRemovedMessagesEvent value)
+        removedMessagesEvent,
   }) {
     return updating(this);
   }
@@ -518,6 +566,8 @@ class _$ConversationUpdatingState implements ConversationUpdatingState {
     TResult Function(ConversationUpdatingState value)? updating,
     TResult Function(ConversationLiveState value)? live,
     TResult Function(ConversationNewMessagesEvent value)? newMessagesEvent,
+    TResult Function(ConversationRemovedMessagesEvent value)?
+        removedMessagesEvent,
   }) {
     return updating?.call(this);
   }
@@ -530,6 +580,8 @@ class _$ConversationUpdatingState implements ConversationUpdatingState {
     TResult Function(ConversationUpdatingState value)? updating,
     TResult Function(ConversationLiveState value)? live,
     TResult Function(ConversationNewMessagesEvent value)? newMessagesEvent,
+    TResult Function(ConversationRemovedMessagesEvent value)?
+        removedMessagesEvent,
     required TResult orElse(),
   }) {
     if (updating != null) {
@@ -628,7 +680,10 @@ class _$ConversationLiveState implements ConversationLiveState {
     required TResult Function() loading,
     required TResult Function(ConversationStateData data) updating,
     required TResult Function(ConversationStateData data) live,
-    required TResult Function(List<int> indexes) newMessagesEvent,
+    required TResult Function(Map<DateTime, List<int>> locations)
+        newMessagesEvent,
+    required TResult Function(Map<DateTime, List<int>> locations)
+        removedMessagesEvent,
   }) {
     return live(data);
   }
@@ -640,7 +695,8 @@ class _$ConversationLiveState implements ConversationLiveState {
     TResult Function()? loading,
     TResult Function(ConversationStateData data)? updating,
     TResult Function(ConversationStateData data)? live,
-    TResult Function(List<int> indexes)? newMessagesEvent,
+    TResult Function(Map<DateTime, List<int>> locations)? newMessagesEvent,
+    TResult Function(Map<DateTime, List<int>> locations)? removedMessagesEvent,
   }) {
     return live?.call(data);
   }
@@ -652,7 +708,8 @@ class _$ConversationLiveState implements ConversationLiveState {
     TResult Function()? loading,
     TResult Function(ConversationStateData data)? updating,
     TResult Function(ConversationStateData data)? live,
-    TResult Function(List<int> indexes)? newMessagesEvent,
+    TResult Function(Map<DateTime, List<int>> locations)? newMessagesEvent,
+    TResult Function(Map<DateTime, List<int>> locations)? removedMessagesEvent,
     required TResult orElse(),
   }) {
     if (live != null) {
@@ -671,6 +728,8 @@ class _$ConversationLiveState implements ConversationLiveState {
     required TResult Function(ConversationLiveState value) live,
     required TResult Function(ConversationNewMessagesEvent value)
         newMessagesEvent,
+    required TResult Function(ConversationRemovedMessagesEvent value)
+        removedMessagesEvent,
   }) {
     return live(this);
   }
@@ -683,6 +742,8 @@ class _$ConversationLiveState implements ConversationLiveState {
     TResult Function(ConversationUpdatingState value)? updating,
     TResult Function(ConversationLiveState value)? live,
     TResult Function(ConversationNewMessagesEvent value)? newMessagesEvent,
+    TResult Function(ConversationRemovedMessagesEvent value)?
+        removedMessagesEvent,
   }) {
     return live?.call(this);
   }
@@ -695,6 +756,8 @@ class _$ConversationLiveState implements ConversationLiveState {
     TResult Function(ConversationUpdatingState value)? updating,
     TResult Function(ConversationLiveState value)? live,
     TResult Function(ConversationNewMessagesEvent value)? newMessagesEvent,
+    TResult Function(ConversationRemovedMessagesEvent value)?
+        removedMessagesEvent,
     required TResult orElse(),
   }) {
     if (live != null) {
@@ -720,7 +783,7 @@ abstract class $ConversationNewMessagesEventCopyWith<$Res> {
           ConversationNewMessagesEvent value,
           $Res Function(ConversationNewMessagesEvent) then) =
       _$ConversationNewMessagesEventCopyWithImpl<$Res>;
-  $Res call({List<int> indexes});
+  $Res call({Map<DateTime, List<int>> locations});
 }
 
 /// @nodoc
@@ -738,13 +801,13 @@ class _$ConversationNewMessagesEventCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object? indexes = freezed,
+    Object? locations = freezed,
   }) {
     return _then(ConversationNewMessagesEvent(
-      indexes == freezed
-          ? _value.indexes
-          : indexes // ignore: cast_nullable_to_non_nullable
-              as List<int>,
+      locations == freezed
+          ? _value.locations
+          : locations // ignore: cast_nullable_to_non_nullable
+              as Map<DateTime, List<int>>,
     ));
   }
 }
@@ -752,14 +815,14 @@ class _$ConversationNewMessagesEventCopyWithImpl<$Res>
 /// @nodoc
 
 class _$ConversationNewMessagesEvent implements ConversationNewMessagesEvent {
-  const _$ConversationNewMessagesEvent(this.indexes);
+  const _$ConversationNewMessagesEvent(this.locations);
 
   @override
-  final List<int> indexes;
+  final Map<DateTime, List<int>> locations;
 
   @override
   String toString() {
-    return 'ConversationState.newMessagesEvent(indexes: $indexes)';
+    return 'ConversationState.newMessagesEvent(locations: $locations)';
   }
 
   @override
@@ -767,12 +830,12 @@ class _$ConversationNewMessagesEvent implements ConversationNewMessagesEvent {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is ConversationNewMessagesEvent &&
-            const DeepCollectionEquality().equals(other.indexes, indexes));
+            const DeepCollectionEquality().equals(other.locations, locations));
   }
 
   @override
   int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(indexes));
+      Object.hash(runtimeType, const DeepCollectionEquality().hash(locations));
 
   @JsonKey(ignore: true)
   @override
@@ -787,9 +850,12 @@ class _$ConversationNewMessagesEvent implements ConversationNewMessagesEvent {
     required TResult Function() loading,
     required TResult Function(ConversationStateData data) updating,
     required TResult Function(ConversationStateData data) live,
-    required TResult Function(List<int> indexes) newMessagesEvent,
+    required TResult Function(Map<DateTime, List<int>> locations)
+        newMessagesEvent,
+    required TResult Function(Map<DateTime, List<int>> locations)
+        removedMessagesEvent,
   }) {
-    return newMessagesEvent(indexes);
+    return newMessagesEvent(locations);
   }
 
   @override
@@ -799,9 +865,10 @@ class _$ConversationNewMessagesEvent implements ConversationNewMessagesEvent {
     TResult Function()? loading,
     TResult Function(ConversationStateData data)? updating,
     TResult Function(ConversationStateData data)? live,
-    TResult Function(List<int> indexes)? newMessagesEvent,
+    TResult Function(Map<DateTime, List<int>> locations)? newMessagesEvent,
+    TResult Function(Map<DateTime, List<int>> locations)? removedMessagesEvent,
   }) {
-    return newMessagesEvent?.call(indexes);
+    return newMessagesEvent?.call(locations);
   }
 
   @override
@@ -811,11 +878,12 @@ class _$ConversationNewMessagesEvent implements ConversationNewMessagesEvent {
     TResult Function()? loading,
     TResult Function(ConversationStateData data)? updating,
     TResult Function(ConversationStateData data)? live,
-    TResult Function(List<int> indexes)? newMessagesEvent,
+    TResult Function(Map<DateTime, List<int>> locations)? newMessagesEvent,
+    TResult Function(Map<DateTime, List<int>> locations)? removedMessagesEvent,
     required TResult orElse(),
   }) {
     if (newMessagesEvent != null) {
-      return newMessagesEvent(indexes);
+      return newMessagesEvent(locations);
     }
     return orElse();
   }
@@ -830,6 +898,8 @@ class _$ConversationNewMessagesEvent implements ConversationNewMessagesEvent {
     required TResult Function(ConversationLiveState value) live,
     required TResult Function(ConversationNewMessagesEvent value)
         newMessagesEvent,
+    required TResult Function(ConversationRemovedMessagesEvent value)
+        removedMessagesEvent,
   }) {
     return newMessagesEvent(this);
   }
@@ -842,6 +912,8 @@ class _$ConversationNewMessagesEvent implements ConversationNewMessagesEvent {
     TResult Function(ConversationUpdatingState value)? updating,
     TResult Function(ConversationLiveState value)? live,
     TResult Function(ConversationNewMessagesEvent value)? newMessagesEvent,
+    TResult Function(ConversationRemovedMessagesEvent value)?
+        removedMessagesEvent,
   }) {
     return newMessagesEvent?.call(this);
   }
@@ -854,6 +926,8 @@ class _$ConversationNewMessagesEvent implements ConversationNewMessagesEvent {
     TResult Function(ConversationUpdatingState value)? updating,
     TResult Function(ConversationLiveState value)? live,
     TResult Function(ConversationNewMessagesEvent value)? newMessagesEvent,
+    TResult Function(ConversationRemovedMessagesEvent value)?
+        removedMessagesEvent,
     required TResult orElse(),
   }) {
     if (newMessagesEvent != null) {
@@ -864,11 +938,182 @@ class _$ConversationNewMessagesEvent implements ConversationNewMessagesEvent {
 }
 
 abstract class ConversationNewMessagesEvent implements ConversationState {
-  const factory ConversationNewMessagesEvent(List<int> indexes) =
-      _$ConversationNewMessagesEvent;
+  const factory ConversationNewMessagesEvent(
+      Map<DateTime, List<int>> locations) = _$ConversationNewMessagesEvent;
 
-  List<int> get indexes;
+  Map<DateTime, List<int>> get locations;
   @JsonKey(ignore: true)
   $ConversationNewMessagesEventCopyWith<ConversationNewMessagesEvent>
+      get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $ConversationRemovedMessagesEventCopyWith<$Res> {
+  factory $ConversationRemovedMessagesEventCopyWith(
+          ConversationRemovedMessagesEvent value,
+          $Res Function(ConversationRemovedMessagesEvent) then) =
+      _$ConversationRemovedMessagesEventCopyWithImpl<$Res>;
+  $Res call({Map<DateTime, List<int>> locations});
+}
+
+/// @nodoc
+class _$ConversationRemovedMessagesEventCopyWithImpl<$Res>
+    extends _$ConversationStateCopyWithImpl<$Res>
+    implements $ConversationRemovedMessagesEventCopyWith<$Res> {
+  _$ConversationRemovedMessagesEventCopyWithImpl(
+      ConversationRemovedMessagesEvent _value,
+      $Res Function(ConversationRemovedMessagesEvent) _then)
+      : super(_value, (v) => _then(v as ConversationRemovedMessagesEvent));
+
+  @override
+  ConversationRemovedMessagesEvent get _value =>
+      super._value as ConversationRemovedMessagesEvent;
+
+  @override
+  $Res call({
+    Object? locations = freezed,
+  }) {
+    return _then(ConversationRemovedMessagesEvent(
+      locations == freezed
+          ? _value.locations
+          : locations // ignore: cast_nullable_to_non_nullable
+              as Map<DateTime, List<int>>,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$ConversationRemovedMessagesEvent
+    implements ConversationRemovedMessagesEvent {
+  const _$ConversationRemovedMessagesEvent(this.locations);
+
+  @override
+  final Map<DateTime, List<int>> locations;
+
+  @override
+  String toString() {
+    return 'ConversationState.removedMessagesEvent(locations: $locations)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is ConversationRemovedMessagesEvent &&
+            const DeepCollectionEquality().equals(other.locations, locations));
+  }
+
+  @override
+  int get hashCode =>
+      Object.hash(runtimeType, const DeepCollectionEquality().hash(locations));
+
+  @JsonKey(ignore: true)
+  @override
+  $ConversationRemovedMessagesEventCopyWith<ConversationRemovedMessagesEvent>
+      get copyWith => _$ConversationRemovedMessagesEventCopyWithImpl<
+          ConversationRemovedMessagesEvent>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() notInitialized,
+    required TResult Function() loading,
+    required TResult Function(ConversationStateData data) updating,
+    required TResult Function(ConversationStateData data) live,
+    required TResult Function(Map<DateTime, List<int>> locations)
+        newMessagesEvent,
+    required TResult Function(Map<DateTime, List<int>> locations)
+        removedMessagesEvent,
+  }) {
+    return removedMessagesEvent(locations);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function()? notInitialized,
+    TResult Function()? loading,
+    TResult Function(ConversationStateData data)? updating,
+    TResult Function(ConversationStateData data)? live,
+    TResult Function(Map<DateTime, List<int>> locations)? newMessagesEvent,
+    TResult Function(Map<DateTime, List<int>> locations)? removedMessagesEvent,
+  }) {
+    return removedMessagesEvent?.call(locations);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? notInitialized,
+    TResult Function()? loading,
+    TResult Function(ConversationStateData data)? updating,
+    TResult Function(ConversationStateData data)? live,
+    TResult Function(Map<DateTime, List<int>> locations)? newMessagesEvent,
+    TResult Function(Map<DateTime, List<int>> locations)? removedMessagesEvent,
+    required TResult orElse(),
+  }) {
+    if (removedMessagesEvent != null) {
+      return removedMessagesEvent(locations);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(ConversationNotInitializedState value)
+        notInitialized,
+    required TResult Function(ConversationLoadingState value) loading,
+    required TResult Function(ConversationUpdatingState value) updating,
+    required TResult Function(ConversationLiveState value) live,
+    required TResult Function(ConversationNewMessagesEvent value)
+        newMessagesEvent,
+    required TResult Function(ConversationRemovedMessagesEvent value)
+        removedMessagesEvent,
+  }) {
+    return removedMessagesEvent(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(ConversationNotInitializedState value)? notInitialized,
+    TResult Function(ConversationLoadingState value)? loading,
+    TResult Function(ConversationUpdatingState value)? updating,
+    TResult Function(ConversationLiveState value)? live,
+    TResult Function(ConversationNewMessagesEvent value)? newMessagesEvent,
+    TResult Function(ConversationRemovedMessagesEvent value)?
+        removedMessagesEvent,
+  }) {
+    return removedMessagesEvent?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(ConversationNotInitializedState value)? notInitialized,
+    TResult Function(ConversationLoadingState value)? loading,
+    TResult Function(ConversationUpdatingState value)? updating,
+    TResult Function(ConversationLiveState value)? live,
+    TResult Function(ConversationNewMessagesEvent value)? newMessagesEvent,
+    TResult Function(ConversationRemovedMessagesEvent value)?
+        removedMessagesEvent,
+    required TResult orElse(),
+  }) {
+    if (removedMessagesEvent != null) {
+      return removedMessagesEvent(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class ConversationRemovedMessagesEvent implements ConversationState {
+  const factory ConversationRemovedMessagesEvent(
+      Map<DateTime, List<int>> locations) = _$ConversationRemovedMessagesEvent;
+
+  Map<DateTime, List<int>> get locations;
+  @JsonKey(ignore: true)
+  $ConversationRemovedMessagesEventCopyWith<ConversationRemovedMessagesEvent>
       get copyWith => throw _privateConstructorUsedError;
 }

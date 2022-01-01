@@ -6,12 +6,9 @@ import 'package:flutter/services.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-import '../../../messages/models/message.dart';
-import '../../../widgets/keyboard_placeholder.dart';
-import '../../providers/conversation_provider.dart';
-import '../../providers/conversation_state.dart';
+import '../../models/messages_group_by_date_model.dart';
 import '../providers/main_screen_state_provider.dart';
-import 'message_bubble.dart';
+import 'messages_group_by_day.dart';
 
 class MessagesList extends HookConsumerWidget {
   const MessagesList({
@@ -21,33 +18,16 @@ class MessagesList extends HookConsumerWidget {
     required this.chatId,
   }) : super(key: key);
 
-  final List<Message> messages;
+  final List<GroupedMessages> messages;
   final ScrollController scrollController;
   final String chatId;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final listKey = useState(GlobalKey<AnimatedListState>());
-    final initialMessagesCount = useState(messages.length + 1);
     final dragStartPosition = useState(0.0);
     final dragPosition = useState(0.0);
     final resetAnimationController = useAnimationController();
     final isMounted = useIsMounted();
-
-    ref.listen<ConversationState>(
-      conversationStateNotifierProvider(chatId),
-      (_, next) => next.whenOrNull(
-        newMessagesEvent: (indexes) {
-          HapticFeedback.lightImpact();
-          for (final i in indexes) {
-            listKey.value.currentState?.insertItem(
-              i + 1,
-              duration: const Duration(milliseconds: 450),
-            );
-          }
-        },
-      ),
-    );
 
     void handleBackDragStart(DragStartDetails dragStart) {
       dragStartPosition.value = dragStart.globalPosition.dx;
@@ -99,31 +79,10 @@ class MessagesList extends HookConsumerWidget {
             dragStartBehavior: DragStartBehavior.start,
             child: Transform.translate(
               offset: Offset(dragPosition.value, 0.0),
-              child: AnimatedList(
-                key: listKey.value,
-                initialItemCount: messages.length + 1,
-                controller: scrollController,
-                physics: const BouncingScrollPhysics(),
-                reverse: true,
-                itemBuilder: (context, i, animation) {
-                  if (i == 0) {
-                    return const KeyboardPlaceholder(
-                      minSize: 75,
-                      correction: 60,
-                    );
-                  }
-                  final message = messages[i - 1];
-                  final curvedAnimation = CurvedAnimation(
-                    parent: animation,
-                    curve: Curves.linearToEaseOut,
-                  );
-                  return ProviderScope(
-                    overrides: [
-                      singleMessageProvider.overrideWithValue(message)
-                    ],
-                    child: MessageBubble(animation: curvedAnimation),
-                  );
-                },
+              child: MessagesGroupedByDate(
+                groupedMessages: messages,
+                chatId: chatId,
+                scrollController: scrollController,
               ),
             ),
           ),

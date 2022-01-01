@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../conversations/view/providers/main_screen_state_provider.dart';
+import '../../../ui_kit/animations/fade_trough_with_offset.dart';
 import '../../../user/providers/user_provider.dart';
 import '../../../utils/date_time_extensions/date_time_extensions.dart';
 import '../../../widgets/online_status_label.dart';
@@ -40,7 +41,9 @@ class ChatItemTile extends ConsumerWidget {
           padding: const EdgeInsets.all(8.0),
           child: Row(
             children: [
-              UserAvatar(user: chat.users.first),
+              UserAvatar(
+                user: chat.users.first,
+              ),
               const SizedBox(
                 width: 8,
               ),
@@ -65,23 +68,30 @@ class ChatItemTile extends ConsumerWidget {
                         Text(chat.lastMessage.sentAt.timeOnly)
                       ],
                     ),
-                    Row(
-                      children: [
-                        Expanded(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(chat.users.first.phone.value),
-                              Text(
-                                chat.lastMessage.text,
-                                maxLines: 1,
-                                overflow: TextOverflow.ellipsis,
-                              ),
-                            ],
+                    SizedBox(
+                      height: 40,
+                      child: Row(
+                        children: [
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                FadeTroughWithOffsetTransition(
+                                  axis: TransitionAxis.y,
+                                  alignment: Alignment.centerLeft,
+                                  child: Text(
+                                    chat.lastMessage.text,
+                                    key: Key(chat.lastMessage.text),
+                                    maxLines: 2,
+                                    overflow: TextOverflow.ellipsis,
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
-                        ),
-                        NewMessagesBadge(count: newMessagesCount),
-                      ],
+                          NewMessagesBadge(count: newMessagesCount),
+                        ],
+                      ),
                     ),
                   ],
                 ),

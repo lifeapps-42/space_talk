@@ -11,6 +11,7 @@ class UserAvatar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CircleAvatar(
+      radius: 28,
       backgroundColor: TalkColors.main,
       foregroundColor: Colors.white,
       child: _NoPhoto(user: user,),

@@ -24,12 +24,12 @@ class ConversationConsumer extends ConsumerWidget {
       duration: const Duration(milliseconds: 300),
       child: conversationState.maybeWhen(
         live: (stateData) => MessagesList(
-          messages: stateData.messages,
+          messages: stateData.groupedMessages,
           scrollController: scrollController,
           chatId: stateData.chatId,
         ),
         updating: (stateData) => MessagesList(
-          messages: stateData.messages,
+          messages: stateData.groupedMessages,
           scrollController: scrollController,
           chatId: stateData.chatId,
         ),

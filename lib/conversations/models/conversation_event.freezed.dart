@@ -44,9 +44,9 @@ class _$ConversationEventTearOff {
     );
   }
 
-  ConversationDeleteEvent delete(String messageId) {
+  ConversationDeleteEvent delete(Message message) {
     return ConversationDeleteEvent(
-      messageId,
+      message,
     );
   }
 
@@ -60,25 +60,27 @@ const $ConversationEvent = _$ConversationEventTearOff();
 
 /// @nodoc
 mixin _$ConversationEvent {
+  Message get message => throw _privateConstructorUsedError;
+
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(Message message) add,
     required TResult Function(Message message) edit,
-    required TResult Function(String messageId) delete,
+    required TResult Function(Message message) delete,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function(Message message)? add,
     TResult Function(Message message)? edit,
-    TResult Function(String messageId)? delete,
+    TResult Function(Message message)? delete,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(Message message)? add,
     TResult Function(Message message)? edit,
-    TResult Function(String messageId)? delete,
+    TResult Function(Message message)? delete,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -105,6 +107,9 @@ mixin _$ConversationEvent {
   }) =>
       throw _privateConstructorUsedError;
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  $ConversationEventCopyWith<ConversationEvent> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -112,6 +117,9 @@ abstract class $ConversationEventCopyWith<$Res> {
   factory $ConversationEventCopyWith(
           ConversationEvent value, $Res Function(ConversationEvent) then) =
       _$ConversationEventCopyWithImpl<$Res>;
+  $Res call({Message message});
+
+  $MessageCopyWith<$Res> get message;
 }
 
 /// @nodoc
@@ -122,15 +130,37 @@ class _$ConversationEventCopyWithImpl<$Res>
   final ConversationEvent _value;
   // ignore: unused_field
   final $Res Function(ConversationEvent) _then;
+
+  @override
+  $Res call({
+    Object? message = freezed,
+  }) {
+    return _then(_value.copyWith(
+      message: message == freezed
+          ? _value.message
+          : message // ignore: cast_nullable_to_non_nullable
+              as Message,
+    ));
+  }
+
+  @override
+  $MessageCopyWith<$Res> get message {
+    return $MessageCopyWith<$Res>(_value.message, (value) {
+      return _then(_value.copyWith(message: value));
+    });
+  }
 }
 
 /// @nodoc
-abstract class $ConversationAddEventCopyWith<$Res> {
+abstract class $ConversationAddEventCopyWith<$Res>
+    implements $ConversationEventCopyWith<$Res> {
   factory $ConversationAddEventCopyWith(ConversationAddEvent value,
           $Res Function(ConversationAddEvent) then) =
       _$ConversationAddEventCopyWithImpl<$Res>;
+  @override
   $Res call({Message message});
 
+  @override
   $MessageCopyWith<$Res> get message;
 }
 
@@ -155,13 +185,6 @@ class _$ConversationAddEventCopyWithImpl<$Res>
           : message // ignore: cast_nullable_to_non_nullable
               as Message,
     ));
-  }
-
-  @override
-  $MessageCopyWith<$Res> get message {
-    return $MessageCopyWith<$Res>(_value.message, (value) {
-      return _then(_value.copyWith(message: value));
-    });
   }
 }
 
@@ -209,7 +232,7 @@ class _$ConversationAddEvent implements ConversationAddEvent {
   TResult when<TResult extends Object?>({
     required TResult Function(Message message) add,
     required TResult Function(Message message) edit,
-    required TResult Function(String messageId) delete,
+    required TResult Function(Message message) delete,
   }) {
     return add(message);
   }
@@ -219,7 +242,7 @@ class _$ConversationAddEvent implements ConversationAddEvent {
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function(Message message)? add,
     TResult Function(Message message)? edit,
-    TResult Function(String messageId)? delete,
+    TResult Function(Message message)? delete,
   }) {
     return add?.call(message);
   }
@@ -229,7 +252,7 @@ class _$ConversationAddEvent implements ConversationAddEvent {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(Message message)? add,
     TResult Function(Message message)? edit,
-    TResult Function(String messageId)? delete,
+    TResult Function(Message message)? delete,
     required TResult orElse(),
   }) {
     if (add != null) {
@@ -284,19 +307,24 @@ abstract class ConversationAddEvent implements ConversationEvent {
   factory ConversationAddEvent.fromJson(Map<String, dynamic> json) =
       _$ConversationAddEvent.fromJson;
 
+  @override
   Message get message;
+  @override
   @JsonKey(ignore: true)
   $ConversationAddEventCopyWith<ConversationAddEvent> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $ConversationEditEventCopyWith<$Res> {
+abstract class $ConversationEditEventCopyWith<$Res>
+    implements $ConversationEventCopyWith<$Res> {
   factory $ConversationEditEventCopyWith(ConversationEditEvent value,
           $Res Function(ConversationEditEvent) then) =
       _$ConversationEditEventCopyWithImpl<$Res>;
+  @override
   $Res call({Message message});
 
+  @override
   $MessageCopyWith<$Res> get message;
 }
 
@@ -321,13 +349,6 @@ class _$ConversationEditEventCopyWithImpl<$Res>
           : message // ignore: cast_nullable_to_non_nullable
               as Message,
     ));
-  }
-
-  @override
-  $MessageCopyWith<$Res> get message {
-    return $MessageCopyWith<$Res>(_value.message, (value) {
-      return _then(_value.copyWith(message: value));
-    });
   }
 }
 
@@ -375,7 +396,7 @@ class _$ConversationEditEvent implements ConversationEditEvent {
   TResult when<TResult extends Object?>({
     required TResult Function(Message message) add,
     required TResult Function(Message message) edit,
-    required TResult Function(String messageId) delete,
+    required TResult Function(Message message) delete,
   }) {
     return edit(message);
   }
@@ -385,7 +406,7 @@ class _$ConversationEditEvent implements ConversationEditEvent {
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function(Message message)? add,
     TResult Function(Message message)? edit,
-    TResult Function(String messageId)? delete,
+    TResult Function(Message message)? delete,
   }) {
     return edit?.call(message);
   }
@@ -395,7 +416,7 @@ class _$ConversationEditEvent implements ConversationEditEvent {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(Message message)? add,
     TResult Function(Message message)? edit,
-    TResult Function(String messageId)? delete,
+    TResult Function(Message message)? delete,
     required TResult orElse(),
   }) {
     if (edit != null) {
@@ -451,18 +472,25 @@ abstract class ConversationEditEvent implements ConversationEvent {
   factory ConversationEditEvent.fromJson(Map<String, dynamic> json) =
       _$ConversationEditEvent.fromJson;
 
+  @override
   Message get message;
+  @override
   @JsonKey(ignore: true)
   $ConversationEditEventCopyWith<ConversationEditEvent> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $ConversationDeleteEventCopyWith<$Res> {
+abstract class $ConversationDeleteEventCopyWith<$Res>
+    implements $ConversationEventCopyWith<$Res> {
   factory $ConversationDeleteEventCopyWith(ConversationDeleteEvent value,
           $Res Function(ConversationDeleteEvent) then) =
       _$ConversationDeleteEventCopyWithImpl<$Res>;
-  $Res call({String messageId});
+  @override
+  $Res call({Message message});
+
+  @override
+  $MessageCopyWith<$Res> get message;
 }
 
 /// @nodoc
@@ -478,13 +506,13 @@ class _$ConversationDeleteEventCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object? messageId = freezed,
+    Object? message = freezed,
   }) {
     return _then(ConversationDeleteEvent(
-      messageId == freezed
-          ? _value.messageId
-          : messageId // ignore: cast_nullable_to_non_nullable
-              as String,
+      message == freezed
+          ? _value.message
+          : message // ignore: cast_nullable_to_non_nullable
+              as Message,
     ));
   }
 }
@@ -493,21 +521,21 @@ class _$ConversationDeleteEventCopyWithImpl<$Res>
 
 @JsonSerializable(explicitToJson: true)
 class _$ConversationDeleteEvent implements ConversationDeleteEvent {
-  const _$ConversationDeleteEvent(this.messageId, {String? $type})
+  const _$ConversationDeleteEvent(this.message, {String? $type})
       : $type = $type ?? 'delete';
 
   factory _$ConversationDeleteEvent.fromJson(Map<String, dynamic> json) =>
       _$$ConversationDeleteEventFromJson(json);
 
   @override
-  final String messageId;
+  final Message message;
 
   @JsonKey(name: 'runtimeType')
   final String $type;
 
   @override
   String toString() {
-    return 'ConversationEvent.delete(messageId: $messageId)';
+    return 'ConversationEvent.delete(message: $message)';
   }
 
   @override
@@ -515,12 +543,12 @@ class _$ConversationDeleteEvent implements ConversationDeleteEvent {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is ConversationDeleteEvent &&
-            const DeepCollectionEquality().equals(other.messageId, messageId));
+            const DeepCollectionEquality().equals(other.message, message));
   }
 
   @override
   int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(messageId));
+      Object.hash(runtimeType, const DeepCollectionEquality().hash(message));
 
   @JsonKey(ignore: true)
   @override
@@ -533,9 +561,9 @@ class _$ConversationDeleteEvent implements ConversationDeleteEvent {
   TResult when<TResult extends Object?>({
     required TResult Function(Message message) add,
     required TResult Function(Message message) edit,
-    required TResult Function(String messageId) delete,
+    required TResult Function(Message message) delete,
   }) {
-    return delete(messageId);
+    return delete(message);
   }
 
   @override
@@ -543,9 +571,9 @@ class _$ConversationDeleteEvent implements ConversationDeleteEvent {
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function(Message message)? add,
     TResult Function(Message message)? edit,
-    TResult Function(String messageId)? delete,
+    TResult Function(Message message)? delete,
   }) {
-    return delete?.call(messageId);
+    return delete?.call(message);
   }
 
   @override
@@ -553,11 +581,11 @@ class _$ConversationDeleteEvent implements ConversationDeleteEvent {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(Message message)? add,
     TResult Function(Message message)? edit,
-    TResult Function(String messageId)? delete,
+    TResult Function(Message message)? delete,
     required TResult orElse(),
   }) {
     if (delete != null) {
-      return delete(messageId);
+      return delete(message);
     }
     return orElse();
   }
@@ -603,13 +631,15 @@ class _$ConversationDeleteEvent implements ConversationDeleteEvent {
 }
 
 abstract class ConversationDeleteEvent implements ConversationEvent {
-  const factory ConversationDeleteEvent(String messageId) =
+  const factory ConversationDeleteEvent(Message message) =
       _$ConversationDeleteEvent;
 
   factory ConversationDeleteEvent.fromJson(Map<String, dynamic> json) =
       _$ConversationDeleteEvent.fromJson;
 
-  String get messageId;
+  @override
+  Message get message;
+  @override
   @JsonKey(ignore: true)
   $ConversationDeleteEventCopyWith<ConversationDeleteEvent> get copyWith =>
       throw _privateConstructorUsedError;

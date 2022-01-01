@@ -79,6 +79,7 @@ class _TilesColumn extends StatelessWidget {
       itemBuilder: (_, __) {
         return AspectRatio(
           aspectRatio: 1,
+          // ignore: avoid_unnecessary_containers
           child: Container(
             child: Image.asset(
               'assets/Hnet.com-image.jpg',
