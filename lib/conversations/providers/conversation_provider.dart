@@ -117,7 +117,7 @@ class ConversationStateNotifier extends StateNotifier<ConversationState> {
       return;
     }
     stateData.messages[i] = message;
-    // stateData.groupedMessages.replaceMessage(message);
+    stateData.groupedMessages.replaceMessage(message);
   }
 
   void _deleteMessageEvent(Message message, ConversationStateData stateData) {

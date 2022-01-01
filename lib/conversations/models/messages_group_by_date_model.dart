@@ -51,7 +51,7 @@ extension GroupedMessagesExtension on List<GroupedMessages> {
 
   void replaceMessage(Message message) {
     final group = firstWhere((group) => group.date.isSameDay(message.sentAt));
-    final i = group.messages.indexOf(message);
+    final i = group.messages.indexWhere((m) => m.id == message.id);
     group.messages[i] = message;
   }
 
