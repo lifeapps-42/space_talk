@@ -31,7 +31,6 @@ class NewMessagesBadge extends StatelessWidget {
             style: const TextStyle(
               color: Colors.white70,
               fontSize: 12,
-              fontWeight: FontWeight.bold,
             ),
           ),
         ),

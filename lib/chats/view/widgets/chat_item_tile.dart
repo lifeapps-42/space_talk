@@ -78,7 +78,7 @@ class ChatItemTile extends ConsumerWidget {
                               children: [
                                 FadeTroughWithOffsetTransition(
                                   axis: TransitionAxis.y,
-                                  alignment: Alignment.centerLeft,
+                                  alignment: Alignment.topLeft,
                                   child: Text(
                                     chat.lastMessage.text,
                                     key: Key(chat.lastMessage.text),

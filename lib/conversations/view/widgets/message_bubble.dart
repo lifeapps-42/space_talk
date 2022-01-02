@@ -6,6 +6,7 @@ import 'package:visibility_detector/visibility_detector.dart';
 import '../../../messages/models/message.dart';
 import '../../../user/providers/user_provider.dart';
 import '../../../utils/date_time_extensions/date_time_extensions.dart';
+import '../../../widgets/swipe_detector/swipe_gesture_consumer.dart';
 import '../../providers/conversation_provider.dart';
 
 class MessageBubble extends HookConsumerWidget {
@@ -37,64 +38,74 @@ class MessageBubble extends HookConsumerWidget {
       child: VisibilityDetector(
         key: Key(message.id!),
         onVisibilityChanged: isReadByMe ? null : onVisibilityChanged,
-        child: Row(
-          children: [
-            if (isMyMessage)
-              const SizedBox(
-                width: 50,
-              ),
-            Expanded(
-              child: Container(
-                alignment:
-                    isMyMessage ? Alignment.centerRight : Alignment.centerLeft,
-                child: Padding(
-                  padding: const EdgeInsets.all(4.0),
-                  child: AnimatedBuilder(
-                      animation: animation,
-                      builder: (context, _) {
-                        return Transform(
-                          transform: Matrix4.diagonal3Values(
-                              1.0, animation.value, 1.0),
-                          alignment: Alignment.bottomCenter,
-                          child: Card(
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(12),
-                              side: const BorderSide(
-                                  width: 0.5, color: Colors.black38),
-                            ),
-                            margin: EdgeInsets.zero,
-                            clipBehavior: Clip.antiAlias,
-                            elevation: 0,
-                            color: color.withOpacity(0.9),
-                            child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.end,
-                                children: [
-                                  Text(
-                                    message.text,
-                                    style: TextStyle(color: textColor, fontSize: 15),
-                                  ),
-                                  MessageBubbleTimeAndStatus(
-                                    message: message,
-                                    userId: user.uid,
-                                    textColor: textColor,
-                                    isMyMessage: isMyMessage,
-                                  ),
-                                ],
+        child: SwipeDetectorConsumer(
+          key: Key(message.id ?? ''),
+          resist: true,
+          action: () => print('ANSWERED'),
+          swipeDirection: SwipeDirection.left,
+          minOffset: 50,
+          maxDraggableOffset: 1000,
+          behavior: HitTestBehavior.deferToChild,
+          resetOffsetOnDone: true,
+          child: Row(
+            children: [
+              if (isMyMessage)
+                const SizedBox(
+                  width: 50,
+                ),
+              Expanded(
+                child: Container(
+                  alignment:
+                      isMyMessage ? Alignment.centerRight : Alignment.centerLeft,
+                  child: Padding(
+                    padding: const EdgeInsets.all(4.0),
+                    child: AnimatedBuilder(
+                        animation: animation,
+                        builder: (context, _) {
+                          return Transform(
+                            transform: Matrix4.diagonal3Values(
+                                1.0, animation.value, 1.0),
+                            alignment: Alignment.bottomCenter,
+                            child: Card(
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(12),
+                                side: const BorderSide(
+                                    width: 0.5, color: Colors.black38),
+                              ),
+                              margin: EdgeInsets.zero,
+                              clipBehavior: Clip.antiAlias,
+                              elevation: 0,
+                              color: color.withOpacity(0.9),
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.end,
+                                  children: [
+                                    Text(
+                                      message.text,
+                                      style: TextStyle(color: textColor, fontSize: 15),
+                                    ),
+                                    MessageBubbleTimeAndStatus(
+                                      message: message,
+                                      userId: user.uid,
+                                      textColor: textColor,
+                                      isMyMessage: isMyMessage,
+                                    ),
+                                  ],
+                                ),
                               ),
                             ),
-                          ),
-                        );
-                      }),
+                          );
+                        }),
+                  ),
                 ),
               ),
-            ),
-            if (!isMyMessage)
-              const SizedBox(
-                width: 50,
-              ),
-          ],
+              if (!isMyMessage)
+                const SizedBox(
+                  width: 50,
+                ),
+            ],
+          ),
         ),
       ),
     );

@@ -29,6 +29,9 @@ class MessagesGroupedByDate extends ConsumerWidget {
       ),
     );
     return ListView.builder(
+      physics: const AlwaysScrollableScrollPhysics(
+        parent: BouncingScrollPhysics(),
+      ),
       itemCount: groupedMessages.length + 1,
       reverse: true,
       controller: scrollController,
