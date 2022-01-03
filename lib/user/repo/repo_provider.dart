@@ -11,4 +11,5 @@ abstract class UserRepo {
 
   Future<void> setUser(User user);
   
+  Future<void> updateUser(String userUid, Map<String, dynamic> data);
 }

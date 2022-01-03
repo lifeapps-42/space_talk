@@ -59,23 +59,23 @@ class UserStateNotifier extends StateNotifier<UserState> {
   void goOnline(){
     if(user == null) return;
     const status = UserOnlineStatus();
-    final newUser = user!.copyWith(status: status);
-    _repo.setUser(newUser);
+    final data = {'status': status.toJson()};
+    _repo.updateUser(user!.uid, data);
   }
 
   void goOffline(){
     if(user == null) return;
     final lastSeen = DateTime.now().toUtc();
     final status = UserOfflineStatus(lastSeen);
-    final newUser = user!.copyWith(status: status);
-    _repo.setUser(newUser);
+    final data = {'status': status.toJson()};
+    _repo.updateUser(user!.uid, data);
   }
 
   void typing(String chatId){
      if(user == null) return;
     final status = UserPrintingStatus(chatId);
-    final newUser = user!.copyWith(status: status);
-    _repo.setUser(newUser);
+   final data = {'status': status.toJson()};
+    _repo.updateUser(user!.uid, data);
   }
 
   void _fetchUser(fba.User fbUser) async {

@@ -1,5 +1,6 @@
 const functions = require('firebase-functions');
 const admin = require('firebase-admin');
+require("firebase-functions/lib/logger/compat");
 admin.initializeApp();
 
 /**
@@ -8,47 +9,52 @@ admin.initializeApp();
  * Followers add a flag to `/followers/{followedUid}/{followerUid}`.
  * Users save their device notification tokens to `/users/{followedUid}/notificationTokens/{notificationToken}`.
  */
-exports.sendOnMessageNotification = functions.database.ref('/chats/{chatId}/messages')
-    .onWrite(async function (change, context) {
+exports.sendOnMessagePush = functions.firestore.document('chats/{chatId}/messages/{messageId}')
+    .onCreate(async (change, context) => {
         functions.logger.log(
             'function triggered'
         );
         const chatId = context.params.chatId;
-        const messageId = change.after.val();
+        const messageId = context.params.messageId;
 
-        const chatPromise = admin.database()
-            .ref(`/chats/${chatId}`).once('value');
+        const chatPromise = admin.firestore()
+            .doc(`/chats/${chatId}`).get();
 
-        const messagePromise = admin.database()
-            .ref(`/chats/${chatId}/messages/${messageId}`).once('value');
+        const messagePromise = admin.firestore()
+            .doc(`/chats/${chatId}/messages/${messageId}`).get();
 
         let messageSnapshot;
 
         let chatSnapsot;
 
-        const result = await Promise.all([chatPromise, messagePromise]);
+        const result = await Promise.all([messagePromise, chatPromise]);
 
         messageSnapshot = result[0];
         chatSnapsot = result[1];
 
-        const chatUsers = chatSnapsot.val().users;
-        const messageAuthor = messageSnapshot.val().authorId;
-        const messageText = messageSnapshot.val().text;
-        // const sendToUsers = chatUsers.remove(messageAuthor);
+        var chatUsers = chatSnapsot.data().users;
 
-        const tokenPromise = admin.database()
-            .ref(`/users/${chatUsers[0]}/fcmToken`).once('value');
+        functions.logger.log(
+            'chat users are',
+            chatSnapsot.data(),
+        );
 
-        const senderPromise = admin.database()
-            .ref(`/users/${messageAuthor}/name`).once('value');
+        const messageAuthor = messageSnapshot.data().authorId;
+        const messageText = messageSnapshot.data().text;
+        const sendToUsers = chatUsers.filter((value, _i, _arr) => value !== messageAuthor);
+        const userPromise = admin.firestore()
+            .doc(`/users/${sendToUsers[0]}`).get();
+
+        const senderPromise = admin.firestore()
+            .doc(`/users/${messageAuthor}`).get();
 
         let senderName;
 
         let token;
 
-        const usersData = await Promise.all([tokenPromise, senderPromise]);
-        token = usersData[0];
-        senderName = usersData[1];
+        const usersData = await Promise.all([userPromise, senderPromise]);
+        token = usersData[0].data().fcmToken;
+        senderName = usersData[1].data().name;
 
 
 
@@ -69,18 +75,25 @@ exports.sendOnMessageNotification = functions.database.ref('/chats/{chatId}/mess
             'By user:',
             senderName,
             'The text is:',
-            messageText
+            messageText,
+            'token is:',
+            token
         );
 
         const payload = {
             notification: {
                 title: senderName,
                 body: messageText,
+                sound: "default",
             }
         };
 
         const response = await admin.messaging().sendToDevice(token, payload);
 
+        functions.logger.log(
+            'FCM response:',
+            response.results,
+        );
         // // Get the list of device notification tokens.
         // const getDeviceTokensPromise = admin.database()
         //     .ref(`/users/${followedUid}/notificationTokens`).once('value');
@@ -135,5 +148,5 @@ exports.sendOnMessageNotification = functions.database.ref('/chats/{chatId}/mess
         //     }
         // });
         // return Promise.all(tokensToRemove);
-        return Promise.all(response);
+
     });

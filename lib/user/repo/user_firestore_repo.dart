@@ -19,6 +19,12 @@ class UserFirestoreRepo with FirestoreUsersModelRef implements UserRepo {
     return docRef.set(user);
   }
 
+  @override
+  Future<void> updateUser(String userUid, Map<String, dynamic> data) async {
+    final docRef = usersRef.doc(userUid);
+    return docRef.update(data);
+  }
+
   //TODO: move to separate collection to avoid extra dispatching and more atomic sructure
   Future<void> _setFcmToken(String uid) async {
     //TODO: move permission handling from here
@@ -26,7 +32,9 @@ class UserFirestoreRepo with FirestoreUsersModelRef implements UserRepo {
     if (permission.authorizationStatus == AuthorizationStatus.authorized) {
       final fcm = FirebaseMessaging.instance;
       final fcmToken = await fcm.getToken();
-      final data = {'fcmToken': FieldValue.arrayUnion([fcmToken])};
+      final data = {
+        'fcmToken': FieldValue.arrayUnion([fcmToken])
+      };
       return usersRef.doc(uid).update(data);
     }
   }
