@@ -35,7 +35,8 @@ final inputControlZoneController =
         (_) => InpitControlZoneController());
 
 class InpitControlZoneController extends StateNotifier<MessageInputState> {
-  InpitControlZoneController() : super(const MessageInputInactiveState());
+  InpitControlZoneController() : 
+  super(const MessageInputInactiveState());
 
   void requestFocus() {
     state.whenOrNull(

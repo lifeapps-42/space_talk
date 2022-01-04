@@ -38,14 +38,33 @@ class ConversationStateNotifier extends StateNotifier<ConversationState> {
   }
 
   void sendMessage(String text) {
+    final quote = state.whenOrNull(
+      live: (state) => state.quoting,
+      updating: (state) => state.quoting,
+    );
     final message = Message(
       authorId: _user!.uid,
       chatId: chatId,
       text: text.trim(),
       sentAt: DateTime.now(),
+      quote: quote,
       readUsersIds: [],
     );
+    this.quote(null);
     _repo.sendMessage(chatId, message);
+  }
+
+  void quote(Message? message) {
+    state.whenOrNull(
+      live: (data) {
+        final stateData = data.copyWith(quoting: message);
+        state = ConversationLiveState(stateData);
+      },
+      updating: (data) {
+        final stateData = data.copyWith(quoting: message);
+        state = ConversationLiveState(stateData);
+      },
+    );
   }
 
   void markAsRead(Message message) {

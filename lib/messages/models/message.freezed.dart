@@ -27,7 +27,8 @@ class _$MessageTearOff {
       required String text,
       required String authorId,
       required DateTime sentAt,
-      required List<String?> readUsersIds}) {
+      required List<String?> readUsersIds,
+      Message? quote}) {
     return _Message(
       id: id,
       chatId: chatId,
@@ -35,6 +36,7 @@ class _$MessageTearOff {
       authorId: authorId,
       sentAt: sentAt,
       readUsersIds: readUsersIds,
+      quote: quote,
     );
   }
 
@@ -54,6 +56,7 @@ mixin _$Message {
   String get authorId => throw _privateConstructorUsedError;
   DateTime get sentAt => throw _privateConstructorUsedError;
   List<String?> get readUsersIds => throw _privateConstructorUsedError;
+  Message? get quote => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -70,7 +73,10 @@ abstract class $MessageCopyWith<$Res> {
       String text,
       String authorId,
       DateTime sentAt,
-      List<String?> readUsersIds});
+      List<String?> readUsersIds,
+      Message? quote});
+
+  $MessageCopyWith<$Res>? get quote;
 }
 
 /// @nodoc
@@ -89,6 +95,7 @@ class _$MessageCopyWithImpl<$Res> implements $MessageCopyWith<$Res> {
     Object? authorId = freezed,
     Object? sentAt = freezed,
     Object? readUsersIds = freezed,
+    Object? quote = freezed,
   }) {
     return _then(_value.copyWith(
       id: id == freezed
@@ -115,7 +122,22 @@ class _$MessageCopyWithImpl<$Res> implements $MessageCopyWith<$Res> {
           ? _value.readUsersIds
           : readUsersIds // ignore: cast_nullable_to_non_nullable
               as List<String?>,
+      quote: quote == freezed
+          ? _value.quote
+          : quote // ignore: cast_nullable_to_non_nullable
+              as Message?,
     ));
+  }
+
+  @override
+  $MessageCopyWith<$Res>? get quote {
+    if (_value.quote == null) {
+      return null;
+    }
+
+    return $MessageCopyWith<$Res>(_value.quote!, (value) {
+      return _then(_value.copyWith(quote: value));
+    });
   }
 }
 
@@ -130,7 +152,11 @@ abstract class _$MessageCopyWith<$Res> implements $MessageCopyWith<$Res> {
       String text,
       String authorId,
       DateTime sentAt,
-      List<String?> readUsersIds});
+      List<String?> readUsersIds,
+      Message? quote});
+
+  @override
+  $MessageCopyWith<$Res>? get quote;
 }
 
 /// @nodoc
@@ -150,6 +176,7 @@ class __$MessageCopyWithImpl<$Res> extends _$MessageCopyWithImpl<$Res>
     Object? authorId = freezed,
     Object? sentAt = freezed,
     Object? readUsersIds = freezed,
+    Object? quote = freezed,
   }) {
     return _then(_Message(
       id: id == freezed
@@ -176,6 +203,10 @@ class __$MessageCopyWithImpl<$Res> extends _$MessageCopyWithImpl<$Res>
           ? _value.readUsersIds
           : readUsersIds // ignore: cast_nullable_to_non_nullable
               as List<String?>,
+      quote: quote == freezed
+          ? _value.quote
+          : quote // ignore: cast_nullable_to_non_nullable
+              as Message?,
     ));
   }
 }
@@ -190,7 +221,8 @@ class _$_Message implements _Message {
       required this.text,
       required this.authorId,
       required this.sentAt,
-      required this.readUsersIds});
+      required this.readUsersIds,
+      this.quote});
 
   factory _$_Message.fromJson(Map<String, dynamic> json) =>
       _$$_MessageFromJson(json);
@@ -207,10 +239,12 @@ class _$_Message implements _Message {
   final DateTime sentAt;
   @override
   final List<String?> readUsersIds;
+  @override
+  final Message? quote;
 
   @override
   String toString() {
-    return 'Message(id: $id, chatId: $chatId, text: $text, authorId: $authorId, sentAt: $sentAt, readUsersIds: $readUsersIds)';
+    return 'Message(id: $id, chatId: $chatId, text: $text, authorId: $authorId, sentAt: $sentAt, readUsersIds: $readUsersIds, quote: $quote)';
   }
 
   @override
@@ -224,7 +258,8 @@ class _$_Message implements _Message {
             const DeepCollectionEquality().equals(other.authorId, authorId) &&
             const DeepCollectionEquality().equals(other.sentAt, sentAt) &&
             const DeepCollectionEquality()
-                .equals(other.readUsersIds, readUsersIds));
+                .equals(other.readUsersIds, readUsersIds) &&
+            const DeepCollectionEquality().equals(other.quote, quote));
   }
 
   @override
@@ -235,7 +270,8 @@ class _$_Message implements _Message {
       const DeepCollectionEquality().hash(text),
       const DeepCollectionEquality().hash(authorId),
       const DeepCollectionEquality().hash(sentAt),
-      const DeepCollectionEquality().hash(readUsersIds));
+      const DeepCollectionEquality().hash(readUsersIds),
+      const DeepCollectionEquality().hash(quote));
 
   @JsonKey(ignore: true)
   @override
@@ -255,7 +291,8 @@ abstract class _Message implements Message {
       required String text,
       required String authorId,
       required DateTime sentAt,
-      required List<String?> readUsersIds}) = _$_Message;
+      required List<String?> readUsersIds,
+      Message? quote}) = _$_Message;
 
   factory _Message.fromJson(Map<String, dynamic> json) = _$_Message.fromJson;
 
@@ -271,6 +308,8 @@ abstract class _Message implements Message {
   DateTime get sentAt;
   @override
   List<String?> get readUsersIds;
+  @override
+  Message? get quote;
   @override
   @JsonKey(ignore: true)
   _$MessageCopyWith<_Message> get copyWith =>

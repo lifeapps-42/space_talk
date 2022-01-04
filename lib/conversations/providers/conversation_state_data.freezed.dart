@@ -21,12 +21,14 @@ class _$ConversationStateDataTearOff {
       {required List<Message> messages,
       required List<GroupedMessages> groupedMessages,
       required bool hasMoreToFetch,
-      required String chatId}) {
+      required String chatId,
+      Message? quoting}) {
     return _ConversationStateData(
       messages: messages,
       groupedMessages: groupedMessages,
       hasMoreToFetch: hasMoreToFetch,
       chatId: chatId,
+      quoting: quoting,
     );
   }
 }
@@ -41,6 +43,7 @@ mixin _$ConversationStateData {
       throw _privateConstructorUsedError;
   bool get hasMoreToFetch => throw _privateConstructorUsedError;
   String get chatId => throw _privateConstructorUsedError;
+  Message? get quoting => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $ConversationStateDataCopyWith<ConversationStateData> get copyWith =>
@@ -56,7 +59,10 @@ abstract class $ConversationStateDataCopyWith<$Res> {
       {List<Message> messages,
       List<GroupedMessages> groupedMessages,
       bool hasMoreToFetch,
-      String chatId});
+      String chatId,
+      Message? quoting});
+
+  $MessageCopyWith<$Res>? get quoting;
 }
 
 /// @nodoc
@@ -74,6 +80,7 @@ class _$ConversationStateDataCopyWithImpl<$Res>
     Object? groupedMessages = freezed,
     Object? hasMoreToFetch = freezed,
     Object? chatId = freezed,
+    Object? quoting = freezed,
   }) {
     return _then(_value.copyWith(
       messages: messages == freezed
@@ -92,7 +99,22 @@ class _$ConversationStateDataCopyWithImpl<$Res>
           ? _value.chatId
           : chatId // ignore: cast_nullable_to_non_nullable
               as String,
+      quoting: quoting == freezed
+          ? _value.quoting
+          : quoting // ignore: cast_nullable_to_non_nullable
+              as Message?,
     ));
+  }
+
+  @override
+  $MessageCopyWith<$Res>? get quoting {
+    if (_value.quoting == null) {
+      return null;
+    }
+
+    return $MessageCopyWith<$Res>(_value.quoting!, (value) {
+      return _then(_value.copyWith(quoting: value));
+    });
   }
 }
 
@@ -107,7 +129,11 @@ abstract class _$ConversationStateDataCopyWith<$Res>
       {List<Message> messages,
       List<GroupedMessages> groupedMessages,
       bool hasMoreToFetch,
-      String chatId});
+      String chatId,
+      Message? quoting});
+
+  @override
+  $MessageCopyWith<$Res>? get quoting;
 }
 
 /// @nodoc
@@ -127,6 +153,7 @@ class __$ConversationStateDataCopyWithImpl<$Res>
     Object? groupedMessages = freezed,
     Object? hasMoreToFetch = freezed,
     Object? chatId = freezed,
+    Object? quoting = freezed,
   }) {
     return _then(_ConversationStateData(
       messages: messages == freezed
@@ -145,6 +172,10 @@ class __$ConversationStateDataCopyWithImpl<$Res>
           ? _value.chatId
           : chatId // ignore: cast_nullable_to_non_nullable
               as String,
+      quoting: quoting == freezed
+          ? _value.quoting
+          : quoting // ignore: cast_nullable_to_non_nullable
+              as Message?,
     ));
   }
 }
@@ -156,7 +187,8 @@ class _$_ConversationStateData extends _ConversationStateData {
       {required this.messages,
       required this.groupedMessages,
       required this.hasMoreToFetch,
-      required this.chatId})
+      required this.chatId,
+      this.quoting})
       : super._();
 
   @override
@@ -167,10 +199,12 @@ class _$_ConversationStateData extends _ConversationStateData {
   final bool hasMoreToFetch;
   @override
   final String chatId;
+  @override
+  final Message? quoting;
 
   @override
   String toString() {
-    return 'ConversationStateData(messages: $messages, groupedMessages: $groupedMessages, hasMoreToFetch: $hasMoreToFetch, chatId: $chatId)';
+    return 'ConversationStateData(messages: $messages, groupedMessages: $groupedMessages, hasMoreToFetch: $hasMoreToFetch, chatId: $chatId, quoting: $quoting)';
   }
 
   @override
@@ -183,7 +217,8 @@ class _$_ConversationStateData extends _ConversationStateData {
                 .equals(other.groupedMessages, groupedMessages) &&
             const DeepCollectionEquality()
                 .equals(other.hasMoreToFetch, hasMoreToFetch) &&
-            const DeepCollectionEquality().equals(other.chatId, chatId));
+            const DeepCollectionEquality().equals(other.chatId, chatId) &&
+            const DeepCollectionEquality().equals(other.quoting, quoting));
   }
 
   @override
@@ -192,7 +227,8 @@ class _$_ConversationStateData extends _ConversationStateData {
       const DeepCollectionEquality().hash(messages),
       const DeepCollectionEquality().hash(groupedMessages),
       const DeepCollectionEquality().hash(hasMoreToFetch),
-      const DeepCollectionEquality().hash(chatId));
+      const DeepCollectionEquality().hash(chatId),
+      const DeepCollectionEquality().hash(quoting));
 
   @JsonKey(ignore: true)
   @override
@@ -206,7 +242,8 @@ abstract class _ConversationStateData extends ConversationStateData {
       {required List<Message> messages,
       required List<GroupedMessages> groupedMessages,
       required bool hasMoreToFetch,
-      required String chatId}) = _$_ConversationStateData;
+      required String chatId,
+      Message? quoting}) = _$_ConversationStateData;
   const _ConversationStateData._() : super._();
 
   @override
@@ -217,6 +254,8 @@ abstract class _ConversationStateData extends ConversationStateData {
   bool get hasMoreToFetch;
   @override
   String get chatId;
+  @override
+  Message? get quoting;
   @override
   @JsonKey(ignore: true)
   _$ConversationStateDataCopyWith<_ConversationStateData> get copyWith =>

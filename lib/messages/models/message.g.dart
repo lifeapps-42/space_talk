@@ -15,6 +15,9 @@ _$_Message _$$_MessageFromJson(Map<String, dynamic> json) => _$_Message(
       readUsersIds: (json['readUsersIds'] as List<dynamic>)
           .map((e) => e as String?)
           .toList(),
+      quote: json['quote'] == null
+          ? null
+          : Message.fromJson(json['quote'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$$_MessageToJson(_$_Message instance) =>
@@ -25,4 +28,5 @@ Map<String, dynamic> _$$_MessageToJson(_$_Message instance) =>
       'authorId': instance.authorId,
       'sentAt': instance.sentAt.toIso8601String(),
       'readUsersIds': instance.readUsersIds,
+      'quote': instance.quote?.toJson(),
     };

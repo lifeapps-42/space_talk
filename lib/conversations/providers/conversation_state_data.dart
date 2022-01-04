@@ -13,5 +13,6 @@ const ConversationStateData._();
     required List<GroupedMessages> groupedMessages,
     required bool hasMoreToFetch,
     required String chatId,
+    Message? quoting,
   }) = _ConversationStateData;
 }

@@ -29,6 +29,15 @@ class CompanionsStateNotifier extends StateNotifier<CompanionsState> {
   final Ref ref;
   final CompanionsRepo _repo;
 
+  User? getUserById(String id) {
+    state.whenOrNull(subscribed: (users, _) {
+      final r =
+          users.isEmpty ? null : users.firstWhere((user) => user.uid == id);
+      print(r);
+      return r;
+    });
+  }
+
   void _init() {
     ref.listen<ChatsState>(chatsStateNotifierProvider, (previous, next) {
       next.when(

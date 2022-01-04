@@ -6,6 +6,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:space_talk/conversations/providers/conversation_state.dart';
+import 'package:space_talk/ui_kit/animations/fade_trough_with_offset.dart';
+import 'package:space_talk/user/models/user.dart';
+import 'package:space_talk/user/providers/companions_provider.dart';
 
 import '../../../chats/models/chat_item.dart';
 import '../../../widgets/keyboard_placeholder.dart';
@@ -33,6 +37,8 @@ class MessageInput extends HookConsumerWidget {
     final canSend = useState(false);
     final stateController = ref.read(inputControlZoneController.notifier);
     final messageInputState = ref.watch(inputControlZoneController);
+    final chatId =
+        mainScreenState.whenOrNull(conversation: (data) => data.chatItem.id);
 
     final offsetTween = Tween<Offset>(
       begin: const Offset(0, 1),
@@ -61,11 +67,31 @@ class MessageInput extends HookConsumerWidget {
             }
           },
         );
+    void listenQuoting(String chatId) {
+      ref.listen<ConversationState>(conversationStateNotifierProvider(chatId),
+          (previous, next) {
+        next.whenOrNull(
+          live: (data) {
+            if (data.quoting != null) {
+              focusNode.requestFocus();
+            }
+          },
+          updating: (data) {
+            if (data.quoting != null) {
+              focusNode.requestFocus();
+            }
+          },
+        );
+      });
+    }
 
     useEffect(() {
       scrollController.addListener(handleScrollEvents);
+      if (chatId != null) {
+        listenQuoting(chatId);
+      }
       return () => scrollController.removeListener(handleScrollEvents);
-    }, []);
+    }, [chatId]);
 
     ref.listen<MessageInputState>(inputControlZoneController, (previous, next) {
       next.whenOrNull(
@@ -159,6 +185,7 @@ class MessageInput extends HookConsumerWidget {
                       height: 0.5,
                       color: Colors.white10,
                     ),
+                    QuoteWidget(chatId: chatId),
                     Padding(
                       padding: const EdgeInsets.symmetric(vertical: 10),
                       child: Row(
@@ -298,6 +325,119 @@ class _Keyboard extends StatelessWidget {
     return const KeyboardPlaceholder(
       animated: true,
       minSize: 34,
+    );
+  }
+}
+
+class QuoteWidget extends HookConsumerWidget {
+  const QuoteWidget({Key? key, this.chatId}) : super(key: key);
+
+  final String? chatId;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    void cancelQuote() {
+      ref.read(conversationStateNotifierProvider(chatId!).notifier).quote(null);
+    }
+
+    return chatId == null
+        ? Container()
+        : Consumer(builder: (context, ref, _) {
+            final conversationState =
+                ref.watch(conversationStateNotifierProvider(chatId!));
+            final quote = conversationState.whenOrNull(
+              live: (data) => data.quoting,
+              updating: (data) => data.quoting,
+            );
+            late final quoteAuthor = ref
+                .read(companionsStateNotifierProvider)
+                .whenOrNull(
+                    subscribed: (users, _) => users.isEmpty
+                        ? null
+                        : users
+                            .firstWhere((user) => user.uid == quote?.authorId));
+            final crossFadeState = quote == null
+                ? CrossFadeState.showFirst
+                : CrossFadeState.showSecond;
+            Widget secondChild() => quote == null
+                ? Container()
+                : FadeTroughWithOffsetTransition(
+                    alignment: Alignment.topCenter,
+                    axis: TransitionAxis.y,
+                    child: QuoteLayout(
+                      key: Key(quote.id ?? ''),
+                      authorName: quoteAuthor?.name ?? '',
+                      cancel: cancelQuote,
+                      text: quote.text,
+                    ),
+                  );
+            return AnimatedCrossFade(
+              crossFadeState: crossFadeState,
+              sizeCurve: Curves.linearToEaseOut,
+              duration: const Duration(milliseconds: 300),
+              firstChild: Container(),
+              secondChild: secondChild(),
+            );
+          });
+  }
+}
+
+class QuoteLayout extends StatelessWidget {
+  const QuoteLayout({
+    Key? key,
+    required this.authorName,
+    required this.text,
+    required this.cancel,
+  }) : super(key: key);
+
+  final String authorName;
+  final String text;
+  final VoidCallback cancel;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const Icon(
+            Icons.format_quote_rounded,
+            color: Colors.white60,
+          ),
+          const SizedBox(
+            width: 5,
+          ),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                Text(
+                  authorName,
+                  style: const TextStyle(
+                    color: Colors.white70,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                Text(
+                  text,
+                  style: const TextStyle(color: Colors.white70),
+                  maxLines: 3,
+                  overflow: TextOverflow.fade,
+                ),
+              ],
+            ),
+          ),
+          IconButton(
+            onPressed: cancel,
+            visualDensity: VisualDensity.compact,
+            icon: const Icon(
+              Icons.close,
+              color: Colors.white60,
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

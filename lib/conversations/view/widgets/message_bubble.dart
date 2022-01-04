@@ -1,6 +1,6 @@
-
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:space_talk/user/providers/companions_provider.dart';
 import 'package:visibility_detector/visibility_detector.dart';
 
 import '../../../messages/models/message.dart';
@@ -33,6 +33,12 @@ class MessageBubble extends HookConsumerWidget {
           .markAsRead(message);
     }
 
+    void quoteMessage() {
+      ref
+          .read(conversationStateNotifierProvider(message.chatId).notifier)
+          .quote(message);
+    }
+
     return SizeTransition(
       sizeFactor: animation,
       child: VisibilityDetector(
@@ -41,7 +47,7 @@ class MessageBubble extends HookConsumerWidget {
         child: SwipeDetectorConsumer(
           key: Key(message.id ?? ''),
           resist: true,
-          action: () => print('ANSWERED'),
+          action: quoteMessage,
           swipeDirection: SwipeDirection.left,
           minOffset: 50,
           maxDraggableOffset: 1000,
@@ -55,8 +61,9 @@ class MessageBubble extends HookConsumerWidget {
                 ),
               Expanded(
                 child: Container(
-                  alignment:
-                      isMyMessage ? Alignment.centerRight : Alignment.centerLeft,
+                  alignment: isMyMessage
+                      ? Alignment.centerRight
+                      : Alignment.centerLeft,
                   child: Padding(
                     padding: const EdgeInsets.all(4.0),
                     child: AnimatedBuilder(
@@ -81,9 +88,15 @@ class MessageBubble extends HookConsumerWidget {
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.end,
                                   children: [
+                                    if (message.quote != null)
+                                      QuoteInBubble(
+                                        isMyMessage: isMyMessage,
+                                        quote: message.quote!,
+                                      ),
                                     Text(
                                       message.text,
-                                      style: TextStyle(color: textColor, fontSize: 15),
+                                      style: TextStyle(
+                                          color: textColor, fontSize: 15),
                                     ),
                                     MessageBubbleTimeAndStatus(
                                       message: message,
@@ -170,6 +183,89 @@ class ReadMark extends StatelessWidget {
               size: 10,
             )
           : Container(),
+    );
+  }
+}
+
+class QuoteInBubble extends StatelessWidget {
+  const QuoteInBubble(
+      {Key? key, required this.isMyMessage, required this.quote})
+      : super(key: key);
+
+  final bool isMyMessage;
+  final Message quote;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 5),
+      child: Card(
+        margin: EdgeInsets.zero,
+        elevation: 0,
+        color: Colors.white10,
+        child: QuoteRepresent(
+          quote: quote,
+          isMyMessage: isMyMessage,
+        ),
+      ),
+    );
+  }
+}
+
+class QuoteRepresent extends ConsumerWidget {
+  const QuoteRepresent({
+    Key? key,
+    required this.quote,
+    required this.isMyMessage,
+  }) : super(key: key);
+
+  final Message quote;
+  final bool isMyMessage;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final color = isMyMessage
+        ? Colors.white.withOpacity(0.7)
+        : Colors.black.withOpacity(0.7);
+    late final quoteAuthor =
+        ref.read(companionsStateNotifierProvider).whenOrNull(
+              subscribed: (users, _) => users.isEmpty
+                  ? null
+                  : users.firstWhere((user) => user.uid == quote.authorId),
+            );
+
+    return Row(
+      mainAxisSize: MainAxisSize.min,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Icon(
+          Icons.format_quote_rounded,
+          color: color,
+        ),
+        const SizedBox(
+          width: 5,
+        ),
+        Flexible(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                quoteAuthor?.name ?? '',
+                style: TextStyle(
+                  color: color,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              Text(
+                quote.text,
+                style: TextStyle(color: color),
+                maxLines: 3,
+                overflow: TextOverflow.fade,
+              ),
+            ],
+          ),
+        ),
+      ],
     );
   }
 }
