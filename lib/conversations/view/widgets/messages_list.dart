@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -15,16 +14,17 @@ class MessagesList extends HookConsumerWidget {
     required this.messages,
     required this.scrollController,
     required this.chatId,
+    required this.inputWidgeSizeNotifier,
   }) : super(key: key);
 
   final List<GroupedMessages> messages;
   final ScrollController scrollController;
   final String chatId;
+  final ValueNotifier<Size> inputWidgeSizeNotifier;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     void goBack() {
-      HapticFeedback.mediumImpact();
       ref.read(mainScreenStateNotifierProvider.notifier).goToChats();
     }
 
@@ -35,10 +35,15 @@ class MessagesList extends HookConsumerWidget {
         action: goBack,
         maxDraggableOffset: 10000,
         resist: true,
-        child: MessagesGroupedByDate(
-          groupedMessages: messages,
-          chatId: chatId,
-          scrollController: scrollController,
+        child: MediaQuery.removeViewPadding(
+          context: context,
+          removeBottom: true,
+          child: MessagesGroupedByDate(
+            inputWidgeSizeNotifier: inputWidgeSizeNotifier,
+            groupedMessages: messages,
+            chatId: chatId,
+            scrollController: scrollController,
+          ),
         ),
       ),
     );

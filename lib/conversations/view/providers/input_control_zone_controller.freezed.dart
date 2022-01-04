@@ -31,6 +31,10 @@ class _$MessageInputStateTearOff {
     );
   }
 
+  MessageInputClosingWithAnimationEvent closingWithAnimationEvent() {
+    return const MessageInputClosingWithAnimationEvent();
+  }
+
   MessageInputUnfocusEvent unfocusEvent() {
     return const MessageInputUnfocusEvent();
   }
@@ -50,6 +54,7 @@ mixin _$MessageInputState {
     required TResult Function() inactive,
     required TResult Function() typing,
     required TResult Function(DismissingStateData data) dismissing,
+    required TResult Function() closingWithAnimationEvent,
     required TResult Function() unfocusEvent,
     required TResult Function() requestFocusEvent,
   }) =>
@@ -59,6 +64,7 @@ mixin _$MessageInputState {
     TResult Function()? inactive,
     TResult Function()? typing,
     TResult Function(DismissingStateData data)? dismissing,
+    TResult Function()? closingWithAnimationEvent,
     TResult Function()? unfocusEvent,
     TResult Function()? requestFocusEvent,
   }) =>
@@ -68,6 +74,7 @@ mixin _$MessageInputState {
     TResult Function()? inactive,
     TResult Function()? typing,
     TResult Function(DismissingStateData data)? dismissing,
+    TResult Function()? closingWithAnimationEvent,
     TResult Function()? unfocusEvent,
     TResult Function()? requestFocusEvent,
     required TResult orElse(),
@@ -78,6 +85,8 @@ mixin _$MessageInputState {
     required TResult Function(MessageInputInactiveState value) inactive,
     required TResult Function(MessageInputTypingState value) typing,
     required TResult Function(MessageInputDismissingState value) dismissing,
+    required TResult Function(MessageInputClosingWithAnimationEvent value)
+        closingWithAnimationEvent,
     required TResult Function(MessageInputUnfocusEvent value) unfocusEvent,
     required TResult Function(MessageInputRequestFocusEvent value)
         requestFocusEvent,
@@ -88,6 +97,8 @@ mixin _$MessageInputState {
     TResult Function(MessageInputInactiveState value)? inactive,
     TResult Function(MessageInputTypingState value)? typing,
     TResult Function(MessageInputDismissingState value)? dismissing,
+    TResult Function(MessageInputClosingWithAnimationEvent value)?
+        closingWithAnimationEvent,
     TResult Function(MessageInputUnfocusEvent value)? unfocusEvent,
     TResult Function(MessageInputRequestFocusEvent value)? requestFocusEvent,
   }) =>
@@ -97,6 +108,8 @@ mixin _$MessageInputState {
     TResult Function(MessageInputInactiveState value)? inactive,
     TResult Function(MessageInputTypingState value)? typing,
     TResult Function(MessageInputDismissingState value)? dismissing,
+    TResult Function(MessageInputClosingWithAnimationEvent value)?
+        closingWithAnimationEvent,
     TResult Function(MessageInputUnfocusEvent value)? unfocusEvent,
     TResult Function(MessageInputRequestFocusEvent value)? requestFocusEvent,
     required TResult orElse(),
@@ -167,6 +180,7 @@ class _$MessageInputInactiveState implements MessageInputInactiveState {
     required TResult Function() inactive,
     required TResult Function() typing,
     required TResult Function(DismissingStateData data) dismissing,
+    required TResult Function() closingWithAnimationEvent,
     required TResult Function() unfocusEvent,
     required TResult Function() requestFocusEvent,
   }) {
@@ -179,6 +193,7 @@ class _$MessageInputInactiveState implements MessageInputInactiveState {
     TResult Function()? inactive,
     TResult Function()? typing,
     TResult Function(DismissingStateData data)? dismissing,
+    TResult Function()? closingWithAnimationEvent,
     TResult Function()? unfocusEvent,
     TResult Function()? requestFocusEvent,
   }) {
@@ -191,6 +206,7 @@ class _$MessageInputInactiveState implements MessageInputInactiveState {
     TResult Function()? inactive,
     TResult Function()? typing,
     TResult Function(DismissingStateData data)? dismissing,
+    TResult Function()? closingWithAnimationEvent,
     TResult Function()? unfocusEvent,
     TResult Function()? requestFocusEvent,
     required TResult orElse(),
@@ -207,6 +223,8 @@ class _$MessageInputInactiveState implements MessageInputInactiveState {
     required TResult Function(MessageInputInactiveState value) inactive,
     required TResult Function(MessageInputTypingState value) typing,
     required TResult Function(MessageInputDismissingState value) dismissing,
+    required TResult Function(MessageInputClosingWithAnimationEvent value)
+        closingWithAnimationEvent,
     required TResult Function(MessageInputUnfocusEvent value) unfocusEvent,
     required TResult Function(MessageInputRequestFocusEvent value)
         requestFocusEvent,
@@ -220,6 +238,8 @@ class _$MessageInputInactiveState implements MessageInputInactiveState {
     TResult Function(MessageInputInactiveState value)? inactive,
     TResult Function(MessageInputTypingState value)? typing,
     TResult Function(MessageInputDismissingState value)? dismissing,
+    TResult Function(MessageInputClosingWithAnimationEvent value)?
+        closingWithAnimationEvent,
     TResult Function(MessageInputUnfocusEvent value)? unfocusEvent,
     TResult Function(MessageInputRequestFocusEvent value)? requestFocusEvent,
   }) {
@@ -232,6 +252,8 @@ class _$MessageInputInactiveState implements MessageInputInactiveState {
     TResult Function(MessageInputInactiveState value)? inactive,
     TResult Function(MessageInputTypingState value)? typing,
     TResult Function(MessageInputDismissingState value)? dismissing,
+    TResult Function(MessageInputClosingWithAnimationEvent value)?
+        closingWithAnimationEvent,
     TResult Function(MessageInputUnfocusEvent value)? unfocusEvent,
     TResult Function(MessageInputRequestFocusEvent value)? requestFocusEvent,
     required TResult orElse(),
@@ -291,6 +313,7 @@ class _$MessageInputTypingState implements MessageInputTypingState {
     required TResult Function() inactive,
     required TResult Function() typing,
     required TResult Function(DismissingStateData data) dismissing,
+    required TResult Function() closingWithAnimationEvent,
     required TResult Function() unfocusEvent,
     required TResult Function() requestFocusEvent,
   }) {
@@ -303,6 +326,7 @@ class _$MessageInputTypingState implements MessageInputTypingState {
     TResult Function()? inactive,
     TResult Function()? typing,
     TResult Function(DismissingStateData data)? dismissing,
+    TResult Function()? closingWithAnimationEvent,
     TResult Function()? unfocusEvent,
     TResult Function()? requestFocusEvent,
   }) {
@@ -315,6 +339,7 @@ class _$MessageInputTypingState implements MessageInputTypingState {
     TResult Function()? inactive,
     TResult Function()? typing,
     TResult Function(DismissingStateData data)? dismissing,
+    TResult Function()? closingWithAnimationEvent,
     TResult Function()? unfocusEvent,
     TResult Function()? requestFocusEvent,
     required TResult orElse(),
@@ -331,6 +356,8 @@ class _$MessageInputTypingState implements MessageInputTypingState {
     required TResult Function(MessageInputInactiveState value) inactive,
     required TResult Function(MessageInputTypingState value) typing,
     required TResult Function(MessageInputDismissingState value) dismissing,
+    required TResult Function(MessageInputClosingWithAnimationEvent value)
+        closingWithAnimationEvent,
     required TResult Function(MessageInputUnfocusEvent value) unfocusEvent,
     required TResult Function(MessageInputRequestFocusEvent value)
         requestFocusEvent,
@@ -344,6 +371,8 @@ class _$MessageInputTypingState implements MessageInputTypingState {
     TResult Function(MessageInputInactiveState value)? inactive,
     TResult Function(MessageInputTypingState value)? typing,
     TResult Function(MessageInputDismissingState value)? dismissing,
+    TResult Function(MessageInputClosingWithAnimationEvent value)?
+        closingWithAnimationEvent,
     TResult Function(MessageInputUnfocusEvent value)? unfocusEvent,
     TResult Function(MessageInputRequestFocusEvent value)? requestFocusEvent,
   }) {
@@ -356,6 +385,8 @@ class _$MessageInputTypingState implements MessageInputTypingState {
     TResult Function(MessageInputInactiveState value)? inactive,
     TResult Function(MessageInputTypingState value)? typing,
     TResult Function(MessageInputDismissingState value)? dismissing,
+    TResult Function(MessageInputClosingWithAnimationEvent value)?
+        closingWithAnimationEvent,
     TResult Function(MessageInputUnfocusEvent value)? unfocusEvent,
     TResult Function(MessageInputRequestFocusEvent value)? requestFocusEvent,
     required TResult orElse(),
@@ -451,6 +482,7 @@ class _$MessageInputDismissingState implements MessageInputDismissingState {
     required TResult Function() inactive,
     required TResult Function() typing,
     required TResult Function(DismissingStateData data) dismissing,
+    required TResult Function() closingWithAnimationEvent,
     required TResult Function() unfocusEvent,
     required TResult Function() requestFocusEvent,
   }) {
@@ -463,6 +495,7 @@ class _$MessageInputDismissingState implements MessageInputDismissingState {
     TResult Function()? inactive,
     TResult Function()? typing,
     TResult Function(DismissingStateData data)? dismissing,
+    TResult Function()? closingWithAnimationEvent,
     TResult Function()? unfocusEvent,
     TResult Function()? requestFocusEvent,
   }) {
@@ -475,6 +508,7 @@ class _$MessageInputDismissingState implements MessageInputDismissingState {
     TResult Function()? inactive,
     TResult Function()? typing,
     TResult Function(DismissingStateData data)? dismissing,
+    TResult Function()? closingWithAnimationEvent,
     TResult Function()? unfocusEvent,
     TResult Function()? requestFocusEvent,
     required TResult orElse(),
@@ -491,6 +525,8 @@ class _$MessageInputDismissingState implements MessageInputDismissingState {
     required TResult Function(MessageInputInactiveState value) inactive,
     required TResult Function(MessageInputTypingState value) typing,
     required TResult Function(MessageInputDismissingState value) dismissing,
+    required TResult Function(MessageInputClosingWithAnimationEvent value)
+        closingWithAnimationEvent,
     required TResult Function(MessageInputUnfocusEvent value) unfocusEvent,
     required TResult Function(MessageInputRequestFocusEvent value)
         requestFocusEvent,
@@ -504,6 +540,8 @@ class _$MessageInputDismissingState implements MessageInputDismissingState {
     TResult Function(MessageInputInactiveState value)? inactive,
     TResult Function(MessageInputTypingState value)? typing,
     TResult Function(MessageInputDismissingState value)? dismissing,
+    TResult Function(MessageInputClosingWithAnimationEvent value)?
+        closingWithAnimationEvent,
     TResult Function(MessageInputUnfocusEvent value)? unfocusEvent,
     TResult Function(MessageInputRequestFocusEvent value)? requestFocusEvent,
   }) {
@@ -516,6 +554,8 @@ class _$MessageInputDismissingState implements MessageInputDismissingState {
     TResult Function(MessageInputInactiveState value)? inactive,
     TResult Function(MessageInputTypingState value)? typing,
     TResult Function(MessageInputDismissingState value)? dismissing,
+    TResult Function(MessageInputClosingWithAnimationEvent value)?
+        closingWithAnimationEvent,
     TResult Function(MessageInputUnfocusEvent value)? unfocusEvent,
     TResult Function(MessageInputRequestFocusEvent value)? requestFocusEvent,
     required TResult orElse(),
@@ -535,6 +575,146 @@ abstract class MessageInputDismissingState implements MessageInputState {
   @JsonKey(ignore: true)
   $MessageInputDismissingStateCopyWith<MessageInputDismissingState>
       get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $MessageInputClosingWithAnimationEventCopyWith<$Res> {
+  factory $MessageInputClosingWithAnimationEventCopyWith(
+          MessageInputClosingWithAnimationEvent value,
+          $Res Function(MessageInputClosingWithAnimationEvent) then) =
+      _$MessageInputClosingWithAnimationEventCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class _$MessageInputClosingWithAnimationEventCopyWithImpl<$Res>
+    extends _$MessageInputStateCopyWithImpl<$Res>
+    implements $MessageInputClosingWithAnimationEventCopyWith<$Res> {
+  _$MessageInputClosingWithAnimationEventCopyWithImpl(
+      MessageInputClosingWithAnimationEvent _value,
+      $Res Function(MessageInputClosingWithAnimationEvent) _then)
+      : super(_value, (v) => _then(v as MessageInputClosingWithAnimationEvent));
+
+  @override
+  MessageInputClosingWithAnimationEvent get _value =>
+      super._value as MessageInputClosingWithAnimationEvent;
+}
+
+/// @nodoc
+
+class _$MessageInputClosingWithAnimationEvent
+    implements MessageInputClosingWithAnimationEvent {
+  const _$MessageInputClosingWithAnimationEvent();
+
+  @override
+  String toString() {
+    return 'MessageInputState.closingWithAnimationEvent()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is MessageInputClosingWithAnimationEvent);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() inactive,
+    required TResult Function() typing,
+    required TResult Function(DismissingStateData data) dismissing,
+    required TResult Function() closingWithAnimationEvent,
+    required TResult Function() unfocusEvent,
+    required TResult Function() requestFocusEvent,
+  }) {
+    return closingWithAnimationEvent();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function()? inactive,
+    TResult Function()? typing,
+    TResult Function(DismissingStateData data)? dismissing,
+    TResult Function()? closingWithAnimationEvent,
+    TResult Function()? unfocusEvent,
+    TResult Function()? requestFocusEvent,
+  }) {
+    return closingWithAnimationEvent?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? inactive,
+    TResult Function()? typing,
+    TResult Function(DismissingStateData data)? dismissing,
+    TResult Function()? closingWithAnimationEvent,
+    TResult Function()? unfocusEvent,
+    TResult Function()? requestFocusEvent,
+    required TResult orElse(),
+  }) {
+    if (closingWithAnimationEvent != null) {
+      return closingWithAnimationEvent();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(MessageInputInactiveState value) inactive,
+    required TResult Function(MessageInputTypingState value) typing,
+    required TResult Function(MessageInputDismissingState value) dismissing,
+    required TResult Function(MessageInputClosingWithAnimationEvent value)
+        closingWithAnimationEvent,
+    required TResult Function(MessageInputUnfocusEvent value) unfocusEvent,
+    required TResult Function(MessageInputRequestFocusEvent value)
+        requestFocusEvent,
+  }) {
+    return closingWithAnimationEvent(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(MessageInputInactiveState value)? inactive,
+    TResult Function(MessageInputTypingState value)? typing,
+    TResult Function(MessageInputDismissingState value)? dismissing,
+    TResult Function(MessageInputClosingWithAnimationEvent value)?
+        closingWithAnimationEvent,
+    TResult Function(MessageInputUnfocusEvent value)? unfocusEvent,
+    TResult Function(MessageInputRequestFocusEvent value)? requestFocusEvent,
+  }) {
+    return closingWithAnimationEvent?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(MessageInputInactiveState value)? inactive,
+    TResult Function(MessageInputTypingState value)? typing,
+    TResult Function(MessageInputDismissingState value)? dismissing,
+    TResult Function(MessageInputClosingWithAnimationEvent value)?
+        closingWithAnimationEvent,
+    TResult Function(MessageInputUnfocusEvent value)? unfocusEvent,
+    TResult Function(MessageInputRequestFocusEvent value)? requestFocusEvent,
+    required TResult orElse(),
+  }) {
+    if (closingWithAnimationEvent != null) {
+      return closingWithAnimationEvent(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class MessageInputClosingWithAnimationEvent
+    implements MessageInputState {
+  const factory MessageInputClosingWithAnimationEvent() =
+      _$MessageInputClosingWithAnimationEvent;
 }
 
 /// @nodoc
@@ -582,6 +762,7 @@ class _$MessageInputUnfocusEvent implements MessageInputUnfocusEvent {
     required TResult Function() inactive,
     required TResult Function() typing,
     required TResult Function(DismissingStateData data) dismissing,
+    required TResult Function() closingWithAnimationEvent,
     required TResult Function() unfocusEvent,
     required TResult Function() requestFocusEvent,
   }) {
@@ -594,6 +775,7 @@ class _$MessageInputUnfocusEvent implements MessageInputUnfocusEvent {
     TResult Function()? inactive,
     TResult Function()? typing,
     TResult Function(DismissingStateData data)? dismissing,
+    TResult Function()? closingWithAnimationEvent,
     TResult Function()? unfocusEvent,
     TResult Function()? requestFocusEvent,
   }) {
@@ -606,6 +788,7 @@ class _$MessageInputUnfocusEvent implements MessageInputUnfocusEvent {
     TResult Function()? inactive,
     TResult Function()? typing,
     TResult Function(DismissingStateData data)? dismissing,
+    TResult Function()? closingWithAnimationEvent,
     TResult Function()? unfocusEvent,
     TResult Function()? requestFocusEvent,
     required TResult orElse(),
@@ -622,6 +805,8 @@ class _$MessageInputUnfocusEvent implements MessageInputUnfocusEvent {
     required TResult Function(MessageInputInactiveState value) inactive,
     required TResult Function(MessageInputTypingState value) typing,
     required TResult Function(MessageInputDismissingState value) dismissing,
+    required TResult Function(MessageInputClosingWithAnimationEvent value)
+        closingWithAnimationEvent,
     required TResult Function(MessageInputUnfocusEvent value) unfocusEvent,
     required TResult Function(MessageInputRequestFocusEvent value)
         requestFocusEvent,
@@ -635,6 +820,8 @@ class _$MessageInputUnfocusEvent implements MessageInputUnfocusEvent {
     TResult Function(MessageInputInactiveState value)? inactive,
     TResult Function(MessageInputTypingState value)? typing,
     TResult Function(MessageInputDismissingState value)? dismissing,
+    TResult Function(MessageInputClosingWithAnimationEvent value)?
+        closingWithAnimationEvent,
     TResult Function(MessageInputUnfocusEvent value)? unfocusEvent,
     TResult Function(MessageInputRequestFocusEvent value)? requestFocusEvent,
   }) {
@@ -647,6 +834,8 @@ class _$MessageInputUnfocusEvent implements MessageInputUnfocusEvent {
     TResult Function(MessageInputInactiveState value)? inactive,
     TResult Function(MessageInputTypingState value)? typing,
     TResult Function(MessageInputDismissingState value)? dismissing,
+    TResult Function(MessageInputClosingWithAnimationEvent value)?
+        closingWithAnimationEvent,
     TResult Function(MessageInputUnfocusEvent value)? unfocusEvent,
     TResult Function(MessageInputRequestFocusEvent value)? requestFocusEvent,
     required TResult orElse(),
@@ -710,6 +899,7 @@ class _$MessageInputRequestFocusEvent implements MessageInputRequestFocusEvent {
     required TResult Function() inactive,
     required TResult Function() typing,
     required TResult Function(DismissingStateData data) dismissing,
+    required TResult Function() closingWithAnimationEvent,
     required TResult Function() unfocusEvent,
     required TResult Function() requestFocusEvent,
   }) {
@@ -722,6 +912,7 @@ class _$MessageInputRequestFocusEvent implements MessageInputRequestFocusEvent {
     TResult Function()? inactive,
     TResult Function()? typing,
     TResult Function(DismissingStateData data)? dismissing,
+    TResult Function()? closingWithAnimationEvent,
     TResult Function()? unfocusEvent,
     TResult Function()? requestFocusEvent,
   }) {
@@ -734,6 +925,7 @@ class _$MessageInputRequestFocusEvent implements MessageInputRequestFocusEvent {
     TResult Function()? inactive,
     TResult Function()? typing,
     TResult Function(DismissingStateData data)? dismissing,
+    TResult Function()? closingWithAnimationEvent,
     TResult Function()? unfocusEvent,
     TResult Function()? requestFocusEvent,
     required TResult orElse(),
@@ -750,6 +942,8 @@ class _$MessageInputRequestFocusEvent implements MessageInputRequestFocusEvent {
     required TResult Function(MessageInputInactiveState value) inactive,
     required TResult Function(MessageInputTypingState value) typing,
     required TResult Function(MessageInputDismissingState value) dismissing,
+    required TResult Function(MessageInputClosingWithAnimationEvent value)
+        closingWithAnimationEvent,
     required TResult Function(MessageInputUnfocusEvent value) unfocusEvent,
     required TResult Function(MessageInputRequestFocusEvent value)
         requestFocusEvent,
@@ -763,6 +957,8 @@ class _$MessageInputRequestFocusEvent implements MessageInputRequestFocusEvent {
     TResult Function(MessageInputInactiveState value)? inactive,
     TResult Function(MessageInputTypingState value)? typing,
     TResult Function(MessageInputDismissingState value)? dismissing,
+    TResult Function(MessageInputClosingWithAnimationEvent value)?
+        closingWithAnimationEvent,
     TResult Function(MessageInputUnfocusEvent value)? unfocusEvent,
     TResult Function(MessageInputRequestFocusEvent value)? requestFocusEvent,
   }) {
@@ -775,6 +971,8 @@ class _$MessageInputRequestFocusEvent implements MessageInputRequestFocusEvent {
     TResult Function(MessageInputInactiveState value)? inactive,
     TResult Function(MessageInputTypingState value)? typing,
     TResult Function(MessageInputDismissingState value)? dismissing,
+    TResult Function(MessageInputClosingWithAnimationEvent value)?
+        closingWithAnimationEvent,
     TResult Function(MessageInputUnfocusEvent value)? unfocusEvent,
     TResult Function(MessageInputRequestFocusEvent value)? requestFocusEvent,
     required TResult orElse(),
@@ -796,8 +994,11 @@ class _$DismissingStateDataTearOff {
   const _$DismissingStateDataTearOff();
 
   _DismissingStateData call(
-      {required double startPosition, required double currentPosition}) {
+      {required double startLocalPosition,
+      required double startPosition,
+      required double currentPosition}) {
     return _DismissingStateData(
+      startLocalPosition: startLocalPosition,
       startPosition: startPosition,
       currentPosition: currentPosition,
     );
@@ -809,6 +1010,7 @@ const $DismissingStateData = _$DismissingStateDataTearOff();
 
 /// @nodoc
 mixin _$DismissingStateData {
+  double get startLocalPosition => throw _privateConstructorUsedError;
   double get startPosition => throw _privateConstructorUsedError;
   double get currentPosition => throw _privateConstructorUsedError;
 
@@ -822,7 +1024,10 @@ abstract class $DismissingStateDataCopyWith<$Res> {
   factory $DismissingStateDataCopyWith(
           DismissingStateData value, $Res Function(DismissingStateData) then) =
       _$DismissingStateDataCopyWithImpl<$Res>;
-  $Res call({double startPosition, double currentPosition});
+  $Res call(
+      {double startLocalPosition,
+      double startPosition,
+      double currentPosition});
 }
 
 /// @nodoc
@@ -836,10 +1041,15 @@ class _$DismissingStateDataCopyWithImpl<$Res>
 
   @override
   $Res call({
+    Object? startLocalPosition = freezed,
     Object? startPosition = freezed,
     Object? currentPosition = freezed,
   }) {
     return _then(_value.copyWith(
+      startLocalPosition: startLocalPosition == freezed
+          ? _value.startLocalPosition
+          : startLocalPosition // ignore: cast_nullable_to_non_nullable
+              as double,
       startPosition: startPosition == freezed
           ? _value.startPosition
           : startPosition // ignore: cast_nullable_to_non_nullable
@@ -859,7 +1069,10 @@ abstract class _$DismissingStateDataCopyWith<$Res>
           $Res Function(_DismissingStateData) then) =
       __$DismissingStateDataCopyWithImpl<$Res>;
   @override
-  $Res call({double startPosition, double currentPosition});
+  $Res call(
+      {double startLocalPosition,
+      double startPosition,
+      double currentPosition});
 }
 
 /// @nodoc
@@ -875,10 +1088,15 @@ class __$DismissingStateDataCopyWithImpl<$Res>
 
   @override
   $Res call({
+    Object? startLocalPosition = freezed,
     Object? startPosition = freezed,
     Object? currentPosition = freezed,
   }) {
     return _then(_DismissingStateData(
+      startLocalPosition: startLocalPosition == freezed
+          ? _value.startLocalPosition
+          : startLocalPosition // ignore: cast_nullable_to_non_nullable
+              as double,
       startPosition: startPosition == freezed
           ? _value.startPosition
           : startPosition // ignore: cast_nullable_to_non_nullable
@@ -895,9 +1113,13 @@ class __$DismissingStateDataCopyWithImpl<$Res>
 
 class _$_DismissingStateData extends _DismissingStateData {
   const _$_DismissingStateData(
-      {required this.startPosition, required this.currentPosition})
+      {required this.startLocalPosition,
+      required this.startPosition,
+      required this.currentPosition})
       : super._();
 
+  @override
+  final double startLocalPosition;
   @override
   final double startPosition;
   @override
@@ -905,7 +1127,7 @@ class _$_DismissingStateData extends _DismissingStateData {
 
   @override
   String toString() {
-    return 'DismissingStateData(startPosition: $startPosition, currentPosition: $currentPosition)';
+    return 'DismissingStateData(startLocalPosition: $startLocalPosition, startPosition: $startPosition, currentPosition: $currentPosition)';
   }
 
   @override
@@ -913,6 +1135,8 @@ class _$_DismissingStateData extends _DismissingStateData {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _DismissingStateData &&
+            const DeepCollectionEquality()
+                .equals(other.startLocalPosition, startLocalPosition) &&
             const DeepCollectionEquality()
                 .equals(other.startPosition, startPosition) &&
             const DeepCollectionEquality()
@@ -922,6 +1146,7 @@ class _$_DismissingStateData extends _DismissingStateData {
   @override
   int get hashCode => Object.hash(
       runtimeType,
+      const DeepCollectionEquality().hash(startLocalPosition),
       const DeepCollectionEquality().hash(startPosition),
       const DeepCollectionEquality().hash(currentPosition));
 
@@ -934,10 +1159,13 @@ class _$_DismissingStateData extends _DismissingStateData {
 
 abstract class _DismissingStateData extends DismissingStateData {
   const factory _DismissingStateData(
-      {required double startPosition,
+      {required double startLocalPosition,
+      required double startPosition,
       required double currentPosition}) = _$_DismissingStateData;
   const _DismissingStateData._() : super._();
 
+  @override
+  double get startLocalPosition;
   @override
   double get startPosition;
   @override

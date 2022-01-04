@@ -1,23 +1,29 @@
 import 'dart:async';
 import 'dart:ui';
 
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:space_talk/conversations/view/providers/input_control_zone_controller.dart';
 
 import '../../../chats/models/chat_item.dart';
 import '../../../widgets/keyboard_placeholder.dart';
+import '../../../widgets/size_changed_listener.dart';
 import '../../providers/conversation_provider.dart';
+import '../providers/input_control_zone_controller.dart';
 import '../providers/main_screen_state.dart';
 import '../providers/main_screen_state_provider.dart';
 
 class MessageInput extends HookConsumerWidget {
-  const MessageInput({Key? key, required this.scrollController})
-      : super(key: key);
+  const MessageInput({
+    Key? key,
+    required this.scrollController,
+    required this.inputWidgetSizeNotifier,
+  }) : super(key: key);
 
   final ScrollController scrollController;
+  final ValueNotifier<Size> inputWidgetSizeNotifier;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -26,13 +32,7 @@ class MessageInput extends HookConsumerWidget {
     final focusNode = useFocusNode();
     final canSend = useState(false);
     final stateController = ref.read(inputControlZoneController.notifier);
-
-    ref.listen<MessageInputState>(inputControlZoneController, (previous, next) {
-      next.whenOrNull(
-        requestFocusEvent: () => focusNode.requestFocus(),
-        unfocusEvent: () => focusNode.unfocus(),
-      );
-    });
+    final messageInputState = ref.watch(inputControlZoneController);
 
     final offsetTween = Tween<Offset>(
       begin: const Offset(0, 1),
@@ -50,11 +50,28 @@ class MessageInput extends HookConsumerWidget {
 
     canSend.value = mainScreenState.when(
       chats: () => false,
-      conversation: (_) => true,
+      conversation: (_) => messageController.text.isNotEmpty,
     );
 
-    messageController.addListener(() {
-      canSend.value = messageController.text.trim().isNotEmpty;
+    void handleScrollEvents() => messageInputState.whenOrNull(
+          inactive: () {
+            if (scrollController.offset < -10) {
+              HapticFeedback.selectionClick();
+              stateController.requestFocus();
+            }
+          },
+        );
+
+    useEffect(() {
+      scrollController.addListener(handleScrollEvents);
+      return () => scrollController.removeListener(handleScrollEvents);
+    }, []);
+
+    ref.listen<MessageInputState>(inputControlZoneController, (previous, next) {
+      next.whenOrNull(
+        requestFocusEvent: () => focusNode.requestFocus(),
+        unfocusEvent: () => focusNode.unfocus(),
+      );
     });
 
     void showInput() {
@@ -66,10 +83,12 @@ class MessageInput extends HookConsumerWidget {
       animationController.reverse();
     }
 
-    focusNode.addListener(() {
-      focusNode.hasFocus
-          ? stateController.typingStarted()
-          : stateController.focusLost();
+    useValueChanged<bool, void>(focusNode.hasFocus, (_, __) {
+      scheduleMicrotask(() {
+        focusNode.hasFocus
+            ? stateController.typingStarted()
+            : stateController.focusLost();
+      });
     });
 
     void sendMessage() {
@@ -81,15 +100,6 @@ class MessageInput extends HookConsumerWidget {
           .sendMessage(messageController.text);
       messageController.clear();
     }
-
-    scrollController.addListener(() {
-      if (scrollController.offset < -100) {
-        if (!focusNode.hasFocus) {
-          HapticFeedback.selectionClick();
-          stateController.requestFocus();
-        }
-      }
-    });
 
     void saveDraft(ChatItem chatItem) {
       final draft = messageController.text;
@@ -123,79 +133,86 @@ class MessageInput extends HookConsumerWidget {
       },
     );
 
-    return SlideTransition(
-      position: offsetAnimation,
-      child: ClipRect(
-        child: BackdropFilter(
-          filter: ImageFilter.blur(
-            sigmaX: 30,
-            sigmaY: 40,
-            tileMode: TileMode.mirror,
-          ),
-          child: GestureDetector(
-            onVerticalDragStart: stateController.startDrag,
-            onVerticalDragUpdate: stateController.updateDrag,
-            onVerticalDragEnd: stateController.endDrag,
-            onVerticalDragCancel: () => stateController.endDrag(null),
-            child: Container(
-              alignment: Alignment.center,
-              color: const Color.fromRGBO(59, 29, 27, 0.7),
-              child: Column(
-                children: [
-                  Container(
-                    height: 0.5,
-                    color: Colors.white10,
-                  ),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  Row(
-                    children: [
-                      Expanded(
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                          child: Center(
-                            child: Container(
-                              alignment: Alignment.center,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(8),
-                                color: Colors.black12,
-                              ),
-                              child: TextField(
-                                focusNode: focusNode,
-                                style: const TextStyle(color: Colors.white70),
-                                controller: messageController,
-                                minLines: 1,
-                                maxLines: 5,
-                                decoration: const InputDecoration(
-                                  isDense: true,
-                                  border: InputBorder.none,
-                                  contentPadding: EdgeInsets.all(4),
-                                  hintText: 'message...',
-                                  hintStyle: TextStyle(color: Colors.white30),
+    return SizeChangedNotifier(
+      sizeNotifier: inputWidgetSizeNotifier,
+      child: SlideTransition(
+        position: offsetAnimation,
+        child: ClipRect(
+          child: BackdropFilter(
+            filter: ImageFilter.blur(
+              sigmaX: 30,
+              sigmaY: 40,
+              tileMode: TileMode.mirror,
+            ),
+            child: GestureDetector(
+              onVerticalDragStart: stateController.startDrag,
+              onVerticalDragUpdate: stateController.updateDrag,
+              onVerticalDragEnd: stateController.endDrag,
+              onVerticalDragCancel: () => stateController.endDrag(null),
+              dragStartBehavior: DragStartBehavior.start,
+              child: Container(
+                alignment: Alignment.center,
+                color: const Color.fromRGBO(59, 29, 27, 0.7),
+                child: Column(
+                  children: [
+                    Container(
+                      height: 0.5,
+                      color: Colors.white10,
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 10),
+                      child: Row(
+                        children: [
+                          Expanded(
+                            child: Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 10.0),
+                              child: Center(
+                                child: Container(
+                                  alignment: Alignment.center,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(8),
+                                    color: Colors.black12,
+                                  ),
+                                  child: TextField(
+                                    focusNode: focusNode,
+                                    style:
+                                        const TextStyle(color: Colors.white70),
+                                    controller: messageController,
+                                    minLines: 1,
+                                    maxLines: 5,
+                                    decoration: const InputDecoration(
+                                      isDense: true,
+                                      border: InputBorder.none,
+                                      contentPadding: EdgeInsets.all(4),
+                                      hintText: 'message...',
+                                      hintStyle:
+                                          TextStyle(color: Colors.white30),
+                                    ),
+                                  ),
                                 ),
                               ),
                             ),
                           ),
-                        ),
-                      ),
-                      GestureDetector(
-                        behavior: HitTestBehavior.opaque,
-                        onTap: canSend.value ? () => sendMessage() : null,
-                        child: Container(
-                          alignment: Alignment.center,
-                          height: 35,
-                          width: 45,
-                          child: const Icon(
-                            Icons.send,
-                            color: Colors.white54,
+                          GestureDetector(
+                            behavior: HitTestBehavior.opaque,
+                            onTap: canSend.value ? () => sendMessage() : null,
+                            child: Container(
+                              alignment: Alignment.center,
+                              height: 35,
+                              width: 45,
+                              child: const Icon(
+                                Icons.send,
+                                color: Colors.white54,
+                              ),
+                            ),
                           ),
-                        ),
+                        ],
                       ),
-                    ],
-                  ),
-                  const InputControlZone(),
-                ],
+                    ),
+                    const InputControlZone(),
+                  ],
+                ),
               ),
             ),
           ),
@@ -212,29 +229,10 @@ class InputControlZone extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final inputState = ref.watch(inputControlZoneController);
 
-    final curve = inputState.maybeWhen(
-      dismissing: (_) => Curves.linear,
-      orElse: () => Curves.linearToEaseOut,
-    );
-
-    final duration = inputState.maybeWhen(
-      dismissing: (_) => const Duration(microseconds: 1),
-      orElse: () => const Duration(milliseconds: 450),
-    );
-
-    return AnimatedSize(
-      alignment: Alignment.bottomCenter,
-      duration: duration,
-      curve: curve,
-      child: Container(
-        child: inputState.when(
-          inactive: () => const _Keyboard(key: Key('inactive')),
-          typing: () => const _Keyboard(key: Key('typing')),
-          dismissing: (_) => const _DissmissingContainer(),
-          unfocusEvent: () => const _Keyboard(key: Key('inactive')),
-          requestFocusEvent: () => const _Keyboard(key: Key('inactive')),
-        ),
-      ),
+    return inputState.maybeWhen(
+      dismissing: (_) => const _DissmissingContainer(),
+      closingWithAnimationEvent: () => const _DissmissingContainer(),
+      orElse: () => const _Keyboard(),
     );
   }
 }
@@ -247,14 +245,45 @@ class _DissmissingContainer extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final inputState = ref.watch(inputControlZoneController);
-    final initialSize = useState(MediaQuery.of(context).viewInsets.bottom);
+    final bottomPadding = useState(MediaQuery.of(context).viewPadding.bottom);
+    final bottominsets = useState(MediaQuery.of(context).viewInsets.bottom);
     final height = useState(0.0);
-
-    height.value = inputState.maybeWhen(
-      dismissing: (data) => (initialSize.value - data.delta).clamp(0.0, 2000.0),
-      orElse: () => 0.0,
+    final controller =
+        useAnimationController(duration: const Duration(milliseconds: 430));
+    final animation = useState(
+      CurvedAnimation(
+        parent: controller,
+        curve: Curves.linearToEaseOut,
+      ),
     );
 
+    inputState.maybeWhen(
+      dismissing: (data) {
+        height.value = (bottominsets.value - data.delta).clamp(0.0, 2000.0);
+      },
+      orElse: () {},
+    );
+
+    ref.listen<MessageInputState>(inputControlZoneController, (_, next) {
+      next.whenOrNull(
+        closingWithAnimationEvent: () {
+          final currentHeight = height.value;
+          final targetHeight = bottomPadding.value;
+          final tween = Tween<double>(begin: currentHeight, end: targetHeight);
+          animation.value.addListener(() {
+            height.value = tween.transform(animation.value.value);
+          });
+          // controller.
+          final result = controller.forward(from: 0.0);
+          result.whenComplete(() {
+            ref
+                .read(inputControlZoneController.notifier)
+                .inputClosedAfterAnimation();
+            animation.value.removeListener(() {});
+          });
+        },
+      );
+    });
     return Container(
       height: height.value,
     );
@@ -268,8 +297,7 @@ class _Keyboard extends StatelessWidget {
   Widget build(BuildContext context) {
     return const KeyboardPlaceholder(
       animated: true,
-      correction: 10,
-      minSize: 30,
+      minSize: 34,
     );
   }
 }

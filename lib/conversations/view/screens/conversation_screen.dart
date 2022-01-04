@@ -75,6 +75,7 @@ class MainBodyWithParallax extends HookWidget {
   @override
   Widget build(BuildContext context) {
     final scrollController = useScrollController();
+    final inputWidgeSizeNotifier = useState(Size.zero);
 
     return Stack(
       children: [
@@ -83,6 +84,7 @@ class MainBodyWithParallax extends HookWidget {
         ),
         Positioned.fill(
           child: MainScreenConsumer(
+            inputWidgeSizeNotifier: inputWidgeSizeNotifier,
             scrollController: scrollController,
           ),
         ),
@@ -91,6 +93,7 @@ class MainBodyWithParallax extends HookWidget {
           right: 0,
           bottom: 0,
           child: MessageInput(
+            inputWidgetSizeNotifier: inputWidgeSizeNotifier,
             scrollController: scrollController,
           ),
         ),

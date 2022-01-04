@@ -16,7 +16,7 @@ class KeyboardPlaceholder extends StatelessWidget {
             .clamp(minSize ?? 0.0, 2000.0);
     return animated
         ? AnimatedSize(
-            duration: const Duration(milliseconds: 450),
+            duration: const Duration(milliseconds: 430),
             curve: Curves.linearToEaseOut,
             child: Container(
               height: height,

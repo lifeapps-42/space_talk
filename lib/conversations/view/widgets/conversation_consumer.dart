@@ -11,10 +11,12 @@ class ConversationConsumer extends ConsumerWidget {
     Key? key,
     required this.chatItem,
     required this.scrollController,
+    required this.inputWidgeSizeNotifier, 
   }) : super(key: key);
 
   final ChatItem chatItem;
   final ScrollController scrollController;
+  final ValueNotifier<Size> inputWidgeSizeNotifier;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -24,11 +26,13 @@ class ConversationConsumer extends ConsumerWidget {
       duration: const Duration(milliseconds: 300),
       child: conversationState.maybeWhen(
         live: (stateData) => MessagesList(
+          inputWidgeSizeNotifier: inputWidgeSizeNotifier,
           messages: stateData.groupedMessages,
           scrollController: scrollController,
           chatId: stateData.chatId,
         ),
         updating: (stateData) => MessagesList(
+          inputWidgeSizeNotifier: inputWidgeSizeNotifier,
           messages: stateData.groupedMessages,
           scrollController: scrollController,
           chatId: stateData.chatId,

@@ -11,6 +11,8 @@ class MessageInputState with _$MessageInputState {
   const factory MessageInputState.dismissing(DismissingStateData data) =
       MessageInputDismissingState;
 
+  const factory MessageInputState.closingWithAnimationEvent() =
+      MessageInputClosingWithAnimationEvent;
   const factory MessageInputState.unfocusEvent() = MessageInputUnfocusEvent;
   const factory MessageInputState.requestFocusEvent() =
       MessageInputRequestFocusEvent;
@@ -20,6 +22,7 @@ class MessageInputState with _$MessageInputState {
 class DismissingStateData with _$DismissingStateData {
   const DismissingStateData._();
   const factory DismissingStateData({
+    required double startLocalPosition,
     required double startPosition,
     required double currentPosition,
   }) = _DismissingStateData;
@@ -44,16 +47,14 @@ class InpitControlZoneController extends StateNotifier<MessageInputState> {
   }
 
   void typingStarted() {
-    state.maybeWhen(
-      dismissing: (_) {},
-      orElse: () => state = const MessageInputTypingState(),
+    state.whenOrNull(
+      inactive: () => state = const MessageInputTypingState(),
     );
   }
 
   void focusLost() {
-     state.maybeWhen(
-      dismissing: (_) {},
-      orElse: () => state = const MessageInputInactiveState(),
+    state.whenOrNull(
+      typing: () => state = const MessageInputInactiveState(),
     );
   }
 
@@ -62,6 +63,7 @@ class InpitControlZoneController extends StateNotifier<MessageInputState> {
       typing: () {
         final position = gestureDetails.globalPosition.dy;
         final stateData = DismissingStateData(
+          startLocalPosition: gestureDetails.localPosition.dy,
           startPosition: position,
           currentPosition: position,
         );
@@ -91,11 +93,15 @@ class InpitControlZoneController extends StateNotifier<MessageInputState> {
     state.whenOrNull(
       dismissing: (prevData) {
         if (prevData.delta > 20) {
-          state = const MessageInputInactiveState();
+          state = const MessageInputClosingWithAnimationEvent();
         } else {
           state = const MessageInputTypingState();
         }
       },
     );
+  }
+
+  void inputClosedAfterAnimation() {
+    state = const MessageInputInactiveState();
   }
 }
