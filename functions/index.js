@@ -32,7 +32,7 @@ exports.sendOnMessagePush = functions.firestore.document('chats/{chatId}/message
         messageSnapshot = result[0];
         chatSnapsot = result[1];
 
-        var chatUsers = chatSnapsot.data().users;
+        const chatUsers = chatSnapsot.data().users;
 
         functions.logger.log(
             'chat users are',

@@ -1,5 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_database/firebase_database.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -9,7 +10,7 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   FirebaseDatabase.instance.databaseURL =
-        'https://space-talk-im-default-rtdb.europe-west1.firebasedatabase.app/';
+      'https://space-talk-im-default-rtdb.europe-west1.firebasedatabase.app/';
   runApp(const MyApp());
 }
 
@@ -23,7 +24,14 @@ class MyApp extends StatelessWidget {
         title: 'Flutter Demo',
         theme: ThemeData(
           primaryColor: const Color.fromARGB(0xFF, 59, 29, 27),
-          fontFamily: 'LibreFranklin'
+          fontFamily: 'LibreFranklin',
+          textSelectionTheme: const TextSelectionThemeData(
+            cursorColor: Colors.white70,
+            selectionColor: Colors.white54,
+            selectionHandleColor: Colors.white,
+          ),
+          cupertinoOverrideTheme:
+              const NoDefaultCupertinoThemeData(primaryColor: Colors.white70),
         ),
         home: const AuthConsumer(),
       ),

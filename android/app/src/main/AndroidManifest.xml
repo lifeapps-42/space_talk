@@ -2,7 +2,7 @@
     package="com.lifeapps.spacetalk">
     <uses-permission android:name="android.permission.INTERNET"/>
    <application
-        android:label="space_talk"
+        android:label="Space Talk"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"
