@@ -1,6 +1,7 @@
 {
   "project_info": {
     "project_number": "6377743777",
+    "firebase_url": "https://space-talk-im-default-rtdb.europe-west1.firebasedatabase.app",
     "project_id": "space-talk-im",
     "storage_bucket": "space-talk-im.appspot.com"
   },
