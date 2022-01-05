@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:space_talk/widgets/swipe_detector/swipe_detector.dart';
 
+import '../../../widgets/swipe_detector/swipe_detector.dart';
 import '../../../widgets/swipe_detector/swipe_gesture_consumer.dart';
 import '../../models/messages_group_by_date_model.dart';
 import '../providers/main_screen_state_provider.dart';

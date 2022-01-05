@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:space_talk/user/providers/companions_provider.dart';
 import 'package:visibility_detector/visibility_detector.dart';
 
 import '../../../messages/models/message.dart';
+import '../../../user/providers/companions_provider.dart';
 import '../../../user/providers/user_provider.dart';
 import '../../../utils/date_time_extensions/date_time_extensions.dart';
 import '../../../widgets/swipe_detector/swipe_gesture_consumer.dart';

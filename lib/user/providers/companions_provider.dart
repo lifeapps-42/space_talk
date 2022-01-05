@@ -30,12 +30,10 @@ class CompanionsStateNotifier extends StateNotifier<CompanionsState> {
   final CompanionsRepo _repo;
 
   User? getUserById(String id) {
-    state.whenOrNull(subscribed: (users, _) {
-      final r =
-          users.isEmpty ? null : users.firstWhere((user) => user.uid == id);
-      print(r);
-      return r;
-    });
+    state.whenOrNull(
+      subscribed: (users, _) =>
+          users.isEmpty ? null : users.firstWhere((user) => user.uid == id),
+    );
   }
 
   void _init() {

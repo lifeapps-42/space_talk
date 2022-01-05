@@ -3,18 +3,16 @@ import 'dart:ui';
 
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:space_talk/conversations/providers/conversation_state.dart';
-import 'package:space_talk/ui_kit/animations/fade_trough_with_offset.dart';
-import 'package:space_talk/user/models/user.dart';
-import 'package:space_talk/user/providers/companions_provider.dart';
 
 import '../../../chats/models/chat_item.dart';
+import '../../../ui_kit/animations/fade_trough_with_offset.dart';
+import '../../../user/providers/companions_provider.dart';
 import '../../../widgets/keyboard_placeholder.dart';
 import '../../../widgets/size_changed_listener.dart';
 import '../../providers/conversation_provider.dart';
+import '../../providers/conversation_state.dart';
 import '../providers/input_control_zone_controller.dart';
 import '../providers/main_screen_state.dart';
 import '../providers/main_screen_state_provider.dart';
@@ -62,36 +60,28 @@ class MessageInput extends HookConsumerWidget {
     void handleScrollEvents() => messageInputState.whenOrNull(
           inactive: () {
             if (scrollController.offset < -10) {
-              HapticFeedback.selectionClick();
               stateController.requestFocus();
             }
           },
         );
-    void listenQuoting(String chatId) {
+    useEffect(() {
+      if (chatId == null) return;
       ref.listen<ConversationState>(conversationStateNotifierProvider(chatId),
           (previous, next) {
         next.whenOrNull(
-          live: (data) {
-            if (data.quoting != null) {
-              focusNode.requestFocus();
-            }
-          },
-          updating: (data) {
-            if (data.quoting != null) {
-              focusNode.requestFocus();
-            }
+          userQuotedEvent: () {
+            focusNode.requestFocus();
           },
         );
       });
-    }
+      return;
+    }, [chatId, focusNode]);
 
     useEffect(() {
       scrollController.addListener(handleScrollEvents);
-      if (chatId != null) {
-        listenQuoting(chatId);
-      }
+
       return () => scrollController.removeListener(handleScrollEvents);
-    }, [chatId]);
+    }, []);
 
     ref.listen<MessageInputState>(inputControlZoneController, (previous, next) {
       next.whenOrNull(

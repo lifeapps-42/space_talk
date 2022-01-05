@@ -14,8 +14,11 @@ class ConversationState with _$ConversationState {
       ConversationUpdatingState;
   const factory ConversationState.live(ConversationStateData data) =
       ConversationLiveState;
+
   const factory ConversationState.newMessagesEvent(Map<DateTime, List<int>> locations) =
       ConversationNewMessagesEvent;
   const factory ConversationState.removedMessagesEvent(Map<DateTime, List<int>> locations) =
       ConversationRemovedMessagesEvent;
+  const factory ConversationState.userQuotedEvent() =
+      ConversationQuotedEvent;
 }

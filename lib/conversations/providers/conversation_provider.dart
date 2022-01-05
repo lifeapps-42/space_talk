@@ -57,10 +57,12 @@ class ConversationStateNotifier extends StateNotifier<ConversationState> {
   void quote(Message? message) {
     state.whenOrNull(
       live: (data) {
+        _quoteStarted(message);
         final stateData = data.copyWith(quoting: message);
         state = ConversationLiveState(stateData);
       },
       updating: (data) {
+        _quoteStarted(message);
         final stateData = data.copyWith(quoting: message);
         state = ConversationLiveState(stateData);
       },
@@ -71,6 +73,12 @@ class ConversationStateNotifier extends StateNotifier<ConversationState> {
     if (message.readUsersIds.contains(_user!.uid)) return;
     final isMyMessage = message.authorId == _user!.uid;
     _repo.markAsRead(message, isMyMessage);
+  }
+
+  void _quoteStarted(Message? message) {
+    if(message != null) {
+      state = const ConversationQuotedEvent();
+    }
   }
 
   void _subscribeOnMessages(String chatId) async {

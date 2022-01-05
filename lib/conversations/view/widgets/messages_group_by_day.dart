@@ -1,12 +1,9 @@
-import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-import '../../../widgets/keyboard_placeholder.dart';
 import '../../models/messages_group_by_date_model.dart';
 import '../../providers/conversation_provider.dart';
 import '../../providers/conversation_state.dart';

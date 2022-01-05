@@ -29,7 +29,6 @@ class SwipeProvider extends StateNotifier<SwipeState> {
   SwipeProvider() : super(const SwipeStopState());
 
   void startDrag(DragStartDetails gestureDetails) {
-    print('started');
     state.whenOrNull(stop: () {
       final stateData = SwipeData(
         start: gestureDetails.globalPosition.dx,
@@ -42,8 +41,6 @@ class SwipeProvider extends StateNotifier<SwipeState> {
   }
 
   void updateDrag(DragUpdateDetails gestureDetails) {
-    // print('called');
-    // print(state);
     state.whenOrNull(
       inProgress: (prevData) {
         final delta = gestureDetails.globalPosition.dx - prevData.start;
@@ -58,7 +55,6 @@ class SwipeProvider extends StateNotifier<SwipeState> {
   }
 
   void endDrag() {
-    print('ended');
     state.whenOrNull(inProgress: (data) {
       state = SwipeDoneEvent(data);
       state = const SwipeStopState();

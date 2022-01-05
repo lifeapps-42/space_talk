@@ -50,6 +50,10 @@ class _$ConversationStateTearOff {
       locations,
     );
   }
+
+  ConversationQuotedEvent userQuotedEvent() {
+    return const ConversationQuotedEvent();
+  }
 }
 
 /// @nodoc
@@ -67,6 +71,7 @@ mixin _$ConversationState {
         newMessagesEvent,
     required TResult Function(Map<DateTime, List<int>> locations)
         removedMessagesEvent,
+    required TResult Function() userQuotedEvent,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -77,6 +82,7 @@ mixin _$ConversationState {
     TResult Function(ConversationStateData data)? live,
     TResult Function(Map<DateTime, List<int>> locations)? newMessagesEvent,
     TResult Function(Map<DateTime, List<int>> locations)? removedMessagesEvent,
+    TResult Function()? userQuotedEvent,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -87,6 +93,7 @@ mixin _$ConversationState {
     TResult Function(ConversationStateData data)? live,
     TResult Function(Map<DateTime, List<int>> locations)? newMessagesEvent,
     TResult Function(Map<DateTime, List<int>> locations)? removedMessagesEvent,
+    TResult Function()? userQuotedEvent,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -101,6 +108,7 @@ mixin _$ConversationState {
         newMessagesEvent,
     required TResult Function(ConversationRemovedMessagesEvent value)
         removedMessagesEvent,
+    required TResult Function(ConversationQuotedEvent value) userQuotedEvent,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -112,6 +120,7 @@ mixin _$ConversationState {
     TResult Function(ConversationNewMessagesEvent value)? newMessagesEvent,
     TResult Function(ConversationRemovedMessagesEvent value)?
         removedMessagesEvent,
+    TResult Function(ConversationQuotedEvent value)? userQuotedEvent,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -123,6 +132,7 @@ mixin _$ConversationState {
     TResult Function(ConversationNewMessagesEvent value)? newMessagesEvent,
     TResult Function(ConversationRemovedMessagesEvent value)?
         removedMessagesEvent,
+    TResult Function(ConversationQuotedEvent value)? userQuotedEvent,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -199,6 +209,7 @@ class _$ConversationNotInitializedState
         newMessagesEvent,
     required TResult Function(Map<DateTime, List<int>> locations)
         removedMessagesEvent,
+    required TResult Function() userQuotedEvent,
   }) {
     return notInitialized();
   }
@@ -212,6 +223,7 @@ class _$ConversationNotInitializedState
     TResult Function(ConversationStateData data)? live,
     TResult Function(Map<DateTime, List<int>> locations)? newMessagesEvent,
     TResult Function(Map<DateTime, List<int>> locations)? removedMessagesEvent,
+    TResult Function()? userQuotedEvent,
   }) {
     return notInitialized?.call();
   }
@@ -225,6 +237,7 @@ class _$ConversationNotInitializedState
     TResult Function(ConversationStateData data)? live,
     TResult Function(Map<DateTime, List<int>> locations)? newMessagesEvent,
     TResult Function(Map<DateTime, List<int>> locations)? removedMessagesEvent,
+    TResult Function()? userQuotedEvent,
     required TResult orElse(),
   }) {
     if (notInitialized != null) {
@@ -245,6 +258,7 @@ class _$ConversationNotInitializedState
         newMessagesEvent,
     required TResult Function(ConversationRemovedMessagesEvent value)
         removedMessagesEvent,
+    required TResult Function(ConversationQuotedEvent value) userQuotedEvent,
   }) {
     return notInitialized(this);
   }
@@ -259,6 +273,7 @@ class _$ConversationNotInitializedState
     TResult Function(ConversationNewMessagesEvent value)? newMessagesEvent,
     TResult Function(ConversationRemovedMessagesEvent value)?
         removedMessagesEvent,
+    TResult Function(ConversationQuotedEvent value)? userQuotedEvent,
   }) {
     return notInitialized?.call(this);
   }
@@ -273,6 +288,7 @@ class _$ConversationNotInitializedState
     TResult Function(ConversationNewMessagesEvent value)? newMessagesEvent,
     TResult Function(ConversationRemovedMessagesEvent value)?
         removedMessagesEvent,
+    TResult Function(ConversationQuotedEvent value)? userQuotedEvent,
     required TResult orElse(),
   }) {
     if (notInitialized != null) {
@@ -337,6 +353,7 @@ class _$ConversationLoadingState implements ConversationLoadingState {
         newMessagesEvent,
     required TResult Function(Map<DateTime, List<int>> locations)
         removedMessagesEvent,
+    required TResult Function() userQuotedEvent,
   }) {
     return loading();
   }
@@ -350,6 +367,7 @@ class _$ConversationLoadingState implements ConversationLoadingState {
     TResult Function(ConversationStateData data)? live,
     TResult Function(Map<DateTime, List<int>> locations)? newMessagesEvent,
     TResult Function(Map<DateTime, List<int>> locations)? removedMessagesEvent,
+    TResult Function()? userQuotedEvent,
   }) {
     return loading?.call();
   }
@@ -363,6 +381,7 @@ class _$ConversationLoadingState implements ConversationLoadingState {
     TResult Function(ConversationStateData data)? live,
     TResult Function(Map<DateTime, List<int>> locations)? newMessagesEvent,
     TResult Function(Map<DateTime, List<int>> locations)? removedMessagesEvent,
+    TResult Function()? userQuotedEvent,
     required TResult orElse(),
   }) {
     if (loading != null) {
@@ -383,6 +402,7 @@ class _$ConversationLoadingState implements ConversationLoadingState {
         newMessagesEvent,
     required TResult Function(ConversationRemovedMessagesEvent value)
         removedMessagesEvent,
+    required TResult Function(ConversationQuotedEvent value) userQuotedEvent,
   }) {
     return loading(this);
   }
@@ -397,6 +417,7 @@ class _$ConversationLoadingState implements ConversationLoadingState {
     TResult Function(ConversationNewMessagesEvent value)? newMessagesEvent,
     TResult Function(ConversationRemovedMessagesEvent value)?
         removedMessagesEvent,
+    TResult Function(ConversationQuotedEvent value)? userQuotedEvent,
   }) {
     return loading?.call(this);
   }
@@ -411,6 +432,7 @@ class _$ConversationLoadingState implements ConversationLoadingState {
     TResult Function(ConversationNewMessagesEvent value)? newMessagesEvent,
     TResult Function(ConversationRemovedMessagesEvent value)?
         removedMessagesEvent,
+    TResult Function(ConversationQuotedEvent value)? userQuotedEvent,
     required TResult orElse(),
   }) {
     if (loading != null) {
@@ -508,6 +530,7 @@ class _$ConversationUpdatingState implements ConversationUpdatingState {
         newMessagesEvent,
     required TResult Function(Map<DateTime, List<int>> locations)
         removedMessagesEvent,
+    required TResult Function() userQuotedEvent,
   }) {
     return updating(data);
   }
@@ -521,6 +544,7 @@ class _$ConversationUpdatingState implements ConversationUpdatingState {
     TResult Function(ConversationStateData data)? live,
     TResult Function(Map<DateTime, List<int>> locations)? newMessagesEvent,
     TResult Function(Map<DateTime, List<int>> locations)? removedMessagesEvent,
+    TResult Function()? userQuotedEvent,
   }) {
     return updating?.call(data);
   }
@@ -534,6 +558,7 @@ class _$ConversationUpdatingState implements ConversationUpdatingState {
     TResult Function(ConversationStateData data)? live,
     TResult Function(Map<DateTime, List<int>> locations)? newMessagesEvent,
     TResult Function(Map<DateTime, List<int>> locations)? removedMessagesEvent,
+    TResult Function()? userQuotedEvent,
     required TResult orElse(),
   }) {
     if (updating != null) {
@@ -554,6 +579,7 @@ class _$ConversationUpdatingState implements ConversationUpdatingState {
         newMessagesEvent,
     required TResult Function(ConversationRemovedMessagesEvent value)
         removedMessagesEvent,
+    required TResult Function(ConversationQuotedEvent value) userQuotedEvent,
   }) {
     return updating(this);
   }
@@ -568,6 +594,7 @@ class _$ConversationUpdatingState implements ConversationUpdatingState {
     TResult Function(ConversationNewMessagesEvent value)? newMessagesEvent,
     TResult Function(ConversationRemovedMessagesEvent value)?
         removedMessagesEvent,
+    TResult Function(ConversationQuotedEvent value)? userQuotedEvent,
   }) {
     return updating?.call(this);
   }
@@ -582,6 +609,7 @@ class _$ConversationUpdatingState implements ConversationUpdatingState {
     TResult Function(ConversationNewMessagesEvent value)? newMessagesEvent,
     TResult Function(ConversationRemovedMessagesEvent value)?
         removedMessagesEvent,
+    TResult Function(ConversationQuotedEvent value)? userQuotedEvent,
     required TResult orElse(),
   }) {
     if (updating != null) {
@@ -684,6 +712,7 @@ class _$ConversationLiveState implements ConversationLiveState {
         newMessagesEvent,
     required TResult Function(Map<DateTime, List<int>> locations)
         removedMessagesEvent,
+    required TResult Function() userQuotedEvent,
   }) {
     return live(data);
   }
@@ -697,6 +726,7 @@ class _$ConversationLiveState implements ConversationLiveState {
     TResult Function(ConversationStateData data)? live,
     TResult Function(Map<DateTime, List<int>> locations)? newMessagesEvent,
     TResult Function(Map<DateTime, List<int>> locations)? removedMessagesEvent,
+    TResult Function()? userQuotedEvent,
   }) {
     return live?.call(data);
   }
@@ -710,6 +740,7 @@ class _$ConversationLiveState implements ConversationLiveState {
     TResult Function(ConversationStateData data)? live,
     TResult Function(Map<DateTime, List<int>> locations)? newMessagesEvent,
     TResult Function(Map<DateTime, List<int>> locations)? removedMessagesEvent,
+    TResult Function()? userQuotedEvent,
     required TResult orElse(),
   }) {
     if (live != null) {
@@ -730,6 +761,7 @@ class _$ConversationLiveState implements ConversationLiveState {
         newMessagesEvent,
     required TResult Function(ConversationRemovedMessagesEvent value)
         removedMessagesEvent,
+    required TResult Function(ConversationQuotedEvent value) userQuotedEvent,
   }) {
     return live(this);
   }
@@ -744,6 +776,7 @@ class _$ConversationLiveState implements ConversationLiveState {
     TResult Function(ConversationNewMessagesEvent value)? newMessagesEvent,
     TResult Function(ConversationRemovedMessagesEvent value)?
         removedMessagesEvent,
+    TResult Function(ConversationQuotedEvent value)? userQuotedEvent,
   }) {
     return live?.call(this);
   }
@@ -758,6 +791,7 @@ class _$ConversationLiveState implements ConversationLiveState {
     TResult Function(ConversationNewMessagesEvent value)? newMessagesEvent,
     TResult Function(ConversationRemovedMessagesEvent value)?
         removedMessagesEvent,
+    TResult Function(ConversationQuotedEvent value)? userQuotedEvent,
     required TResult orElse(),
   }) {
     if (live != null) {
@@ -854,6 +888,7 @@ class _$ConversationNewMessagesEvent implements ConversationNewMessagesEvent {
         newMessagesEvent,
     required TResult Function(Map<DateTime, List<int>> locations)
         removedMessagesEvent,
+    required TResult Function() userQuotedEvent,
   }) {
     return newMessagesEvent(locations);
   }
@@ -867,6 +902,7 @@ class _$ConversationNewMessagesEvent implements ConversationNewMessagesEvent {
     TResult Function(ConversationStateData data)? live,
     TResult Function(Map<DateTime, List<int>> locations)? newMessagesEvent,
     TResult Function(Map<DateTime, List<int>> locations)? removedMessagesEvent,
+    TResult Function()? userQuotedEvent,
   }) {
     return newMessagesEvent?.call(locations);
   }
@@ -880,6 +916,7 @@ class _$ConversationNewMessagesEvent implements ConversationNewMessagesEvent {
     TResult Function(ConversationStateData data)? live,
     TResult Function(Map<DateTime, List<int>> locations)? newMessagesEvent,
     TResult Function(Map<DateTime, List<int>> locations)? removedMessagesEvent,
+    TResult Function()? userQuotedEvent,
     required TResult orElse(),
   }) {
     if (newMessagesEvent != null) {
@@ -900,6 +937,7 @@ class _$ConversationNewMessagesEvent implements ConversationNewMessagesEvent {
         newMessagesEvent,
     required TResult Function(ConversationRemovedMessagesEvent value)
         removedMessagesEvent,
+    required TResult Function(ConversationQuotedEvent value) userQuotedEvent,
   }) {
     return newMessagesEvent(this);
   }
@@ -914,6 +952,7 @@ class _$ConversationNewMessagesEvent implements ConversationNewMessagesEvent {
     TResult Function(ConversationNewMessagesEvent value)? newMessagesEvent,
     TResult Function(ConversationRemovedMessagesEvent value)?
         removedMessagesEvent,
+    TResult Function(ConversationQuotedEvent value)? userQuotedEvent,
   }) {
     return newMessagesEvent?.call(this);
   }
@@ -928,6 +967,7 @@ class _$ConversationNewMessagesEvent implements ConversationNewMessagesEvent {
     TResult Function(ConversationNewMessagesEvent value)? newMessagesEvent,
     TResult Function(ConversationRemovedMessagesEvent value)?
         removedMessagesEvent,
+    TResult Function(ConversationQuotedEvent value)? userQuotedEvent,
     required TResult orElse(),
   }) {
     if (newMessagesEvent != null) {
@@ -1025,6 +1065,7 @@ class _$ConversationRemovedMessagesEvent
         newMessagesEvent,
     required TResult Function(Map<DateTime, List<int>> locations)
         removedMessagesEvent,
+    required TResult Function() userQuotedEvent,
   }) {
     return removedMessagesEvent(locations);
   }
@@ -1038,6 +1079,7 @@ class _$ConversationRemovedMessagesEvent
     TResult Function(ConversationStateData data)? live,
     TResult Function(Map<DateTime, List<int>> locations)? newMessagesEvent,
     TResult Function(Map<DateTime, List<int>> locations)? removedMessagesEvent,
+    TResult Function()? userQuotedEvent,
   }) {
     return removedMessagesEvent?.call(locations);
   }
@@ -1051,6 +1093,7 @@ class _$ConversationRemovedMessagesEvent
     TResult Function(ConversationStateData data)? live,
     TResult Function(Map<DateTime, List<int>> locations)? newMessagesEvent,
     TResult Function(Map<DateTime, List<int>> locations)? removedMessagesEvent,
+    TResult Function()? userQuotedEvent,
     required TResult orElse(),
   }) {
     if (removedMessagesEvent != null) {
@@ -1071,6 +1114,7 @@ class _$ConversationRemovedMessagesEvent
         newMessagesEvent,
     required TResult Function(ConversationRemovedMessagesEvent value)
         removedMessagesEvent,
+    required TResult Function(ConversationQuotedEvent value) userQuotedEvent,
   }) {
     return removedMessagesEvent(this);
   }
@@ -1085,6 +1129,7 @@ class _$ConversationRemovedMessagesEvent
     TResult Function(ConversationNewMessagesEvent value)? newMessagesEvent,
     TResult Function(ConversationRemovedMessagesEvent value)?
         removedMessagesEvent,
+    TResult Function(ConversationQuotedEvent value)? userQuotedEvent,
   }) {
     return removedMessagesEvent?.call(this);
   }
@@ -1099,6 +1144,7 @@ class _$ConversationRemovedMessagesEvent
     TResult Function(ConversationNewMessagesEvent value)? newMessagesEvent,
     TResult Function(ConversationRemovedMessagesEvent value)?
         removedMessagesEvent,
+    TResult Function(ConversationQuotedEvent value)? userQuotedEvent,
     required TResult orElse(),
   }) {
     if (removedMessagesEvent != null) {
@@ -1116,4 +1162,146 @@ abstract class ConversationRemovedMessagesEvent implements ConversationState {
   @JsonKey(ignore: true)
   $ConversationRemovedMessagesEventCopyWith<ConversationRemovedMessagesEvent>
       get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $ConversationQuotedEventCopyWith<$Res> {
+  factory $ConversationQuotedEventCopyWith(ConversationQuotedEvent value,
+          $Res Function(ConversationQuotedEvent) then) =
+      _$ConversationQuotedEventCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class _$ConversationQuotedEventCopyWithImpl<$Res>
+    extends _$ConversationStateCopyWithImpl<$Res>
+    implements $ConversationQuotedEventCopyWith<$Res> {
+  _$ConversationQuotedEventCopyWithImpl(ConversationQuotedEvent _value,
+      $Res Function(ConversationQuotedEvent) _then)
+      : super(_value, (v) => _then(v as ConversationQuotedEvent));
+
+  @override
+  ConversationQuotedEvent get _value => super._value as ConversationQuotedEvent;
+}
+
+/// @nodoc
+
+class _$ConversationQuotedEvent implements ConversationQuotedEvent {
+  const _$ConversationQuotedEvent();
+
+  @override
+  String toString() {
+    return 'ConversationState.userQuotedEvent()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is ConversationQuotedEvent);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() notInitialized,
+    required TResult Function() loading,
+    required TResult Function(ConversationStateData data) updating,
+    required TResult Function(ConversationStateData data) live,
+    required TResult Function(Map<DateTime, List<int>> locations)
+        newMessagesEvent,
+    required TResult Function(Map<DateTime, List<int>> locations)
+        removedMessagesEvent,
+    required TResult Function() userQuotedEvent,
+  }) {
+    return userQuotedEvent();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function()? notInitialized,
+    TResult Function()? loading,
+    TResult Function(ConversationStateData data)? updating,
+    TResult Function(ConversationStateData data)? live,
+    TResult Function(Map<DateTime, List<int>> locations)? newMessagesEvent,
+    TResult Function(Map<DateTime, List<int>> locations)? removedMessagesEvent,
+    TResult Function()? userQuotedEvent,
+  }) {
+    return userQuotedEvent?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? notInitialized,
+    TResult Function()? loading,
+    TResult Function(ConversationStateData data)? updating,
+    TResult Function(ConversationStateData data)? live,
+    TResult Function(Map<DateTime, List<int>> locations)? newMessagesEvent,
+    TResult Function(Map<DateTime, List<int>> locations)? removedMessagesEvent,
+    TResult Function()? userQuotedEvent,
+    required TResult orElse(),
+  }) {
+    if (userQuotedEvent != null) {
+      return userQuotedEvent();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(ConversationNotInitializedState value)
+        notInitialized,
+    required TResult Function(ConversationLoadingState value) loading,
+    required TResult Function(ConversationUpdatingState value) updating,
+    required TResult Function(ConversationLiveState value) live,
+    required TResult Function(ConversationNewMessagesEvent value)
+        newMessagesEvent,
+    required TResult Function(ConversationRemovedMessagesEvent value)
+        removedMessagesEvent,
+    required TResult Function(ConversationQuotedEvent value) userQuotedEvent,
+  }) {
+    return userQuotedEvent(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(ConversationNotInitializedState value)? notInitialized,
+    TResult Function(ConversationLoadingState value)? loading,
+    TResult Function(ConversationUpdatingState value)? updating,
+    TResult Function(ConversationLiveState value)? live,
+    TResult Function(ConversationNewMessagesEvent value)? newMessagesEvent,
+    TResult Function(ConversationRemovedMessagesEvent value)?
+        removedMessagesEvent,
+    TResult Function(ConversationQuotedEvent value)? userQuotedEvent,
+  }) {
+    return userQuotedEvent?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(ConversationNotInitializedState value)? notInitialized,
+    TResult Function(ConversationLoadingState value)? loading,
+    TResult Function(ConversationUpdatingState value)? updating,
+    TResult Function(ConversationLiveState value)? live,
+    TResult Function(ConversationNewMessagesEvent value)? newMessagesEvent,
+    TResult Function(ConversationRemovedMessagesEvent value)?
+        removedMessagesEvent,
+    TResult Function(ConversationQuotedEvent value)? userQuotedEvent,
+    required TResult orElse(),
+  }) {
+    if (userQuotedEvent != null) {
+      return userQuotedEvent(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class ConversationQuotedEvent implements ConversationState {
+  const factory ConversationQuotedEvent() = _$ConversationQuotedEvent;
 }

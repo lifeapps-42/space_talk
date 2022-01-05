@@ -1,5 +1,6 @@
+import 'dart:developer';
+
 import 'package:firebase_core/firebase_core.dart';
-import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -9,8 +10,6 @@ import 'auth/view/widgets/auth_consumer.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-  FirebaseDatabase.instance.databaseURL =
-      'https://space-talk-im-default-rtdb.europe-west1.firebasedatabase.app/';
   runApp(const MyApp());
 }
 
@@ -20,6 +19,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ProviderScope(
+      observers: [Logger()],
       child: MaterialApp(
         title: 'Flutter Demo',
         theme: ThemeData(
@@ -36,5 +36,21 @@ class MyApp extends StatelessWidget {
         home: const AuthConsumer(),
       ),
     );
+  }
+}
+
+class Logger extends ProviderObserver {
+  @override
+  void didUpdateProvider(
+    ProviderBase provider,
+    Object? previousValue,
+    Object? newValue,
+    ProviderContainer container,
+  ) {
+    log('''
+{
+  "provider": "${provider.name ?? provider.runtimeType}",
+  "newValue": "$newValue"
+}''');
   }
 }

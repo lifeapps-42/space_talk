@@ -62,10 +62,6 @@ class SwipeDetectorConsumer extends HookConsumerWidget {
       }
     }
 
-    void inrerruptGesture() {
-      ref.read(swipeProvider.notifier).endDrag();
-    }
-
     void swipeStarted(SwipeData data) {
       final offset = Offset(data.start, data.crossAxisStart);
       final bounds = getBounds();
@@ -78,44 +74,33 @@ class SwipeDetectorConsumer extends HookConsumerWidget {
 
     double withResistance(double dragDelta) {
       final delta = dragDelta.abs();
-      final progress = ( delta / screenWidth.value);
-      print(progress);
+      final progress = (delta / screenWidth.value);
       final r = math.pow(delta, 1 - (progress / 5)) as double;
-      return dragDelta.isNegative ? -r : r ;
+      return dragDelta.isNegative ? -r : r;
     }
 
     void swipeContinues(SwipeData data) {
       if (!stayCalm.value) {
-        // if ((swipeDirection == SwipeDirection.left && data.delta < 0) ||
-        //     (swipeDirection == SwipeDirection.right && data.delta > 0)) {
-          // final offset = Offset(data.start + data.delta,
-          //     data.crossAxisStart + data.crossAxisDelta);
-          // final bounds = getBounds();
-          // if (bounds != null && bounds.contains(offset)) {
-          dragDelta.value = data.delta;
-          if (maxDraggableOffset != null &&
-              dragDelta.value > maxDraggableOffset!) return;
-          dragPosition.value = resist
-              ? withResistance(respectDirection(dragDelta.value))
-              : respectDirection(dragDelta.value);
-          if (dragPosition.value * sign > minOffset && !minOffsetDone.value) {
-            minOffsetDone.value = true;
-            if (onMinOffset != null) {
-              onMinOffset!();
-            }
+        dragDelta.value = data.delta;
+        if (maxDraggableOffset != null &&
+            dragDelta.value > maxDraggableOffset!) {
+          return;
+        }
+        dragPosition.value = resist
+            ? withResistance(respectDirection(dragDelta.value))
+            : respectDirection(dragDelta.value);
+        if (dragPosition.value * sign > minOffset && !minOffsetDone.value) {
+          minOffsetDone.value = true;
+          if (onMinOffset != null) {
+            onMinOffset!();
           }
-          if (dragPosition.value * sign < minOffset && minOffsetDone.value) {
-            minOffsetDone.value = false;
-            if (onMinOffsetCancel != null) {
-              onMinOffsetCancel!();
-            }
+        }
+        if (dragPosition.value * sign < minOffset && minOffsetDone.value) {
+          minOffsetDone.value = false;
+          if (onMinOffsetCancel != null) {
+            onMinOffsetCancel!();
           }
-          // } else {
-          //   inrerruptGesture();
-          // }
-        // } else {
-        //   stayCalm.value = true;
-        // }
+        }
       }
     }
 
@@ -138,29 +123,12 @@ class SwipeDetectorConsumer extends HookConsumerWidget {
       resetAnimationController.forward();
     }
 
-    // void handleBackDragEnd(DragEndDetails _) {
-    //   if (resetOffsetOnDone) {
-    //     resetOffset();
-    //   }
-    //   if (maxDraggableOffset != null &&
-    //       dragStartPosition.value > maxDraggableOffset!) return;
-    //   if (dragPosition.value * sign > minOffset) {
-    //     action();
-    //   } else {
-    //     resetOffset();
-    //   }
-    // }
-
     void swipeCompleted(SwipeData data) {
       if (stayCalm.value) return;
       if (resetOffsetOnDone) {
         resetOffset();
       }
-      // if (maxDraggableOffset != null && dragDelta.value > maxDraggableOffset!) {
-      //   return;
-      // }
       if (dragDelta.value * sign > minOffset) {
-        print('OK!');
         action();
       } else {
         resetOffset();
