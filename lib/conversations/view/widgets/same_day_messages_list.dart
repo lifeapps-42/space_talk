@@ -48,7 +48,7 @@ class SameDayMessagesList extends HookConsumerWidget {
                 );
                 return ProviderScope(
                   overrides: [singleMessageProvider.overrideWithValue(message)],
-                  child: MessageBubble(animation: curvedAnimation),
+                  child: MessageBubble(animation: curvedAnimation, message: message,),
                 );
               },
               duration: const Duration(milliseconds: 450),
@@ -74,7 +74,7 @@ class SameDayMessagesList extends HookConsumerWidget {
         return ProviderScope(
           key: Key(message.id ?? 'k'),
           overrides: [singleMessageProvider.overrideWithValue(message)],
-          child: const MessageBubble(
+          child: MessageBubble( message: message,
             // animation: curvedAnimation,
           ),
         );

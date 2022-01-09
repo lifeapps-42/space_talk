@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:space_talk/messages/models/message.dart';
 
 import '../../models/messages_group_by_date_model.dart';
 import '../../providers/conversation_provider.dart';
@@ -14,9 +15,11 @@ class MessagesGroupedByDate extends HookConsumerWidget {
     required this.groupedMessages,
     required this.chatId,
     required this.scrollController,
+    required this.messages, 
   }) : super(key: key);
 
   final List<GroupedMessages> groupedMessages;
+  final List<Message> messages;
   final String chatId;
   final ScrollController scrollController;
 
@@ -29,6 +32,7 @@ class MessagesGroupedByDate extends HookConsumerWidget {
       ),
     );
     return MessagesSmartList(
+      messages: messages,
       groupedMessages: groupedMessages,
       chatId: chatId,
     );

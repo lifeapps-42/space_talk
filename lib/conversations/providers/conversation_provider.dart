@@ -13,7 +13,7 @@ import 'conversation_state_data.dart';
 final conversationStateNotifierProvider = StateNotifierProvider.family<
     ConversationStateNotifier,
     ConversationState,
-    String>(ConversationStateNotifier.new);
+    String>((ref, chatId) => ConversationStateNotifier(ref, chatId));
 
 final singleMessageProvider = Provider<Message?>((_) => null);
 

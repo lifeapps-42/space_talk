@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:space_talk/conversations/view/widgets/messages_smart_list.dart';
+import 'package:space_talk/messages/models/message.dart';
 
 import '../../../widgets/swipe_detector/swipe_detector.dart';
 import '../../../widgets/swipe_detector/swipe_gesture_consumer.dart';
@@ -11,12 +13,14 @@ import 'messages_group_by_day.dart';
 class MessagesList extends HookConsumerWidget {
   const MessagesList({
     Key? key,
-    required this.messages,
+    required this.groupedMessages,
     required this.scrollController,
     required this.chatId,
+    required this.messages, 
   }) : super(key: key);
 
-  final List<GroupedMessages> messages;
+  final List<GroupedMessages> groupedMessages;
+  final List<Message> messages;
   final ScrollController scrollController;
   final String chatId;
 
@@ -37,7 +41,8 @@ class MessagesList extends HookConsumerWidget {
           context: context,
           removeBottom: true,
           child: MessagesSmartList(
-            groupedMessages: messages,
+            groupedMessages: groupedMessages,
+            messages: messages,
             chatId: chatId,
           ),
         ),

@@ -9,17 +9,18 @@ import '../../../utils/date_time_extensions/date_time_extensions.dart';
 import '../../../widgets/swipe_detector/swipe_gesture_consumer.dart';
 import '../../providers/conversation_provider.dart';
 
-class MessageBubble extends ConsumerWidget {
-  const MessageBubble({this.animation, Key? key}) : super(key: key);
+class MessageBubble extends HookConsumerWidget {
+  const MessageBubble({this.animation, required  this.message,  Key? key}) : super(key: key);
 
   final Animation<double>? animation;
+  final Message message;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     print('bubble');
     final user = ref.read(userStateNotifierProvider.notifier).user;
-    final message = ref.watch(singleMessageProvider);
-    final isReadByMe = message!.readUsersIds.contains(user!.uid);
+    // final message = ref.watch(singleMessageProvider);
+    final isReadByMe = message.readUsersIds.contains(user!.uid);
     final isMyMessage = message.authorId == user.uid;
     final color = isMyMessage
         ? const Color.fromARGB(1, 59, 29, 27)
@@ -37,7 +38,7 @@ class MessageBubble extends ConsumerWidget {
           .read(conversationStateNotifierProvider(message.chatId).notifier)
           .quote(message);
     }
-
+    // print(message);
     return SizeTransition(
       sizeFactor: animation ?? const AlwaysStoppedAnimation(1.0),
       child: VisibilityDetector(

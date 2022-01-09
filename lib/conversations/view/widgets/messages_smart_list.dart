@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../messages/models/message.dart';
@@ -8,15 +9,17 @@ import 'date_label.dart';
 import 'message_bubble.dart';
 import 'messages_group_by_day.dart';
 
-class MessagesSmartList extends StatelessWidget {
+class MessagesSmartList extends HookWidget {
   const MessagesSmartList({
     Key? key,
     required this.chatId,
     required this.groupedMessages,
+    required this.messages
   }) : super(key: key);
 
   final String chatId;
   final List<GroupedMessages> groupedMessages;
+  final List<Message> messages;
   @override
   Widget build(BuildContext context) {
     print('LIST');
@@ -36,13 +39,16 @@ class MessagesSmartList extends StatelessWidget {
           );
         }
         if (element is Message) {
-          return ProviderScope(
-            key: SmartListMessageKey(element.id ?? ''),
-            overrides: [
-              singleMessageProvider.overrideWithValue(element),
-            ],
-            child: const MessageBubble(),
-          );
+          final message = messages.firstWhere((m) => m.id == element.id);
+          return 
+          // ProviderScope(
+          //   key: SmartListMessageKey(element.id ?? ''),
+          //   overrides: [
+          //     singleMessageProvider.overrideWithValue(message),
+          //   ],
+            // child: 
+            MessageBubble(message: message, );
+          // );
         }
         if (element is DateTime) {
           return DateLabel(
@@ -50,7 +56,7 @@ class MessagesSmartList extends StatelessWidget {
             date: element,
           );
         }
-        throw '';
+        throw 'element is ${element.runtimeType}';
       },
       // childCount: structure.length,
       itemCount: structure.length,
@@ -69,66 +75,66 @@ class MessagesSmartList extends StatelessWidget {
   }
 }
 
-class BubblesBuilderDelegate extends SliverChildBuilderDelegate {
-  BubblesBuilderDelegate._(
-    NullableIndexedWidgetBuilder builder,
-    int childCount,
-    int? Function(Key) findIndexByKey,
-  ) : super(
-          builder,
-          childCount: childCount,
-          findChildIndexCallback: findIndexByKey,
-        );
+// class BubblesBuilderDelegate extends SliverChildBuilderDelegate {
+//   BubblesBuilderDelegate._(
+//     NullableIndexedWidgetBuilder builder,
+//     int childCount,
+//     int? Function(Key) findIndexByKey,
+//   ) : super(
+//           builder,
+//           childCount: childCount,
+//           findChildIndexCallback: findIndexByKey,
+//         );
 
-  factory BubblesBuilderDelegate({
-    required List<GroupedMessages> groupedMessages,
-  }) {
-    late final structure = _listStructure(groupedMessages);
-    Widget? builder(BuildContext context, int i) {
-      late final element = structure[i];
-      if (element is String) {
-        return const InputPlaceholder(
-          key: SmartListPlaceholderKey(),
-        );
-      }
-      if (element is Message) {
-        return ProviderScope(
-          key: SmartListMessageKey(element.id ?? ''),
-          overrides: [
-            singleMessageProvider.overrideWithValue(element),
-          ],
-          child: const MessageBubble(),
-        );
-      }
-      if (element is DateTime) {
-        return DateLabel(
-          key: SmartListDateLabelKey(element),
-          date: element,
-        );
-      }
-    }
+//   factory BubblesBuilderDelegate({
+//     required List<GroupedMessages> groupedMessages,
+//   }) {
+//     late final structure = _listStructure(groupedMessages);
+//     Widget? builder(BuildContext context, int i) {
+//       late final element = structure[i];
+//       if (element is String) {
+//         return const InputPlaceholder(
+//           key: SmartListPlaceholderKey(),
+//         );
+//       }
+//       if (element is Message) {
+//         return ProviderScope(
+//           key: SmartListMessageKey(element.id ?? ''),
+//           overrides: [
+//             singleMessageProvider.overrideWithValue(element),
+//           ],
+//           child: const MessageBubble(),
+//         );
+//       }
+//       if (element is DateTime) {
+//         return DateLabel(
+//           key: SmartListDateLabelKey(element),
+//           date: element,
+//         );
+//       }
+//     }
 
-    int? findIndexByKey(Key key) {
-      key as SmartListStructureKey;
-      return structure.indexWhere(key.indicateStructureElement);
-    }
+//     int? findIndexByKey(Key key) {
+//       key as SmartListStructureKey;
+//       return structure.indexWhere(key.indicateStructureElement);
+//     }
 
-    return BubblesBuilderDelegate._(
-      builder,
-      structure.length,
-      findIndexByKey,
-    );
-  }
+//     return BubblesBuilderDelegate._(
+//       builder,
+//       structure.length,
+//       findIndexByKey,
+//     );
+//   }
 
-  // static const _indexOffset = 1;
+//   // static const _indexOffset = 1;
 
-  static List<Object> _listStructure(List<GroupedMessages> groupedMessages) {
-    return [
-      'inputPlaceholder',
-      for (final group in groupedMessages) ...[...group.messages, group.date],
-    ];
-  }
-}
+//   static List<Object> _listStructure(List<GroupedMessages> groupedMessages) {
+//     return [
+//       'inputPlaceholder',
+//       for (final group in groupedMessages) ...[...group.messages, group.date],
+//     ];
+//   }
+// }
 
 abstract class SmartListStructureKey extends LocalKey {
   Object get identifier;

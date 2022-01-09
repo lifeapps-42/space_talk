@@ -8,7 +8,7 @@ import 'chats_state.dart';
 
 final chatsStateNotifierProvider =
     StateNotifierProvider<ChatsStateNotifier, ChatsState>(
-        ChatsStateNotifier.new);
+        (ref) => ChatsStateNotifier(ref));
 
 class ChatsStateNotifier extends StateNotifier<ChatsState> {
   ChatsStateNotifier(this.ref)
