@@ -19,7 +19,9 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ProviderScope(
-      observers: [Logger()],
+      observers: const [
+        // Logger(),
+      ],
       child: MaterialApp(
         title: 'Flutter Demo',
         theme: ThemeData(
@@ -50,6 +52,7 @@ class Logger extends ProviderObserver {
     log('''
 {
   "provider": "${provider.name ?? provider.runtimeType}",
+  "oldValue": "$previousValue"
   "newValue": "$newValue"
 }''');
   }

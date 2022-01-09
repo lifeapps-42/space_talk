@@ -4,10 +4,10 @@ require("firebase-functions/lib/logger/compat");
 admin.initializeApp();
 
 /**
- * Triggers when a user gets a new follower and sends a notification.
+ * Triggers on new message created.
  *
- * Followers add a flag to `/followers/{followedUid}/{followerUid}`.
- * Users save their device notification tokens to `/users/{followedUid}/notificationTokens/{notificationToken}`.
+ * Sends push notification to each token of each user in the chat
+ * except the message author.
  */
 exports.sendOnMessagePush = functions.firestore.document('chats/{chatId}/messages/{messageId}')
     .onCreate(async (change, context) => {

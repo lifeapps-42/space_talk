@@ -11,8 +11,8 @@ import '../repo/companions_repo_provider.dart';
 import 'companions_state.dart';
 
 final companionsStateNotifierProvider =
-    StateNotifierProvider<CompanionsStateNotifier, CompanionsState>(
-        (ref) => CompanionsStateNotifier(ref));
+    StateNotifierProvider<CompanionsStateNotifier, CompanionsState>((ref) => 
+        CompanionsStateNotifier(ref));
 
 class CompanionsStateNotifier extends StateNotifier<CompanionsState> {
   CompanionsStateNotifier(this.ref)

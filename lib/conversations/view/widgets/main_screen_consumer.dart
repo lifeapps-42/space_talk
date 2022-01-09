@@ -10,11 +10,9 @@ class MainScreenConsumer extends ConsumerWidget {
   const MainScreenConsumer({
     Key? key,
     required this.scrollController,
-    required this.inputWidgeSizeNotifier,
   }) : super(key: key);
 
   final ScrollController scrollController;
-  final ValueNotifier<Size> inputWidgeSizeNotifier;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -28,7 +26,6 @@ class MainScreenConsumer extends ConsumerWidget {
       child: mainScreenState.when(
         chats: () => ChatView(scrollController: scrollController),
         conversation: (data) => ConversationScreenBody(
-          inputWidgeSizeNotifier: inputWidgeSizeNotifier,
           chatItem: data.chatItem,
           scrollController: scrollController,
         ),

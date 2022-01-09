@@ -5,6 +5,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:space_talk/conversations/view/widgets/providers/input_widget_size.dart';
 
 import '../../../chats/models/chat_item.dart';
 import '../../../ui_kit/animations/fade_trough_with_offset.dart';
@@ -21,11 +22,9 @@ class MessageInput extends HookConsumerWidget {
   const MessageInput({
     Key? key,
     required this.scrollController,
-    required this.inputWidgetSizeNotifier,
   }) : super(key: key);
 
   final ScrollController scrollController;
-  final ValueNotifier<Size> inputWidgetSizeNotifier;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -37,6 +36,7 @@ class MessageInput extends HookConsumerWidget {
     final messageInputState = ref.watch(inputControlZoneController);
     final chatId =
         mainScreenState.whenOrNull(conversation: (data) => data.chatItem.id);
+    final sizeNotifier = useState(ValueNotifier(Size.zero));
 
     final offsetTween = Tween<Offset>(
       begin: const Offset(0, 1),
@@ -64,6 +64,15 @@ class MessageInput extends HookConsumerWidget {
             }
           },
         );
+
+    useEffect(() {
+      sizeNotifier.value.addListener(() {
+        ref
+            .read(inputWidgetSizeNotifierProvider.notifier)
+            .set(sizeNotifier.value.value.height);
+      });
+    }, []);
+
     useEffect(() {
       if (chatId == null) return;
       ref.listen<ConversationState>(conversationStateNotifierProvider(chatId),
@@ -85,8 +94,8 @@ class MessageInput extends HookConsumerWidget {
 
     ref.listen<MessageInputState>(inputControlZoneController, (previous, next) {
       next.whenOrNull(
-        requestFocusEvent: () => focusNode.requestFocus(),
-        unfocusEvent: () => focusNode.unfocus(),
+        requestFocusEvent: focusNode.requestFocus,
+        unfocusEvent: focusNode.unfocus,
       );
     });
 
@@ -99,13 +108,23 @@ class MessageInput extends HookConsumerWidget {
       animationController.reverse();
     }
 
-    useValueChanged<bool, void>(focusNode.hasFocus, (_, __) {
-      scheduleMicrotask(() {
+    useEffect(() {
+      focusNode.addListener(() {
         focusNode.hasFocus
             ? stateController.typingStarted()
             : stateController.focusLost();
       });
-    });
+      return () => focusNode.removeListener(() {});
+    }, [chatId]);
+
+    // useValueChanged<bool, void>(focusNode.hasFocus, (_, __) {
+    //   scheduleMicrotask(() {
+    //     print(focusNode.hasFocus);
+    //     focusNode.hasFocus
+    //         ? stateController.typingStarted()
+    //         : stateController.focusLost();
+    //   });
+    // });
 
     void sendMessage() {
       if (messageController.text.trim().isEmpty) return;
@@ -150,7 +169,7 @@ class MessageInput extends HookConsumerWidget {
     );
 
     return SizeChangedNotifier(
-      sizeNotifier: inputWidgetSizeNotifier,
+      sizeNotifier: sizeNotifier.value,
       child: SlideTransition(
         position: offsetAnimation,
         child: ClipRect(
@@ -213,7 +232,7 @@ class MessageInput extends HookConsumerWidget {
                           ),
                           GestureDetector(
                             behavior: HitTestBehavior.opaque,
-                            onTap: canSend.value ? () => sendMessage() : null,
+                            onTap: canSend.value ? sendMessage : null,
                             child: Container(
                               alignment: Alignment.center,
                               height: 35,

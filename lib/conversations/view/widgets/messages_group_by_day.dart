@@ -1,13 +1,13 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:space_talk/messages/models/message.dart';
 
 import '../../models/messages_group_by_date_model.dart';
 import '../../providers/conversation_provider.dart';
 import '../../providers/conversation_state.dart';
-import 'same_day_messages_list.dart';
+import 'messages_smart_list.dart';
+import 'providers/input_widget_size.dart';
 
 class MessagesGroupedByDate extends HookConsumerWidget {
   const MessagesGroupedByDate({
@@ -15,13 +15,13 @@ class MessagesGroupedByDate extends HookConsumerWidget {
     required this.groupedMessages,
     required this.chatId,
     required this.scrollController,
-    required this.inputWidgeSizeNotifier,
+    required this.messages, 
   }) : super(key: key);
 
   final List<GroupedMessages> groupedMessages;
+  final List<Message> messages;
   final String chatId;
   final ScrollController scrollController;
-  final ValueNotifier<Size> inputWidgeSizeNotifier;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -31,44 +31,23 @@ class MessagesGroupedByDate extends HookConsumerWidget {
         newMessagesEvent: (_) => HapticFeedback.lightImpact(),
       ),
     );
-    return ListView.builder(
-      physics: const AlwaysScrollableScrollPhysics(
-        parent: BouncingScrollPhysics(),
-      ),
-      itemCount: groupedMessages.length + 1,
-      reverse: true,
-      controller: scrollController,
-      itemBuilder: (_, i) {
-        if (i == 0) {
-          return InputPlaceholder(
-            inputWidgeSizeNotifier: inputWidgeSizeNotifier,
-          );
-        }
-        final group = groupedMessages[i - 1];
-        return SameDayMessagesList(
-          group: group,
-          chatId: chatId,
-          key: Key(
-            group.date.toString(),
-          ),
-        );
-      },
+    return MessagesSmartList(
+      messages: messages,
+      groupedMessages: groupedMessages,
+      chatId: chatId,
     );
   }
 }
 
-class InputPlaceholder extends HookWidget {
-  const InputPlaceholder({Key? key, required this.inputWidgeSizeNotifier})
-      : super(key: key);
-
-  final ValueNotifier<Size> inputWidgeSizeNotifier;
+class InputPlaceholder extends ConsumerWidget {
+  const InputPlaceholder({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
-    final height = useValueListenable(inputWidgeSizeNotifier);
+  Widget build(BuildContext context, WidgetRef ref) {
+    final height = ref.watch(inputWidgetSizeNotifierProvider);
 
     return Container(
-      height: height.height,
+      height: height,
     );
   }
 }

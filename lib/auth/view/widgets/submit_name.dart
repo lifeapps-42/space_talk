@@ -28,7 +28,7 @@ class SubmitName extends HookWidget {
             readOnly: isLoading,
           ),
           ElevatedButton(
-            onPressed: isLoading ? null : () => submitName(),
+            onPressed: isLoading ? null : submitName,
             child: const Text('Submit name'),
           )
         ],

@@ -20,8 +20,8 @@ class AuthStateNotifier extends StateNotifier<AuthState> {
     state = AuthOtpRequestedState(phone);
     _auth.verifyPhoneNumber(
       phoneNumber: phone.value,
-      verificationCompleted: (creds) => _signIn(creds),
-      verificationFailed: (e) => _onAuthFailed(e),
+      verificationCompleted: _signIn,
+      verificationFailed: _onAuthFailed,
       codeSent: (verificationId, _) => _codeSent(verificationId, phone),
       codeAutoRetrievalTimeout: (_) {},
     );

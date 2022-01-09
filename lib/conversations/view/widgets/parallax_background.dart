@@ -51,7 +51,7 @@ class ParallaxBackground extends HookConsumerWidget {
       (previous, next) {
         previous!.when(
           chats: () => next.whenOrNull(conversation: (_) => scrollForward()),
-          conversation: (_) => next.whenOrNull(chats: () => scrollBack()),
+          conversation: (_) => next.whenOrNull(chats: scrollBack),
         );
       },
     );

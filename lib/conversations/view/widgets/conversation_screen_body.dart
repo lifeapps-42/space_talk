@@ -9,17 +9,14 @@ class ConversationScreenBody extends HookWidget {
     Key? key,
     required this.chatItem,
     required this.scrollController,
-    required this.inputWidgeSizeNotifier, 
   }) : super(key: key);
 
   final ChatItem chatItem;
   final ScrollController scrollController;
-  final ValueNotifier<Size> inputWidgeSizeNotifier;
 
   @override
   Widget build(BuildContext context) {
     return ConversationConsumer(
-      inputWidgeSizeNotifier: inputWidgeSizeNotifier,
       chatItem: chatItem,
       scrollController: scrollController,
     );

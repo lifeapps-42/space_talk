@@ -10,8 +10,7 @@ import '../repo/repo_provider.dart';
 import 'user_state.dart';
 
 final userStateNotifierProvider =
-    StateNotifierProvider<UserStateNotifier, UserState>(
-        (ref) => UserStateNotifier(ref));
+    StateNotifierProvider<UserStateNotifier, UserState>(UserStateNotifier.new);
 
 class UserStateNotifier extends StateNotifier<UserState> {
   UserStateNotifier(this.ref)
@@ -56,25 +55,25 @@ class UserStateNotifier extends StateNotifier<UserState> {
     );
   }
 
-  void goOnline(){
-    if(user == null) return;
+  void goOnline() {
+    if (user == null) return;
     const status = UserOnlineStatus();
     final data = {'status': status.toJson()};
     _repo.updateUser(user!.uid, data);
   }
 
-  void goOffline(){
-    if(user == null) return;
+  void goOffline() {
+    if (user == null) return;
     final lastSeen = DateTime.now().toUtc();
     final status = UserOfflineStatus(lastSeen);
     final data = {'status': status.toJson()};
     _repo.updateUser(user!.uid, data);
   }
 
-  void typing(String chatId){
-     if(user == null) return;
+  void typing(String chatId) {
+    if (user == null) return;
     final status = UserPrintingStatus(chatId);
-   final data = {'status': status.toJson()};
+    final data = {'status': status.toJson()};
     _repo.updateUser(user!.uid, data);
   }
 
@@ -93,8 +92,8 @@ class UserStateNotifier extends StateNotifier<UserState> {
   void _listenAuth() {
     ref.listen<AuthState>(authStateNotifierProvider, (prev, next) {
       next.maybeWhen(
-        authenticated: (fbUser) => _fetchUser(fbUser),
-        notAuthenticated: () => _dropUser(),
+        authenticated: _fetchUser,
+        notAuthenticated: _dropUser,
         orElse: () {},
       );
     });

@@ -4,7 +4,7 @@ import '../../messages/models/message.dart';
 import '../models/conversation_event.dart';
 import 'conversation_firestore_repo.dart';
 
-final conversationRepoProvider = Provider<ConversationRepo>((ref) => ConversationFirestoreRepo(ref));
+final conversationRepoProvider = Provider<ConversationRepo>(ConversationFirestoreRepo.new);
 
 abstract class ConversationRepo {
 

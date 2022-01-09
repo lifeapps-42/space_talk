@@ -46,7 +46,7 @@ class ConversationFirestoreRepo implements ConversationRepo {
   }
 
   @override
-  int get paginationRate => 50;
+  int get paginationRate => 200;
 
   @override
   Future<List<Message>> fetchMessages(String chatId,

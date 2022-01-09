@@ -76,7 +76,7 @@ class ConversationStateNotifier extends StateNotifier<ConversationState> {
   }
 
   void _quoteStarted(Message? message) {
-    if(message != null) {
+    if (message != null) {
       state = const ConversationQuotedEvent();
     }
   }
@@ -184,15 +184,17 @@ class ConversationStateNotifier extends StateNotifier<ConversationState> {
     if (toRemove.isNotEmpty) {
       //state still contains messages to be removed
       final tempState = state as ConversationLiveState;
-      final removeLocations = getLocations(tempState.data, toAdd);
-      await Future.delayed(Duration.zero);
-      final messagesToRemove = toRemove.values.fold<List<Message>>(
-          [], (previousValue, element) => previousValue..addAll(element));
-      for (final mtr in messagesToRemove) {
-        _deleteMessageEvent(mtr, tempState.data);
-      }
-      state = ConversationRemovedMessagesEvent(removeLocations);
-      state = ConversationLiveState(tempState.data);
+      final removeLocations = getLocations(tempState.data, toRemove);
+
+      await Future.delayed(Duration.zero, () {
+        final messagesToRemove = toRemove.values.fold<List<Message>>(
+            [], (previousValue, element) => previousValue..addAll(element));
+        for (final mtr in messagesToRemove) {
+          _deleteMessageEvent(mtr, tempState.data);
+        }
+        state = ConversationRemovedMessagesEvent(removeLocations);
+        state = ConversationLiveState(tempState.data);
+      });
     }
   }
 }
