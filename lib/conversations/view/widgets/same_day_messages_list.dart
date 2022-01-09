@@ -72,8 +72,11 @@ class SameDayMessagesList extends HookConsumerWidget {
         final curvedAnimation =
             CurvedAnimation(parent: animation, curve: Curves.linearToEaseOut);
         return ProviderScope(
+          key: Key(message.id ?? 'k'),
           overrides: [singleMessageProvider.overrideWithValue(message)],
-          child: MessageBubble(animation: curvedAnimation),
+          child: const MessageBubble(
+            // animation: curvedAnimation,
+          ),
         );
       },
     );

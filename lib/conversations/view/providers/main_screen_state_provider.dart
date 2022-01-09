@@ -6,7 +6,7 @@ import 'main_screen_state.dart';
 
 final mainScreenStateNotifierProvider =
     StateNotifierProvider<MainScreenStateNotifier, MainScreenState>(
-        (ref) => MainScreenStateNotifier(ref));
+        MainScreenStateNotifier.new);
 
 class MainScreenStateNotifier extends StateNotifier<MainScreenState> {
   MainScreenStateNotifier(this.ref) : super(const MainScreenChatsState()) {
@@ -30,9 +30,9 @@ class MainScreenStateNotifier extends StateNotifier<MainScreenState> {
   }
 
   void setDraft(ChatItem chatItem, String draftMessage) {
-     if (draftMessage.isNotEmpty) {
-        drafts[chatItem.id] = draftMessage;
-      }
+    if (draftMessage.isNotEmpty) {
+      drafts[chatItem.id] = draftMessage;
+    }
   }
 
   ChatItem get chat => state.maybeWhen(

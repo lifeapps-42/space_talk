@@ -28,7 +28,7 @@ class SubmitOtp extends HookWidget {
             readOnly: isLoading,
           ),
           ElevatedButton(
-            onPressed: isLoading ? null : () => submitOtp(),
+            onPressed: isLoading ? null : submitOtp,
             child: const Text('Submit code'),
           )
         ],

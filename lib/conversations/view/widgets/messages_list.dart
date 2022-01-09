@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:space_talk/conversations/view/widgets/messages_smart_list.dart';
 
 import '../../../widgets/swipe_detector/swipe_detector.dart';
 import '../../../widgets/swipe_detector/swipe_gesture_consumer.dart';
@@ -13,13 +14,11 @@ class MessagesList extends HookConsumerWidget {
     required this.messages,
     required this.scrollController,
     required this.chatId,
-    required this.inputWidgeSizeNotifier,
   }) : super(key: key);
 
   final List<GroupedMessages> messages;
   final ScrollController scrollController;
   final String chatId;
-  final ValueNotifier<Size> inputWidgeSizeNotifier;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -37,11 +36,9 @@ class MessagesList extends HookConsumerWidget {
         child: MediaQuery.removeViewPadding(
           context: context,
           removeBottom: true,
-          child: MessagesGroupedByDate(
-            inputWidgeSizeNotifier: inputWidgeSizeNotifier,
+          child: MessagesSmartList(
             groupedMessages: messages,
             chatId: chatId,
-            scrollController: scrollController,
           ),
         ),
       ),

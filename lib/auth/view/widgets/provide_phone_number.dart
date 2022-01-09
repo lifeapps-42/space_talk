@@ -28,7 +28,7 @@ class ProvidePhoneNumber extends HookWidget {
             readOnly: isLoading,
           ),
           ElevatedButton(
-            onPressed: isLoading ? null : () => submitPhone(),
+            onPressed: isLoading ? null : submitPhone,
             child: const Text('Submit phone'),
           )
         ],

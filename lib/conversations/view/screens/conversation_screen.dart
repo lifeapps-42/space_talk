@@ -37,14 +37,14 @@ class ConversationScreen extends ConsumerWidget {
     );
     final leading = mainScreenState.maybeWhen(
       conversation: (_) => IconButton(
-        onPressed: () => goBack(),
+        onPressed: goBack,
         icon: const Icon(Icons.chevron_left_rounded),
       ),
       orElse: () => const SizedBox(),
     );
 
     final fab = mainScreenState.whenOrNull(chats: ()=> FloatingActionButton(
-      onPressed: () => findUserAndCreateChat(),
+      onPressed: findUserAndCreateChat,
       child: const Icon(Icons.comment_outlined),
       backgroundColor: TalkColors.main,
     ));
@@ -75,7 +75,6 @@ class MainBodyWithParallax extends HookWidget {
   @override
   Widget build(BuildContext context) {
     final scrollController = useScrollController();
-    final inputWidgeSizeNotifier = useState(Size.zero);
 
     return Stack(
       children: [
@@ -84,7 +83,6 @@ class MainBodyWithParallax extends HookWidget {
         ),
         Positioned.fill(
           child: MainScreenConsumer(
-            inputWidgeSizeNotifier: inputWidgeSizeNotifier,
             scrollController: scrollController,
           ),
         ),
@@ -93,7 +91,6 @@ class MainBodyWithParallax extends HookWidget {
           right: 0,
           bottom: 0,
           child: MessageInput(
-            inputWidgetSizeNotifier: inputWidgeSizeNotifier,
             scrollController: scrollController,
           ),
         ),

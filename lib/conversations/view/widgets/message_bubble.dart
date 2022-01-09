@@ -9,14 +9,14 @@ import '../../../utils/date_time_extensions/date_time_extensions.dart';
 import '../../../widgets/swipe_detector/swipe_gesture_consumer.dart';
 import '../../providers/conversation_provider.dart';
 
-class MessageBubble extends HookConsumerWidget {
-  const MessageBubble({required this.animation, Key? key}) : super(key: key);
+class MessageBubble extends ConsumerWidget {
+  const MessageBubble({this.animation, Key? key}) : super(key: key);
 
-  final Animation<double> animation;
+  final Animation<double>? animation;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    // print(animation.value);
+    print('bubble');
     final user = ref.read(userStateNotifierProvider.notifier).user;
     final message = ref.watch(singleMessageProvider);
     final isReadByMe = message!.readUsersIds.contains(user!.uid);
@@ -25,7 +25,6 @@ class MessageBubble extends HookConsumerWidget {
         ? const Color.fromARGB(1, 59, 29, 27)
         : const Color.fromARGB(1, 200, 200, 200);
     final textColor = isMyMessage ? Colors.white : Colors.black;
-
     void onVisibilityChanged(VisibilityInfo info) {
       if (info.size.height != info.visibleBounds.bottom || isReadByMe) return;
       ref
@@ -40,7 +39,7 @@ class MessageBubble extends HookConsumerWidget {
     }
 
     return SizeTransition(
-      sizeFactor: animation,
+      sizeFactor: animation ?? const AlwaysStoppedAnimation(1.0),
       child: VisibilityDetector(
         key: Key(message.id!),
         onVisibilityChanged: isReadByMe ? null : onVisibilityChanged,
@@ -67,11 +66,11 @@ class MessageBubble extends HookConsumerWidget {
                   child: Padding(
                     padding: const EdgeInsets.all(4.0),
                     child: AnimatedBuilder(
-                        animation: animation,
+                        animation: animation ?? const AlwaysStoppedAnimation(1.0),
                         builder: (context, _) {
                           return Transform(
                             transform: Matrix4.diagonal3Values(
-                                1.0, animation.value, 1.0),
+                                1.0, animation?.value ?? 1.0, 1.0),
                             alignment: Alignment.bottomCenter,
                             child: Card(
                               shape: RoundedRectangleBorder(

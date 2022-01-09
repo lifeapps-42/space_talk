@@ -23,7 +23,7 @@ class FullscreenLoader extends HookWidget {
       }
     }
 
-    Timer(_waitDuration, () => showIndicator());
+    Timer(_waitDuration, showIndicator);
 
     return Container(
       alignment: Alignment.center,

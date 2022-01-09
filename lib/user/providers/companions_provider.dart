@@ -12,7 +12,7 @@ import 'companions_state.dart';
 
 final companionsStateNotifierProvider =
     StateNotifierProvider<CompanionsStateNotifier, CompanionsState>(
-        (ref) => CompanionsStateNotifier(ref));
+        CompanionsStateNotifier.new);
 
 class CompanionsStateNotifier extends StateNotifier<CompanionsState> {
   CompanionsStateNotifier(this.ref)

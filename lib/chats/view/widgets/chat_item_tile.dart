@@ -36,7 +36,7 @@ class ChatItemTile extends ConsumerWidget {
         side: const BorderSide(width: 0.5, color: Colors.black26),
       ),
       child: InkWell(
-        onTap: () => goToConversation(),
+        onTap: goToConversation,
         child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: Row(

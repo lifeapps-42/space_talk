@@ -22,6 +22,7 @@ class SizeChangedNotifier extends HookWidget {
           sizeNotifier.value = key.value.currentContext?.size ?? Size.zero);
     }
 
+    // ignore: unnecessary_lambdas
     useEffect(() {
       setSize();
     }, []);
