@@ -6,10 +6,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'auth/view/widgets/auth_consumer.dart';
+import 'utils/sound_effects/sound_effects.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
+  await SoundEffects.init();
   runApp(const MyApp());
 }
 

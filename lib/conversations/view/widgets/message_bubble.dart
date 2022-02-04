@@ -1,4 +1,8 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:visibility_detector/visibility_detector.dart';
 
@@ -6,21 +10,23 @@ import '../../../messages/models/message.dart';
 import '../../../user/providers/companions_provider.dart';
 import '../../../user/providers/user_provider.dart';
 import '../../../utils/date_time_extensions/date_time_extensions.dart';
+import '../../../utils/sound_effects/sound_effects.dart';
 import '../../../widgets/swipe_detector/swipe_gesture_consumer.dart';
 import '../../providers/conversation_provider.dart';
 
 class MessageBubble extends HookConsumerWidget {
-  const MessageBubble({this.animation, required  this.message,  Key? key}) : super(key: key);
+  const MessageBubble({required this.message, Key? key}) : super(key: key);
 
-  final Animation<double>? animation;
   final Message message;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     print('bubble');
     final user = ref.read(userStateNotifierProvider.notifier).user;
-    // final message = ref.watch(singleMessageProvider);
     final isReadByMe = message.readUsersIds.contains(user!.uid);
+    final height = useState<double?>(isReadByMe ? null : 0.0);
+    // final message = ref.watch(singleMessageProvider);
+    
     final isMyMessage = message.authorId == user.uid;
     final color = isMyMessage
         ? const Color.fromARGB(1, 59, 29, 27)
@@ -38,86 +44,96 @@ class MessageBubble extends HookConsumerWidget {
           .read(conversationStateNotifierProvider(message.chatId).notifier)
           .quote(message);
     }
-    // print(message);
-    return SizeTransition(
-      sizeFactor: animation ?? const AlwaysStoppedAnimation(1.0),
-      child: VisibilityDetector(
-        key: Key(message.id!),
-        onVisibilityChanged: isReadByMe ? null : onVisibilityChanged,
-        child: SwipeDetectorConsumer(
-          key: Key(message.id ?? ''),
-          resist: true,
-          action: quoteMessage,
-          swipeDirection: SwipeDirection.left,
-          minOffset: 50,
-          maxDraggableOffset: 1000,
-          behavior: HitTestBehavior.deferToChild,
-          resetOffsetOnDone: true,
-          child: Row(
-            children: [
-              if (isMyMessage)
-                const SizedBox(
-                  width: 50,
-                ),
-              Expanded(
-                child: Container(
-                  alignment: isMyMessage
-                      ? Alignment.centerRight
-                      : Alignment.centerLeft,
-                  child: Padding(
-                    padding: const EdgeInsets.all(4.0),
-                    child: AnimatedBuilder(
-                        animation: animation ?? const AlwaysStoppedAnimation(1.0),
-                        builder: (context, _) {
-                          return Transform(
-                            transform: Matrix4.diagonal3Values(
-                                1.0, animation?.value ?? 1.0, 1.0),
-                            alignment: Alignment.bottomCenter,
-                            child: Card(
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(12),
-                                side: const BorderSide(
-                                    width: 0.5, color: Colors.black38),
-                              ),
-                              margin: EdgeInsets.zero,
-                              clipBehavior: Clip.antiAlias,
-                              elevation: 0,
-                              color: color.withOpacity(0.9),
-                              child: Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.end,
-                                  children: [
-                                    if (message.quote != null)
-                                      QuoteInBubble(
-                                        isMyMessage: isMyMessage,
-                                        quote: message.quote!,
-                                      ),
-                                    Text(
-                                      message.text,
-                                      style: TextStyle(
-                                          color: textColor, fontSize: 15),
-                                    ),
-                                    MessageBubbleTimeAndStatus(
-                                      message: message,
-                                      userId: user.uid,
-                                      textColor: textColor,
-                                      isMyMessage: isMyMessage,
-                                    ),
-                                  ],
+    void showWithAnimation() {
+      scheduleMicrotask(() {
+        height.value = null;
+        SoundEffects.play.lighter();
+        HapticFeedback.selectionClick();
+      });
+      
+    }
+
+    // ignore: unnecessary_lambdas
+    useEffect(() {
+      if(isReadByMe) return;
+      showWithAnimation();
+      return null;
+    }, []);
+    return AnimatedSize(
+      duration: const Duration(milliseconds: 450),
+      curve: Curves.linearToEaseOut,
+      alignment: Alignment.topCenter,
+      child: SizedBox(
+        height: height.value,
+        child: VisibilityDetector(
+          key: Key(message.id!),
+          onVisibilityChanged: isReadByMe ? null : onVisibilityChanged,
+          child: SwipeDetectorConsumer(
+            key: Key(message.id ?? ''),
+            resist: true,
+            action: quoteMessage,
+            swipeDirection: SwipeDirection.left,
+            minOffset: 50,
+            maxDraggableOffset: 1000,
+            behavior: HitTestBehavior.deferToChild,
+            resetOffsetOnDone: true,
+            child: Row(
+              children: [
+                if (isMyMessage)
+                  const SizedBox(
+                    width: 50,
+                  ),
+                Expanded(
+                  child: Container(
+                    alignment: isMyMessage
+                        ? Alignment.centerRight
+                        : Alignment.centerLeft,
+                    child: Padding(
+                      padding: const EdgeInsets.all(4.0),
+                      child: Card(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(12),
+                          side: const BorderSide(
+                              width: 0.5, color: Colors.black38),
+                        ),
+                        margin: EdgeInsets.zero,
+                        clipBehavior: Clip.antiAlias,
+                        elevation: 0,
+                        color: color.withOpacity(0.9),
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.end,
+                            children: [
+                              if (message.quote != null)
+                                QuoteInBubble(
+                                  isMyMessage: isMyMessage,
+                                  quote: message.quote!,
                                 ),
+                              Text(
+                                message.text,
+                                style:
+                                    TextStyle(color: textColor, fontSize: 15),
                               ),
-                            ),
-                          );
-                        }),
+                              MessageBubbleTimeAndStatus(
+                                message: message,
+                                userId: user.uid,
+                                textColor: textColor,
+                                isMyMessage: isMyMessage,
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
                   ),
                 ),
-              ),
-              if (!isMyMessage)
-                const SizedBox(
-                  width: 50,
-                ),
-            ],
+                if (!isMyMessage)
+                  const SizedBox(
+                    width: 50,
+                  ),
+              ],
+            ),
           ),
         ),
       ),

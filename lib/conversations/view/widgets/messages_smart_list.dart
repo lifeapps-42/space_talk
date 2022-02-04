@@ -47,7 +47,7 @@ class MessagesSmartList extends HookWidget {
           //     singleMessageProvider.overrideWithValue(message),
           //   ],
             // child: 
-            MessageBubble(message: message, );
+            MessageBubble(message: message, key: Key(message.id ?? message.text),);
           // );
         }
         if (element is DateTime) {
